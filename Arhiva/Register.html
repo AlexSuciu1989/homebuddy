@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Project</title>
+        <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
+        <script src="Register.js"></script>
+    </head>
+
+    <body>
+<form>
+    <fieldset>
+        <label>Account name</label>
+        <input type="text" id="username"><br><br>
+
+        <label>E-mail Adress</label>
+        <input type="email" id="email"><br><br>
+
+        <label>Password</label>
+        <input type="password" placeholder="Password" id="password" onchange="validatePassword()" required><br><br>
+
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Confirm Password" id="confirm_password" onkeyup = validatePassword();  required><br><br>
+
+        <input type="Submit" value="Create new account">
+        <input type="button" value="Cancel" onclick="window.location.href='/index.html';">
+    </fieldset>
+</form>
+    </body>
+</html>

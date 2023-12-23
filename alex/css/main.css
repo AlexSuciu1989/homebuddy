@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+:root{
+    --blue: #7FC6C6;
+    --orange: #FAAC60;
+    --light-blue: #BEE9E9;
+    --grey: #808080;
+    --small: 20px;
+}
+
+body,
+ul,
+li,
+p,
+textarea
+{
+    font-family: 'Open Sans', sans-serif;
+    margin:0;
+    padding:0;
+    
+}

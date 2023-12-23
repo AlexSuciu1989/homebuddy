@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>HomeBuddy</title>
+        <link rel="stylesheet" href="./css/style-login.css">
+        <link rel="shortcut icon" href="./resources/favicon.png">
+        
+    </head>
+
+    <body>
+        <img src="./resources/Logo HomeBuddy.png">
+        <div class="login">
+            <form action="./php/login.php" method="post">
+                <table>
+                    <tr>
+                        <td class="labels">Username<br><br></td>
+                        <td><input type="text" class="loginInput" name="account" required><br><br></td>
+                    </tr>
+                    <tr>
+                        <td class="labels">Password<br><br></td>
+                        <td><input type="password" class="loginInput" name="password" required><br><br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" name="Login" value="Login" id="Login" class="LoginButton" title="Login"></td>
+                    </tr>
+                    
+                </table>
+                <div class="registernewaccount">
+                <p>Don't have a account?</p>
+                <p id="registerlink"><a href="./register.php">Create New Account</a></p>
+            </div>
+            </form>
+        </div>
+    </body>
+</html>

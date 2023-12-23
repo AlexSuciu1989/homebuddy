@@ -1,0 +1,98 @@
+body {
+    font-family: 'Trebuchet MS', sans-serif;
+    letter-spacing: 2px;
+    background: linear-gradient(to right,rgb(255, 227, 159, 0.4), rgb(102, 178, 178, 0.4));
+  }
+body img{ 
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 20em;
+    margin-top:5%;
+    margin-bottom:2;
+}
+.login{
+    display:flex;
+    background: linear-gradient(to left,#FFE39F, #FFAD60);
+    border-radius: 30px;
+    box-shadow: 3px 3px 10px #615019;
+    padding: 30px 20px 10px 20px;
+    color:white;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top:1%;
+    width: 20em;
+}
+
+.loginInput{
+    height: 25px;
+    width: 200px;
+    border-radius: 7px;
+    background: rgb(255, 227, 159);
+    border:1px solid rgb(128, 128, 128, 0.3);  
+}
+
+.loginInput:hover{
+    box-shadow: inset 1px 0px 3px grey;
+}
+
+.LoginButton{
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    border-radius: 7px;
+    background-color: #FFAD60;
+    font-size: large;
+    color:white;
+    border: 1px solid rgb(128, 128, 128, 0.3);
+    transition-duration: 1s;
+}
+
+.LoginButton:hover{
+    background-color: #b66a22;
+    transition-duration: 1s;
+}
+
+.labels{
+    background-image: url("/resources/Icon HB.png");
+    background-size: 42px;
+    background-repeat: no-repeat;
+    letter-spacing: .2rem;
+    text-align: center;
+}
+
+#registerlink a{
+    color:rgb(102, 178, 178);
+    text-align: center;
+    font-weight: bold;
+    transition-duration: 0.5s;
+}
+
+.registernewaccount{
+display: block;
+    text-align: center;
+    transition-duration: 0.5s;
+}
+
+#registerlink a:hover{
+    color:rgb(36, 80, 80);
+}
+
+.registerform{
+    display:flex;
+    background: linear-gradient(to left,#FFE39F, #FFAD60);
+    border-radius: 30px;
+    box-shadow: 3px 3px 10px #615019;
+    padding: 30px 20px 10px 20px;
+    color:white;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top:1%;
+    width: 25em;
+    text-align: right;
+}

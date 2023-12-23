@@ -1,0 +1,152 @@
+@import "./main.css";
+@import "./menu.css";
+
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+nav div:nth-of-type(1){
+    font-size:36px;
+    color: var(--blue);
+}
+
+nav div:nth-of-type(1) span{
+    font-size:48px;
+    margin: 20px;
+}
+
+nav div span:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+nav div:nth-of-type(2){
+    color: var(--blue);
+}
+
+nav div:nth-of-type(2) span{
+    margin:10px;
+}
+
+.current-month{
+    color: var(--blue);
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: underline;
+}
+
+main {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.summary-frame{
+    flex: 0 250px;
+    border-radius: 20px;
+    padding: 50px 20px 20px 20px;
+    position: relative;
+    align-items: center;
+}
+
+.summary-bubble{
+    display: flex;
+    width: 60%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    font-size: 30px;
+    position: absolute;
+    padding: 5px 20px 5px 20px;
+    top:-15px;
+    left:-20px;
+}
+
+.summary-frame:nth-child(1) .summary-bubble{
+    background-color: rgb(61, 146, 61);
+}
+
+.summary-frame:nth-child(2) .summary-bubble{
+    background-color: orange;
+}
+
+.summary-frame:nth-child(3) .summary-bubble{
+    background-color: var(--blue);
+}
+
+.summary-frame:nth-of-type(1){
+    border: 3px solid rgb(61, 146, 61);
+    color: rgb(61, 146, 61)
+}
+
+.summary-frame:nth-of-type(2){
+    border: 3px solid orange;
+    color: orange;
+}
+
+.summary-frame:nth-of-type(3){
+    border: 3px solid var(--blue);
+    color: var(--blue);
+}
+
+.summary-frame .total{
+    margin-bottom: 15px;
+    font-size:25px;
+    text-align: center;
+    padding:5px;
+    font-weight: bold;
+}
+
+.summary-frame .details{
+    color: rgb(151, 150, 150);
+    text-align: right;
+}
+
+.summary-frame .details span{
+    font-weight: bold;
+}
+
+
+.table-frame {
+    display: flex;
+    flex-direction: column;
+    align-items:space-between;
+    margin-top: 100px;
+  }
+  
+  .table-row {
+    display: flex;
+    flex-direction: row;   
+    
+  }
+    
+  .table-cell {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    
+    border-radius: 10px;
+  }
+  
+  .header {
+    font-weight: bold;
+    color:white;
+    background-color: var(--blue);
+  }
+
+
+  @media screen and (max-width: 915px){
+    
+    .mobile-hide{
+        display: none;
+    }
+  }

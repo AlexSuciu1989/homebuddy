@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/food-buddy.css">
+    
+    <script src="./js/food-buddy-to-sql.js"></script>
+    <script src="./js/food-buddy-from-sql.js"></script>
+    <script src="./js/food-buddy.js"></script>
+    <script src="./js/food-buddy-weekmenu-to-sql.js"></script>
+    <script src="./js/food-buddy-weekmenu-from-sql.js"></script>
+</head>
+
+<body>
+
+    <header>
+
+        <img src="./resources/Logo.png" alt logo>
+        
+        <ul class="navigation">
+            <li><a href="account.html">Account</a></li>
+            <li><a href="budget-buddy.html">Budget Buddy</a></li>
+            <li class="active"><a href="food-buddy.html">Food Buddy</a></li>
+            <li><a href="car-buddy.html">Car Buddy</a></li>
+        </ul>
+
+        <p>Buna, Suciu! Esti logat ca <span class="fam-member">Alex</span></p>
+
+    </header>
+
+    <nav class="week-navigation">
+        <div> <span class="arrow-left">«</span><span class="weekno"></span><span class="arrow-right">»</span> </div>
+        <div class="site-date-interval"></div>
+    </nav>
+
+    <main class="container">
+
+        <input type="radio" name="slider" class="d-none" id="s1" checked>
+        <input type="radio" name="slider" class="d-none" id="s2">
+        <input type="radio" name="slider" class="d-none" id="s3">
+        <input type="radio" name="slider" class="d-none" id="s4">
+        <input type="radio" name="slider" class="d-none" id="s5">
+        <input type="radio" name="slider" class="d-none" id="s6">
+        <input type="radio" name="slider" class="d-none" id="s7">
+
+        <div class="week-cards">
+
+            <label for="s1" id="slide1">
+                <div class="weekday">
+                    <span>Monday</span>
+                    <div class="list-container" id="mon-day">
+                    </div>
+                </div>
+            </label>
+
+            <label for="s2" id="slide2">
+                <div class="weekday">
+                    <span>Tuesday</span>
+                    <div class="list-container" id="tue-day">
+                    </div>
+                </div>
+            </label>
+
+            <label for="s3" id="slide3">
+                <div class="weekday">
+                    <span>Wednesday</span>
+                    <div class="list-container" id="wed-day">
+                    </div>
+                </div>
+            </label>
+
+            <label for="s4" id="slide4">
+                <div class="weekday">
+                    <span>Thursday</span>
+                    <div class="list-container" id="thu-day">
+                    </div>
+                </div>
+            </label>
+
+            <label for="s5" id="slide5">
+                <div class="weekday">
+                    <span>Friday</span>
+                    <div class="list-container" id="fri-day">
+                    </div>
+                </div>
+            </label>
+
+            <label for="s6" id="slide6">
+                <div class="weekday">
+                    <span>Saturday</span>
+                    <div class="list-container" id="sat-day">
+                    </div>
+                </div>
+            </label>
+
+            <label for="s7" id="slide7">
+                <div class="weekday">
+                    <span>Sunday</span>
+                    <div class="list-container" id="sun-day">
+                    </div>
+                </div>
+            </label>
+        </div>
+        
+    </main>
+    <section class="button-holder">
+        <input type="button" class="submit-weekmenu" id ='submit-weekmenu' value="Salveaza Meniul"> 
+    </section>
+    <section id ="section">
+        <article class="add-new-recipe">
+            <input type="button" id="add-new-btn" onclick="popup()" value="+">
+        </article>
+
+  
+
+    </section>
+
+    <div class="recipe-form">
+        <aside class="recipe-form" id="recipe-form">
+            
+            <div class=form-image-frame-ring id="addButton">
+                <div class="form-image-frame">
+                    <div class="form-image-subframe">
+                        <input type="button" class="form-image" id="form-image" value="+">
+                    </div>
+                </div>
+            </div>
+            <input type="file" id="fileInput" style="display: none;">
+            <div class="form-image-container">
+                <img class ="imagePreview" id="imagePreview" style="display: none;" alt="Uploaded Image">
+                <input type="button" class="img-close" id="img-close" value="+">
+            </div>
+            <h2>Adauga retete in portofoliul tau</h2>
+            <p>Dupa incarcarea retetei vei putea sa o adaugi ca sa iti configurezi meniul saptamanal.</p>
+            
+            <label>Titlu reteta<span>*</span></label>
+                <input type="text" class="form-title" id="form-title">
+
+            <div class="form-select-frame">
+                <div class="form-select">
+                    <label>Categorie<span>*</span></label>
+                    <select id="form-category">
+                        <option>Mic Dejun</option>
+                        <option>Pranz</option>
+                        <option>Cina</option>
+                        <option>Gustare</option>
+                    </select>
+                </div>
+
+                <div class="form-select">
+                    <label>Dificultate<span>*</span></label>
+                    <select id="form-dificulty">
+                        <option>Scazuta</option>
+                        <option>Medie</option>
+                        <option>Ridicata</option>
+                        <option>Nivel Gordon Ramsay</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-textarea">
+                <label>Ingrediente si mod de preparare</label>
+                <textarea id="form-textarea" placeholder="Descrierea retetei si ingredientele"></textarea>
+            </div>
+
+            <div class="form-button-frame">
+                <input type="button" class="form-button-cancel" id="form-button-cancel" value="Anuleaza">
+                <input type="button" class="form-button-save" value="Salveaza reteta" id="form-save-recipe">
+            </div>
+            
+        </aside>
+    </div>
+
+    <section class="toast hidden">
+        <div class="toast-close">+</div>
+        <div class="toast-header">
+            <div class="toast-user">Alex</div>
+            <div class="toast-time"></div>
+        </div>
+        <div class="toast-content"></div>
+
+    </section>
+</body> 

@@ -1,0 +1,268 @@
+@import "./main.css";
+@import "./menu.css";
+
+.main-app{
+    display: flex;
+    justify-content: flex-start;
+    margin: 50px;
+    
+}
+
+
+
+.app{
+    width: 800px;
+    height: 70vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px;
+    position:relative;
+}
+
+.section-left{
+    display:flex;
+    width: 50%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    border-right: 1px solid var(--blue);
+    border-top: 1px solid var(--blue);
+    padding-top:60px;
+}
+
+.subsection{
+    display: flex;
+    margin-bottom: 60px;
+    border-bottom:1px solid var(--blue);
+    padding-right: 20%;
+    color: var(--blue);
+    font-size: 18px;
+}
+
+.subsection input{
+    border: 0;
+    margin-left: 10px;
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    text-align: center;
+    margin-bottom: 5px;
+    padding: 5px 0px;
+    border-radius: 10px;
+}
+
+
+.section-right{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid var(--blue);
+    margin-left: -1px;
+}
+
+.save-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(45, 163, 45);
+    border-radius: 50%;
+    position: absolute;
+    border: 20px solid white;
+    outline: 1px solid var(--blue);
+    top: 35%;
+    color:white;
+    cursor: pointer;
+}
+
+.save-btn:hover{
+    box-shadow: 0px 0px 6px -1px #000000;
+}
+
+.add-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    background-color: rgb(241, 194, 107);
+    border-radius: 50%;
+    position: absolute;
+    border: 15px solid white;
+    outline: 1px solid var(--blue);
+    top: 35%;
+    right: -50px;
+    color:white;
+    cursor: pointer;
+}
+.add-btn:hover{
+    box-shadow: 0px 0px 6px -1px #000000;
+}
+
+.change-password-btn{
+    position: absolute;
+    background-color: var(--blue);
+    padding: 10px;
+    border-radius: 10px;
+    color:white;
+    top: 97%;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.change-password-btn:hover{
+    box-shadow: 0px 0px 6px -1px #000000;
+}
+.img-holder img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+
+}
+.img-holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+    border-radius: 50%;
+    left:-50px;
+    top:-50px;
+    border: 20px solid white;
+    outline: 1px solid var(--blue);
+    cursor: pointer;
+    overflow: hidden;
+    
+    
+}
+.img-holder:hover{
+    box-shadow: 0px 0px 6px -1px #000000;
+}
+
+.family-member-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--blue);
+    overflow: hidden;
+    border:1px solid var(--blue);
+}
+
+.family-member-img img{
+    width: 80px;
+    height: 80px;
+    border-radius:50%;
+}
+
+.family-member{
+    display: flex;
+    align-items: center;
+}
+
+.family-member p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--blue);
+    color:white;
+}
+
+
+.toast-board{
+    width: 400px;
+    height: 70vh;
+    overflow: auto;
+}
+
+.toast-board::-webkit-scrollbar{
+    background-color: rgb(228, 228, 228);
+    width: 8px;
+}
+
+.toast-board::-webkit-scrollbar-thumb{
+    background-color: var(--blue);
+
+}
+
+.toast-element{
+    margin: 8px;
+    background-color: var(--blue);
+    color:white;
+    border-radius: 16px;
+    padding: 8px;
+}
+
+.toast-element-header{
+    font-size: 12px;
+}
+
+.toast-element-body{
+    font-size: 14px;
+    margin-left: 16px;
+    margin-top: 6px;
+}
+
+
+@media screen and (max-width:910px){
+    .app{
+        width:85%;
+    }
+}
+
+@media screen and (max-width:690px){
+    .app{
+        flex-direction: column;
+        align-items: flex-end;
+        height:auto;
+    }
+
+    .img-holder{
+        width: 80px;
+        height: 80px;
+        border: 10px solid white;
+        left:0;
+        top:0;
+    }
+    .add-btn{
+        width: 80px;
+        height: 80px;
+        border: 10px solid white;
+        left:0;
+        top:120px;
+    }
+
+    .save-btn{
+        width: 80px;
+        height: 80px;
+        border: 10px solid white;
+        left:0;
+        top:240px;
+    }
+    .section-left{
+        border:none;
+    }
+    .section-right{
+        width:100%;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+    .family-member{
+        padding: 10px;
+    }
+
+    .change-password-btn{
+        right:0;
+        top:310px;
+    }
+}

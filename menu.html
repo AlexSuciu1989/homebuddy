@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/menu/menu_style.css">
+        
+        <link rel="shortcut icon" href="/resources/favicon.png">
+        <script src="/menu/menu.js"></script>
+        <link rel="stylesheet" href="./budget/style.css"/>
+
+    </head>
+    
+    <body> 
+        <div class="topbar">
+        
+            <img src="/resources/Temp family pic.jpg" class="avatar" height="60" >        
+            
+            <div class="menu"> <!-- Meniul -->
+                <ul>
+                    <li> <a href="account.php"><img src="/resources/user-solid.svg" width="20" height="20" alt="User" title="User" ></a> </li>
+                    <li> <a href="budget.php"><img src="/resources/receipt-solid.svg" width="20" height="20" alt="Cheltuieli" title="Tranzactii" id="activeMenu"></a> </li>
+                    <li> <a href="menu.html"><img src="/resources/utensils-solid.svg" width="20" height="20" alt="Meniu" title="Meniu"></a></li>
+                </ul>
+                <div class="user-welcome">
+                    <?php
+                        // Iti aduce user-nameul in fisier, iar daca nu esti logat te directioneaza
+                        session_start();
+
+                        // Verifica daca userul e logat
+                        if (isset($_SESSION['account'])) {
+                            $accountName = $_SESSION['account'];
+                            echo "Buna, $accountName!";
+                        } else {
+                            // Redirect
+                            header("Location: index.html");
+                            exit();
+                        }
+                    ?>
+                </div>
+            </div>
+
+        </div>
+
+        <div class=app>
+                <div class="week-table" id="saptamana">
+                    
+                    <div class="weekday">
+                        <div class="week-table-cell">Luni</div>
+                        <div class="week-table-cell" id="luni"></div>
+                    </div>
+
+                    <div class="weekday">
+                        <div class="week-table-cell">Marti</div>
+                        <div class="week-table-cell" id="marti"></div>
+                    </div>
+
+                    <div class="weekday">
+                        <div class="week-table-cell">Miercuri</div>
+                        <div class="week-table-cell" id="miercuri"></div>
+                    </div>
+
+                    <div class="weekday">
+                        <div class="week-table-cell">Joi</div>
+                        <div class="week-table-cell" id="joi"></div>
+                    </div>
+
+                    <div class="weekday">
+                        <div class="week-table-cell">Vineri</div>
+                        <div class="week-table-cell" id="vineri"></div>
+                    </div>
+
+                    <div class="weekday">
+                        <div class="week-table-cell">Sambata</div>
+                        <div class="week-table-cell" id="sambata"></div>
+                    </div>
+
+                    <div class="weekday">
+                        <div class="week-table-cell">Duminica</div>
+                        <div class="week-table-cell" id="duminica"></div>
+                    </div>
+
+                </div>
+
+            <div class="container-retete">
+                
+                <div class="retete" id="micdejun">
+                    <div class="retete_titlu">Mic Dejun</div>
+                    <div class="list1" draggable="true">Cereale cu lapte</div>
+                    <div class="list1" draggable="true">Mousli</div>
+                    <div class="list1" draggable="true">Shaorma</div>
+                    <div class="list1" draggable="true">Iaurt grecesc cu fructe</div>
+                    <div class="list1" draggable="true">Budinca de seminte de in</div>
+                    <div class="list1" draggable="true">Clatite cu gem</div>
+                    <div class="list1" draggable="true">Paine unsa cu cutitul</div>
+                </div>
+
+                <div class="retete" id="pranz">
+                    <div class="retete_titlu">Pranz</div>
+                    <div class="list2" draggable="true">Friptura de porc cu piure</div>
+                    <div class="list2" draggable="true">Orez cu aripioare de pui</div>
+                    <div class="list2" draggable="true">KFC</div>
+                    <div class="list2" draggable="true">Cartofi prajiti cu ceafa la gratar</div>
+                    <div class="list2" draggable="true">Paste carbonara</div>
+                    <div class="list2" draggable="true">Tochitura cu mamaliguta</div>
+                    <div class="list2" draggable="true">Varza calita gatita de Ema</div>
+                </div>
+
+                <div class="retete" id="cina">
+                    <div class="retete_titlu">Cina</div>
+                    <div class="list3" draggable="true">Orez cu lapte</div>
+                    <div class="list3" draggable="true">Pizza</div>
+                    <div class="list3" draggable="true">Gris cu lapte</div>
+                    <div class="list3" draggable="true">Mamaliga cu branza</div>
+                    <div class="list3" draggable="true">Macaroane cu branza</div>
+                    <div class="list3" draggable="true">Ceai cu paine unsa</div>
+                    <div class="list3" draggable="true">Taietei in lapte</div>
+                </div>
+
+                <div class="retete" id="gustari">
+                    <div class="retete_titlu">Gustari</div>
+                    <div class="list4" draggable="true">Fructe</div>
+                    <div class="list4" draggable="true">Dulciuri</div>
+                    <div class="list4" draggable="true">Inghetata</div>
+                    <div class="list4" draggable="true">Fresh</div>
+                    <div class="list4" draggable="true">Smoothie</div>
+                    <div class="list4" draggable="true">Milkshake</div>
+                    <div class="list4" draggable="true">Prajitura</div>
+                </div>
+            </div>
+            <button onclick="popup_menu()">Adauga Reteta Noua</button> <!-- Butonul de adaugare -->
+            <div class="popup-menu"> <!-- Formularul de introducere date (popup) -->
+                <div class="popup-menu" id="myPopup-menu">
+                    <!--<img src="/resources/xmark-solid.svg" width="30" height="30" alt="close" Title="close" id="popupClose" onclick="popupClose()"> -->
+
+                    <form class="popup-form" method="POST" action="/.php">
+
+                        <input type="text" placeholder="Nume reteta"><br>
+
+                        <label>Dificultate</label>
+                        <select>
+                            <option>Scazuta</option>
+                            <option>Medie</option>
+                            <option>Ridicata</option>
+                            <option>Nivel Gordon Ramsey</option>
+                        </select><br>
+                        <textarea rows="3" cols="60" name="text" placeholder="Descriere"></textarea><br>
+                        <textarea rows="5" cols="60" name="text" placeholder="Ingrediente"></textarea><br>
+                        <textarea rows="5" cols="60" name="text" placeholder="Mod de preparare"></textarea><br>
+
+                        <input type="submit" name="Submit" value="Submit" id="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <p>alex are mere</p>
+</html>
