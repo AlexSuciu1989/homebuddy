@@ -637,3 +637,108 @@ article:hover > .sidebar-add{
 .toast-content{
     font-size: 14px;
 }
+
+@media screen and (max-width: 1300px) {
+    #s1:checked~.week-cards #slide5,
+#s2:checked~.week-cards #slide6,
+#s3:checked~.week-cards #slide7,
+#s4:checked~.week-cards #slide1,
+#s5:checked~.week-cards #slide2,
+#s6:checked~.week-cards #slide3,
+#s7:checked~.week-cards #slide4 {
+    box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
+    transform: translate3d(0%, -150%, -90px);
+    --blue: rgb(127, 198, 198, 0.8);
+    color:rgba(0, 0, 0, 0.5)
+}
+
+#s1:checked~.week-cards #slide6,
+#s2:checked~.week-cards #slide7,
+#s3:checked~.week-cards #slide1,
+#s4:checked~.week-cards #slide2,
+#s5:checked~.week-cards #slide3,
+#s6:checked~.week-cards #slide4,
+#s7:checked~.week-cards #slide5 {
+    box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
+    transform: translate3d(0%, -100%, -60px);
+    --blue: rgb(127, 198, 198, 0.8);
+    color:rgba(0, 0, 0, 0.5)
+}
+
+#s1:checked~.week-cards #slide7,
+#s2:checked~.week-cards #slide1,
+#s3:checked~.week-cards #slide2,
+#s4:checked~.week-cards #slide3,
+#s5:checked~.week-cards #slide4,
+#s6:checked~.week-cards #slide5,
+#s7:checked~.week-cards #slide6 {
+    box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
+    transform: translate3d(0%, -50%, -30px);
+    --blue: rgb(127, 198, 198, 0.8);
+    color:rgba(0, 0, 0, 0.5)
+}
+
+#s1:checked~.week-cards #slide1,
+#s2:checked~.week-cards #slide2,
+#s3:checked~.week-cards #slide3,
+#s4:checked~.week-cards #slide4,
+#s5:checked~.week-cards #slide5,
+#s6:checked~.week-cards #slide6,
+#s7:checked~.week-cards #slide7 {
+    box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.75);
+    transform: translate3d(0, 0, 0);
+    text-align: center;
+    --blue: #7FC6C6;
+    color:black
+    
+
+}
+
+#s1:checked~.week-cards #slide2,
+#s2:checked~.week-cards #slide3,
+#s3:checked~.week-cards #slide4,
+#s4:checked~.week-cards #slide5,
+#s5:checked~.week-cards #slide6,
+#s6:checked~.week-cards #slide7,
+#s7:checked~.week-cards #slide1  {
+    box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
+    transform: translate3d(0%, -200%, -120px);
+    text-align: right;
+    --blue: rgb(127, 198, 198, 0.8);
+    color:rgba(0, 0, 0, 0.5)
+}
+
+#s1:checked~.week-cards #slide3,
+#s2:checked~.week-cards #slide4,
+#s3:checked~.week-cards #slide5,
+#s4:checked~.week-cards #slide6,
+#s5:checked~.week-cards #slide7,
+#s6:checked~.week-cards #slide1,
+#s7:checked~.week-cards #slide2  {
+    box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
+    transform: translate3d(0%, -250%, -150px);
+    text-align: right;
+    --blue: rgb(127, 198, 198, 0.8);
+    color:rgba(0, 0, 0, 0.5)
+}
+
+#s1:checked~.week-cards #slide4,
+#s2:checked~.week-cards #slide5,
+#s3:checked~.week-cards #slide6,
+#s4:checked~.week-cards #slide7,
+#s5:checked~.week-cards #slide1,
+#s6:checked~.week-cards #slide2,
+#s7:checked~.week-cards #slide3  {
+    box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
+    transform: translate3d(0%, -300%, -180px);
+    text-align: right;
+    --blue: rgb(127, 198, 198, 0.8);
+    color:rgba(0, 0, 0, 0.5)
+}
+
+.container{
+    height: 600px;
+    display: flex;
+    justify-content: flex-end;
+}
+}
