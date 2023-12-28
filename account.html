@@ -1,43 +1,87 @@
-<html>
-    <head>
-        <title>Homebuddy - MyAccount</title>
-        <link rel="stylesheet" href="/account/account-style.css">
+<!DOCTYPE html>
+<head>
+   
+    <script src="./js/account-toast-from-sql.js"></script>
+    <link rel="stylesheet" href="./css/account.css">
+</head>
 
-        <link rel="stylesheet" href="./budget/style.css"/>
+<body>
 
-        <link rel="shortcut icon" href="/resources/favicon.png">
+        <header>
 
-    </head>
-
-    <body>
-        <div class="topbar">
-        
-            <img src="/resources/Temp family pic.jpg" class="avatar" height="60" >        
+            <img src="./resources/Logo.png" alt logo>
             
-            <div class="menu"> <!-- Meniul -->
-                <ul>
-                    <li> <a href="account.html"><img src="/resources/user-solid.svg" width="20" height="20" alt="User" title="User"   id="activeMenu"></a> </li>
-                    <li> <a href="budget.php"><img src="/resources/receipt-solid.svg" width="20" height="20" alt="Cheltuieli" title="Tranzactii"></a> </li>
-                    <li> <a href="menu.php"><img src="/resources/utensils-solid.svg" width="20" height="20" alt="Meniu" title="Meniu"></a></li>
-                </ul>
-                <div class="user-welcome">
-                    <?php
-                        // Iti aduce user-nameul in fisier, iar daca nu esti logat te directioneaza
-                        session_start();
+            <ul class="navigation">
+                <li class="active"><a href="account.html">Account</a></li>
+                <li><a href="budget-buddy.html">Budget Buddy</a></li>
+                <li><a href="food-buddy.html">Food Buddy</a></li>
+                <li><a href="car-buddy.html">Car Buddy</a></li>
+            </ul>
 
-                        // Verifica daca userul e logat
-                        if (isset($_SESSION['account'])) {
-                            $accountName = $_SESSION['account'];
-                            echo "Welcome, $accountName!";
-                        } else {
-                            // Redirect
-                            header("Location: index.html");
-                            exit();
-                        }
-                    ?>
-                </div>
+            <p>Buna, Suciu!</p>
+
+        </header>
+        <div class="main-app">
+            <div class="app">
+
+                <section class="section-left">
+                    <div class="subsection">
+                        <label>Name</label>
+                        <input type="text" value="Suciu">
+                    </div>
+
+                    <div class="subsection">
+                        <label>Email</label>
+                        <input type="text" value="v.alex.suciu@gmail.com">
+                    </div>
+
+                    <div class="subsection">
+                        <label>Mobile Number</label>
+                        <input type="text" value="0741 062 732">
+                    </div>
+                </section>
+
+                <section class="section-right">
+
+                        <div class="family-member">
+                            <div class="family-member-img">
+                                <img src="./resources/dad.jpg">
+                            </div>
+                            <p>Alex</p>
+                        </div>
+
+                        <div class="family-member">
+                            <div class="family-member-img">
+                                <img src="./resources/mom.jpg">
+                            </div>
+                            <p>Roxana</p>
+                        </div>
+
+                        <div class="family-member">
+                            <div class="family-member-img">
+                                <img src="./resources/deedee.jpg">
+                            </div>
+                            <p>Sofia</p>
+                        </div>
+
+                        <div class="family-member">
+                            <div class="family-member-img">
+                                <img src="./resources/dog.jpg">
+                            </div>
+                            <p>Shiba</p>
+                        </div>
+
+                </section>
+                
+                <div class="img-holder"><img src="./resources/Temp family pic.jpg"></div>
+                <div class="save-btn">Save</div>
+                <div class="change-password-btn">Change password</div>
+                <div class="add-btn">Add</div>
+
             </div>
 
+            <div class="toast-board" >
+            </div>
         </div>
-    </body>
-</html>
+
+</body>
