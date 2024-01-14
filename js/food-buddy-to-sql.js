@@ -1,7 +1,22 @@
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+
+    for(let i = 0; i< cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length);
+        }
+    }
+
+    return null;
+}
+
 async function sendToast() {
 
-    const userName = "Suciu";
-    const familyMember = document.querySelector('.toast-user').textContent;
+    const userName = getCookie("username");
+    const familyMember = getCookie("member");
     const dateTime = document.querySelector('.toast-time').textContent;
     const toastContent = document.querySelector('.toast-content').textContent;
 
@@ -35,27 +50,7 @@ async function sendToast() {
 document.addEventListener("DOMContentLoaded", function() {
 
     
-    const fileInput = document.getElementById('fileInput');
-    const file = fileInput.files[0];
-
-    if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        fetch('./php/food-buddy-file-upload.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('File uploaded:', data);
-        })
-        .catch(error => {
-            console.error('Error uploading file:', error);
-        });
-    } else {
-        console.error('No file selected.');
-    }
+ 
 
 
 const saveRecipe = document.getElementById('form-save-recipe');
@@ -69,7 +64,8 @@ saveRecipe.addEventListener('click', async function submitData(event) {
     const formImage = document.getElementById('fileInput');
     let files = formImage.files;
     let fileName = files[0].name;
-
+    const userName = getCookie("username");
+    console.log(userName);
     try {
         const response = await fetch('./php/food-buddy-to-sql.php', {
             method: 'POST',
@@ -82,6 +78,7 @@ saveRecipe.addEventListener('click', async function submitData(event) {
                 formDificulty: encodeURIComponent(formDificulty),
                 formTextarea: encodeURIComponent(formTextarea),
                 fileName: encodeURI(fileName),
+                userName: encodeURI(userName),
             }),
         });
 
@@ -112,7 +109,26 @@ saveRecipe.addEventListener('click', async function submitData(event) {
     }
 
     //incarc imaginea pe server
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
 
+    if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
 
+        fetch('./php/food-buddy-file-upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('File uploaded:', data);
+        })
+        .catch(error => {
+            console.error('Error uploading file:', error);
+        });
+    } else {
+        console.error('No file selected.');
+    }
 });
 });

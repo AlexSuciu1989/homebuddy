@@ -1,7 +1,22 @@
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+
+    for(let i = 0; i< cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length);
+        }
+    }
+
+    return null;
+}
+
 async function sendToast() {
 
-    const userName = "Suciu";
-    const familyMember = document.querySelector('.toast-user').textContent;
+    const userName = getCookie("username");
+    const familyMember = getCookie("member");
     const dateTime = document.querySelector('.toast-time').textContent;
     const toastContent = document.querySelector('.toast-content').textContent;
 

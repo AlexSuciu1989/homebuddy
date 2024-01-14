@@ -5,13 +5,16 @@
         <title>HomeBuddy</title>
         <link rel="stylesheet" href="./css/style-login.css">
         <link rel="shortcut icon" href="./resources/favicon.png">
+
+        <script src="./js/login.js"></script>
+        <script src="./js/user-cookies.js"></script>
         
     </head>
 
     <body>
         <img src="./resources/Logo HomeBuddy.png">
         <div class="login">
-            <form action="./php/login.php" method="post">
+            <form id="login-form" action="./php/login.php" method="post">
                 <table>
                     <tr>
                         <td class="labels">Username<br><br></td>
@@ -26,11 +29,24 @@
                     </tr>
                     
                 </table>
+                <div class="login-message"></div>
                 <div class="registernewaccount">
                 <p>Don't have a account?</p>
                 <p id="registerlink"><a href="./register.php">Create New Account</a></p>
             </div>
             </form>
+        </div>
+
+        <div class="member-selection-popup">
+            <div class = "userName"></div>
+            <div class ="members">
+                <div class="member1 member"></div>
+                <div class="member2 member"></div>
+                <div class="member3 member"></div>
+                <div class="member4 member"></div>
+            </div>
+
+            <input type="button" value="Done" class="select-member">
         </div>
     </body>
 </html>

@@ -1,7 +1,24 @@
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+
+    for(let i = 0; i< cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length);
+        }
+    }
+
+    return null;
+}
+
+
+
 async function sendToast() {
 
-    const userName = "Suciu";
-    const familyMember = document.querySelector('.toast-user').textContent;
+    const userName = getCookie("username");
+    const familyMember = getCookie("member");
     const dateTime = document.querySelector('.toast-time').textContent;
     const toastContent = document.querySelector('.toast-content').textContent;
 
@@ -84,7 +101,7 @@ function deleteItem(){
 
             if(menuItemCard === checkedCard){
 
-                const elementsToDelete = document.querySelectorAll('.weekmenu-item-delete');
+                const elementsToDelete = document.querySelectorAll("#"+menuItem+'.weekmenu-item-delete');
 
                 elementsToDelete.forEach(function(element) {
                     element.remove();
@@ -116,7 +133,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
     let today = new Date();
-    const year = today.getFullYear();
+    let year = today.getFullYear();
     let firstDayOfYear = new Date(today.getFullYear(), 0, 1);
     let timeDifference = today - firstDayOfYear;
     let weekNumber = Math.ceil(timeDifference / (7 * 24 * 60 * 60 * 1000));
@@ -128,31 +145,51 @@ document.addEventListener('DOMContentLoaded', async function () {
     const dateInterval = getDateIntervalFromWeekNo(year, weekNumber);
     siteDateInterval.innerHTML = `${dateInterval.start} - ${dateInterval.end}`;
 
-  
+    if ( weekNumber === 1){
+        document.querySelector('.arrow-left').style.display = 'none';
+    } else if (weekNumber === 52){
+        document.querySelector('.arrow-right').style.display = 'none';
+    }
 
     let weekDecreaseIncrease = document.querySelectorAll('.arrow-left, .arrow-right');
 
     weekDecreaseIncrease.forEach(function (weekDecrIncr) {
         weekDecrIncr.addEventListener('click', async function () {
-            if ((weekDecrIncr === document.querySelector('.arrow-left')) && (weekNumber > 0)) {
+            if ((weekDecrIncr === document.querySelector('.arrow-left')) && (weekNumber > 1)) {
                 weekNumber = weekNumber - 1;
                 clearContainers();
                 const dateInterval = getDateIntervalFromWeekNo(year, weekNumber);
                 console.log (`Week ${weekNumber} of ${year} starts on ${dateInterval.start} and ends on ${dateInterval.end}`);
                 siteDateInterval.innerHTML = `${dateInterval.start} - ${dateInterval.end}`;
-
+                document.querySelector('.arrow-right').style.display = 'inline-block';
             }
-            else if ((weekDecrIncr === document.querySelector('.arrow-right')) && (weekNumber < 51)) {
+            else if ((weekDecrIncr === document.querySelector('.arrow-right')) && (weekNumber < 52)) {
                 weekNumber = weekNumber + 1;
                 clearContainers();
                 const dateInterval = getDateIntervalFromWeekNo(year, weekNumber);
                 siteDateInterval.innerHTML = `${dateInterval.start} - ${dateInterval.end}`;
-            } else {
-                weekNumber = weekNumber;
+                
+                document.querySelector('.arrow-left').style.display = 'inline-block';
             }
 
+            else if((weekDecrIncr === document.querySelector('.arrow-left')) && (weekNumber < 2)){
+                year = today.getFullYear() - 1;
+                console.log(year);
+                clearContainers();
+                const dateInterval = getDateIntervalFromWeekNo(year, weekNumber);
+                siteDateInterval.innerHTML = `${dateInterval.start} - ${dateInterval.end}`;
+            }
+
+            if ( weekNumber === 1){
+                document.querySelector('.arrow-left').style.display = 'none';
+            } else if (weekNumber === 52){
+                document.querySelector('.arrow-right').style.display = 'none';
+            }
+        
             document.querySelector('.weekno').innerHTML = "Week " + weekNumber;
             
+
+
             fetchAndDisplayWeeklyMenu();
         });
     });

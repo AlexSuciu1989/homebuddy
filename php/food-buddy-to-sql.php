@@ -8,14 +8,15 @@ $formCategory = urldecode($_POST['formCategory']);
 $formDificulty = urldecode($_POST['formDificulty']);
 $formTextarea = urldecode($_POST['formTextarea']);
 $fileName = urldecode($_POST['fileName']);
+$userName = urldecode($_POST['userName']);
 
 // Using prepared statements to prevent SQL injection
-$sql = "INSERT INTO retete (nowdate, titlu, categorie, dificultate, ingrediente, uploadedfile) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO retete (nowdate, titlu, categorie, dificultate, ingrediente, uploadedfile, user) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = mysqli_prepare($conn, $sql);
 
 // Bind parameters
-mysqli_stmt_bind_param($stmt, "ssssss", $nowdate, $formTitle, $formCategory, $formDificulty, $formTextarea, $fileName);
+mysqli_stmt_bind_param($stmt, "sssssss", $nowdate, $formTitle, $formCategory, $formDificulty, $formTextarea, $fileName, $userName);
 
 // Execute the statement
 if (mysqli_stmt_execute($stmt)) {

@@ -4,6 +4,7 @@ include 'db-connect.php';
 
 $acc = $_POST["account"];
 $email = $_POST["email"];
+$userName = $_POST["member"];
 $pass = $_POST["password"];
 $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 $sql = "SELECT * FROM logintable WHERE account = ?";
@@ -17,12 +18,12 @@ if ($result->num_rows > 0) {
     echo "Username already exists. Please choose a different one.";
 } else {
 
-$sql = "INSERT INTO logintable (account, email , pass)
-VALUES ('$acc', '$email' , '$hashedPassword')";
+$sql = "INSERT INTO logintable (account, email, membru1 , pass)
+VALUES ('$acc', '$email', '$userName' , '$hashedPassword')";
 
 if (mysqli_query($conn, $sql)) {
   echo "New record created successfully";
-  header("Location: ../index.html"); // Redirect
+  header("Location: ../"); // Redirect
 } else {
   echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

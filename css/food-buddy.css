@@ -13,11 +13,13 @@
 .week-navigation div:nth-of-type(1){
     font-size:36px;
     color: var(--blue);
+    
 }
 
 .week-navigation div span{
     font-size:48px;
     margin: 20px;
+    display: inline-block;
 }
 
 .week-navigation div span:hover{
@@ -44,6 +46,8 @@
     padding: 10px 0px;
 
 }
+
+
 
 main .week-cards{
     border-radius:10px;
@@ -106,7 +110,7 @@ main .weekday:hover{
 #s6:checked~.week-cards #slide3,
 #s7:checked~.week-cards #slide4 {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(-210%, -30%, -320px);
+    transform: translate3d(-210%, -30px, -320px);
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
 }
@@ -119,7 +123,7 @@ main .weekday:hover{
 #s6:checked~.week-cards #slide4,
 #s7:checked~.week-cards #slide5 {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(-140%, -20%, -220px);
+    transform: translate3d(-140%, -20px, -220px);
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
 }
@@ -132,7 +136,7 @@ main .weekday:hover{
 #s6:checked~.week-cards #slide5,
 #s7:checked~.week-cards #slide6 {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(-70%, -10%, -120px);
+    transform: translate3d(-70%, -10px, -120px);
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
 }
@@ -161,7 +165,7 @@ main .weekday:hover{
 #s6:checked~.week-cards #slide7,
 #s7:checked~.week-cards #slide1  {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(70%, -10%, -120px);
+    transform: translate3d(70%, -10px, -120px);
     text-align: right;
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
@@ -175,7 +179,7 @@ main .weekday:hover{
 #s6:checked~.week-cards #slide1,
 #s7:checked~.week-cards #slide2  {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(140%, -20%, -220px);
+    transform: translate3d(140%, -20px, -220px);
     text-align: right;
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
@@ -189,7 +193,7 @@ main .weekday:hover{
 #s6:checked~.week-cards #slide2,
 #s7:checked~.week-cards #slide3  {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(210%, -30%, -320px);
+    transform: translate3d(210%, -30px, -320px);
     text-align: right;
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
@@ -301,6 +305,10 @@ article .descriere {
     left: 0;
     right: 0;
     visibility: hidden;
+}
+
+.recipe-form-hide{
+    display:none;
 }
 
 .recipe-form .form-image{
@@ -647,7 +655,7 @@ article:hover > .sidebar-add{
 #s6:checked~.week-cards #slide3,
 #s7:checked~.week-cards #slide4 {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(0%, -150%, -90px);
+    transform: translate3d(0%, -150px, -90px);
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
 }
@@ -660,7 +668,7 @@ article:hover > .sidebar-add{
 #s6:checked~.week-cards #slide4,
 #s7:checked~.week-cards #slide5 {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(0%, -100%, -60px);
+    transform: translate3d(0%, -100px, -60px);
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
 }
@@ -673,7 +681,7 @@ article:hover > .sidebar-add{
 #s6:checked~.week-cards #slide5,
 #s7:checked~.week-cards #slide6 {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(0%, -50%, -30px);
+    transform: translate3d(0%, -50px, -30px);
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
 }
@@ -702,7 +710,7 @@ article:hover > .sidebar-add{
 #s6:checked~.week-cards #slide7,
 #s7:checked~.week-cards #slide1  {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(0%, -200%, -120px);
+    transform: translate3d(0%, -200px, -120px);
     text-align: right;
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
@@ -716,7 +724,7 @@ article:hover > .sidebar-add{
 #s6:checked~.week-cards #slide1,
 #s7:checked~.week-cards #slide2  {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(0%, -250%, -150px);
+    transform: translate3d(0%, -250px, -150px);
     text-align: right;
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
@@ -730,7 +738,7 @@ article:hover > .sidebar-add{
 #s6:checked~.week-cards #slide2,
 #s7:checked~.week-cards #slide3  {
     box-shadow: -1px 8px 16px -4px rgba(0,0,0,0.3);
-    transform: translate3d(0%, -300%, -180px);
+    transform: translate3d(0%, -300px, -180px);
     text-align: right;
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
@@ -739,6 +747,13 @@ article:hover > .sidebar-add{
 .container{
     height: 600px;
     display: flex;
-    justify-content: flex-end;
+    justify-content:  flex-end;
 }
+
+
+.recipe-form{
+    width:300px;
+}
+
+
 }

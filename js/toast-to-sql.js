@@ -1,8 +1,8 @@
 export async function sendToast(event) {
         event.preventDefault();
 
-        const userName = "Suciu";
-        const familyMember = document.querySelector('.toast-user').textContent;
+        const userName = document.querySelector('.head-user').textContent;
+        const familyMember = document.querySelector('.head-member').textContent;
         const dateTime = document.querySelector('.toast-time').textContent;
         const toastContent = document.querySelector('.toast-content').textContent;
     

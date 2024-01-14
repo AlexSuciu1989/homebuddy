@@ -1,11 +1,41 @@
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+
+    for(let i = 0; i< cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length);
+        }
+    }
+
+    return null;
+}
+
+function getUserGreeting(){
+    const userName = getCookie("username");
+    const memberName = getCookie("member");
+
+        document.querySelector('.header-user').textContent = userName;
+        document.querySelector('.header-member').textContent = memberName;
+}
+
+
+function addMemberNameToToast(){
+    document.querySelector('.toast-user').textContent = getCookie("member");
+}
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    
+    getUserGreeting()
+    addMemberNameToToast()
+
     document.getElementById("add-new-btn").addEventListener("click", function(){
         var popup = document.querySelector("#recipe-form");
         if(popup){
         popup.style.visibility="visible";
+        
         window.scroll({
             top: 0, 
             left: 0, 
@@ -18,6 +48,21 @@ document.addEventListener("DOMContentLoaded", function(){
         var popupHide = document.querySelector("#recipe-form");
         if(popupHide){
             popupHide.style.visibility="hidden";
+            const formContainer = document.querySelector('#recipe-form');
+            document.querySelector('div.recipe-form').style.top = '20px';
+            
+            document.querySelector('#imagePreview').style.display = 'none';
+            document.querySelector('#addButton').style.display = 'flex';
+            formContainer.querySelector('h2').style.display = 'block';
+            formContainer.querySelector('p').style.display = 'block';
+            formContainer.querySelector('#form-title').value = "";
+            formContainer.querySelector('#form-title').readOnly = false;
+            formContainer.querySelector('#form-textarea').value = "";
+            formContainer.querySelector('#form-textarea').readOnly = false;
+            formContainer.querySelector('#form-category').value = "";
+            formContainer.querySelector('#form-category').disabled = false;
+            formContainer.querySelector('#form-dificulty').value = "";
+            formContainer.querySelector('#form-dificulty').disabled = false;
         }
         });
 

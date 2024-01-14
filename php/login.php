@@ -1,15 +1,13 @@
 <?php
 include 'db-connect.php';
 
-// Process login form
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $acc = $_POST["account"];
     $pass = $_POST["password"];
+    $dataRetrieved = new stdClass();
 
-    // Query to check if the user exists
     $sql = "SELECT * FROM logintable WHERE account = ?";
     
-    // Using prepared statement to prevent SQL injection
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "s", $acc);
     mysqli_stmt_execute($stmt);
@@ -19,22 +17,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verify the hashed password
         if (password_verify($pass, $row['pass'])) {
             // Successful login
-            $_SESSION['account'] = $acc; // Store the username in a session variable
-            header("Location: ../food-buddy.html"); // Redirect
-            exit(); // Make sure to exit after redirection
+
+            $dataRetrieved->account = $row['account'];
+            $dataRetrieved->membru1 = $row['membru1'];
+            $dataRetrieved->membru2 = $row['membru2'];
+            $dataRetrieved->membru3 = $row['membru3'];
+            $dataRetrieved->membru4 = $row['membru4'];
+
+            header('Content-Type: application/json');
+            echo json_encode($dataRetrieved);
+            exit(); // Stop further execution
+
         } else {
-            // Invalid password
-            echo "Invalid username or password.";
+            echo "Invalid password.";
+            exit(); // Stop further execution
         }
     } else {
-        // User does not exist
-        echo "Invalid username or password.";
+        echo "Invalid username.";
+        exit(); // Stop further execution
     }
 
-    // Close the prepared statement
     mysqli_stmt_close($stmt);
 }
 
-// Close the database connection
 mysqli_close($conn);
 ?>

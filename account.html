@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
-   
     <script src="./js/account-toast-from-sql.js"></script>
+    <script src="./js/account.js"></script>
     <link rel="stylesheet" href="./css/account.css">
 </head>
 
@@ -18,7 +18,8 @@
                 <li><a href="car-buddy.html">Car Buddy</a></li>
             </ul>
 
-            <p>Buna, Suciu!</p>
+            <p>Welcome <span class="header-user"></span>, you are signed in as <span class="header-member"></span></p>
+            <input type="button" class ="logout" value="Logout">
 
         </header>
         <div class="main-app">
@@ -27,48 +28,48 @@
                 <section class="section-left">
                     <div class="subsection">
                         <label>Name</label>
-                        <input type="text" value="Suciu">
+                        <input type="text" class="user-name" readonly>
                     </div>
 
                     <div class="subsection">
                         <label>Email</label>
-                        <input type="text" value="v.alex.suciu@gmail.com">
+                        <input type="text" class="email-adress" value="v.alex.suciu@gmail.com" readonly>
                     </div>
 
                     <div class="subsection">
                         <label>Mobile Number</label>
-                        <input type="text" value="0741 062 732">
+                        <input type="text" class="phone-number" placeholder="Add phone number">
                     </div>
                 </section>
 
                 <section class="section-right">
 
-                        <div class="family-member">
-                            <div class="family-member-img">
+                        <div class="family-member member0  visible">
+                            <!-- <div class="family-member-img">
                                 <img src="./resources/dad.jpg">
-                            </div>
-                            <p>Alex</p>
+                            </div> -->
+                            <input type="text" class="member-name" value ="Alex">
                         </div>
 
-                        <div class="family-member">
-                            <div class="family-member-img">
+                        <div class="family-member member1">
+                            <!-- <div class="family-member-img">
                                 <img src="./resources/mom.jpg">
-                            </div>
-                            <p>Roxana</p>
+                            </div> -->
+                            <input type="text" class="member-name" placeholder="Enter Name">
                         </div>
 
-                        <div class="family-member">
-                            <div class="family-member-img">
+                        <div class="family-member member2">
+                            <!-- <div class="family-member-img">
                                 <img src="./resources/deedee.jpg">
-                            </div>
-                            <p>Sofia</p>
+                            </div> -->
+                            <input type="text" class="member-name" placeholder="Enter Name">
                         </div>
 
-                        <div class="family-member">
-                            <div class="family-member-img">
+                        <div class="family-member member3">
+                            <!-- <div class="family-member-img">
                                 <img src="./resources/dog.jpg">
-                            </div>
-                            <p>Shiba</p>
+                            </div> -->
+                            <input type="text" class="member-name" placeholder="Enter Name">
                         </div>
 
                 </section>
@@ -77,11 +78,12 @@
                 <div class="save-btn">Save</div>
                 <div class="change-password-btn">Change password</div>
                 <div class="add-btn">Add</div>
+                
 
             </div>
 
             <div class="toast-board" >
             </div>
         </div>
-
+        
 </body>

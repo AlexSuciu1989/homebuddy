@@ -25,25 +25,26 @@
             <li><a href="car-buddy.html">Car Buddy</a></li>
         </ul>
 
-        <p>Buna, Suciu! Esti logat ca <span class="fam-member">Alex</span></p>
+        <p>Welcome <span class="header-user"></span>, you are signed in as <span class="header-member"></span></p>
 
     </header>
-
+    <section class="button-holder">
+        <input type="button" class="submit-weekmenu" id ='submit-weekmenu' value="Salveaza Meniul"> 
+    </section>
     <nav class="week-navigation">
         <div> <span class="arrow-left">«</span><span class="weekno"></span><span class="arrow-right">»</span> </div>
         <div class="site-date-interval"></div>
     </nav>
 
     <main class="container">
-
-        <input type="radio" name="slider" class="d-none" id="s1" checked>
-        <input type="radio" name="slider" class="d-none" id="s2">
-        <input type="radio" name="slider" class="d-none" id="s3">
-        <input type="radio" name="slider" class="d-none" id="s4">
-        <input type="radio" name="slider" class="d-none" id="s5">
-        <input type="radio" name="slider" class="d-none" id="s6">
-        <input type="radio" name="slider" class="d-none" id="s7">
-
+        
+            <input type="radio" name="slider" class="d-none" id="s1" checked>
+            <input type="radio" name="slider" class="d-none" id="s2">
+            <input type="radio" name="slider" class="d-none" id="s3">
+            <input type="radio" name="slider" class="d-none" id="s4">
+            <input type="radio" name="slider" class="d-none" id="s5">
+            <input type="radio" name="slider" class="d-none" id="s6">
+            <input type="radio" name="slider" class="d-none" id="s7">
         <div class="week-cards">
 
             <label for="s1" id="slide1">
@@ -104,9 +105,7 @@
         </div>
         
     </main>
-    <section class="button-holder">
-        <input type="button" class="submit-weekmenu" id ='submit-weekmenu' value="Salveaza Meniul"> 
-    </section>
+
     <section id ="section">
         <article class="add-new-recipe">
             <input type="button" id="add-new-btn" onclick="popup()" value="+">
@@ -175,10 +174,10 @@
     <section class="toast hidden">
         <div class="toast-close">+</div>
         <div class="toast-header">
-            <div class="toast-user">Alex</div>
+            <div class="toast-user"></div>
             <div class="toast-time"></div>
         </div>
         <div class="toast-content"></div>
-
+        <div class="toast-account" style="display: none;"></div>
     </section>
 </body> 
