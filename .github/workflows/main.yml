@@ -2,15 +2,20 @@ name: Deploy via ftp
 on: push
 jobs:
   deploy:
-    name: Deploy
+ name: Deploy 🚀
+    needs: build
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: ftp-upload-action
-      uses: GenieTim/ftp-action@v4.0.1
-      with:
-        host: ftp.homebuddy.ro
-        user: github@homebuddy.ro
-        password: ${{ secrets.FTP_PASSWORD }}
-        localDir: "dist"
-        remoteDir: "www"
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@main
+      - name: Download artifact
+        uses: actions/download-artifact@main
+        with: 
+          name: dist
+          path: dist
+      - name: Sync files to hosting
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with: 
+          server: ftp.homebuddy.ro
+          username: github@homebuddy.ro
+          password: ${{ secrets.ftp_password }}
