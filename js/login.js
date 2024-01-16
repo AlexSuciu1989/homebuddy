@@ -2,13 +2,13 @@ let userData;
 
 function randomMemberColor(){
     const colorsArray = ['#e69138', '#ffd966', '#abc69f', '#73a7b3', '#aaaaaa', '#ffec93', '#93a6ff', '#93c47d', '#8e7cc3']
-    
 
     for (let i = 1; i<= 4; i++){
         let selectedColorIndex = Math.floor(Math.random() * colorsArray.length);
         let selectedColor = colorsArray[selectedColorIndex];
-
         document.querySelector('.member'+ i).style.backgroundColor = selectedColor;
+
+        colorsArray.splice(selectedColorIndex, 1)
     }
 }
 

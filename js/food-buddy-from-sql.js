@@ -78,9 +78,9 @@ console.log(event.target.id);
         formContainer.querySelector('#form-title').readOnly = true;
         formContainer.querySelector('#form-textarea').value = formTextareaPopulated.textContent;
         formContainer.querySelector('#form-textarea').readOnly = true;
-        formContainer.querySelector('#form-category').value = formCategoriePopulated.textContent.replace(/^Categorie:\s*|\s*$/g, '');
+        formContainer.querySelector('#form-category').value = formCategoriePopulated.textContent.replace(/^Category:\s*|\s*$/g, '');
         formContainer.querySelector('#form-category').disabled = true;
-        formContainer.querySelector('#form-dificulty').value = formDificultatePopulated.textContent.replace(/^Dificultate:\s*|\s*$/g, '');
+        formContainer.querySelector('#form-dificulty').value = formDificultatePopulated.textContent.replace(/^Difficulty:\s*|\s*$/g, '');
         formContainer.querySelector('#form-dificulty').disabled = true;
 
 
@@ -114,11 +114,11 @@ fetch('./php/food-buddy-from-sql.php')
 
         const newCategory = document.createElement('div');
         newCategory.className = 'recipe-cat';
-        newCategory.textContent = "Categorie: " + element.categorie;
+        newCategory.textContent = "Category: " + element.categorie;
 
         const newDificulty = document.createElement('div');
         newDificulty.className = 'recipe-dif';
-        newDificulty.textContent = 'Dificultate: ' + element.dificultate;
+        newDificulty.textContent = 'Difficulty: ' + element.dificultate;
 
         const newDescription = document.createElement('div');
         newDescription.className = 'descriere';
@@ -173,7 +173,7 @@ fetch('./php/food-buddy-from-sql.php')
         
         const viewRecipe = document.createElement('div');
         viewRecipe.className = 'view-recipe';
-        viewRecipe.textContent = 'Vezi Reteta';
+        viewRecipe.textContent = 'See Recipe';
         viewRecipe.id = 'view-recipe' + key;
 
         sidebar.append(monday, tuesday, wednesday, thursday, friday, saturday, sunday);

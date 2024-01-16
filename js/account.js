@@ -13,21 +13,40 @@ function getCookie(cookieName) {
     return null;
 }
 
-function getUserGreeting(){
+function getUserColorsArray(){
+    const memberColorString = getCookie("memberColors");
+
+    const decodedMemberColorString = decodeURIComponent(memberColorString).replace(/%2C%20/g, "_COMMA_");
+    const rgbValues = decodedMemberColorString.match(/\d+,\s*\d+,\s*\d+/g);
+    const memberColorArray = rgbValues.map(value => "rgb(" + value + ")");
+    const memberNamesArray = decodeURIComponent(getCookie("memberNames")).split(',');
+    const memberInfo = Object.fromEntries(memberNamesArray.map((name, index) => [name, memberColorArray[index]]));
+
+    return memberInfo;
+}
+
+function getUserGreeting() {
     const userName = getCookie("username");
     const memberName = getCookie("member");
 
-        document.querySelector('.header-user').textContent = userName;
-        document.querySelector('.header-member').textContent = memberName;
+    const memberInfo = getUserColorsArray();
+
+    document.querySelector('.header-user').textContent = userName;
+    document.querySelector('.header-member').textContent = memberName;
+
+    document.querySelector('.logout').style.backgroundColor = memberInfo[memberName];
 }
 
 
 function logout(){
     const logoutButton = document.querySelector('.logout');
 
+
+
     logoutButton.addEventListener('click', function(){
         document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         document.cookie = 'member=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'memberColors=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
         console.log('buton apasat')
 
@@ -66,6 +85,7 @@ function addFamilyMember(){
             //console.log(memberName);
             if(!memberName.classList.contains("visible")){
                 memberName.classList.add("visible");
+                
                 break;
             }
         }
@@ -122,36 +142,30 @@ function retrieveAccountInformation(){
 
             if(dataRetrieved[0].membru+(i+1) !== null){
             const memberName = document.querySelector('.member'+i)
-            memberName.classList.add("visible");
+            
             document.querySelector('.member'+i + ' .member-name').value = dataRetrieved[0]['membru'+(i+1)];
+
+            if(!document.querySelector('.member'+i + ' .member-name').value == ""){
+                memberName.classList.add("visible");
+            }
         }
         
         };
 
-
+        
     })
-}
-
-
-function makeMemberButtonsHidden(){
     
-    const memberIcons = ['.member0', '.member1','.member2', '.member3'];
-
-    memberIcons.forEach((memberIcon)=>{
-        if(document.querySelector(memberIcon+".member-name").textContent === ""){
-
-        }
-    })
 }
 
 
-
-document.addEventListener("DOMContentLoaded", function(){   
+document.addEventListener("DOMContentLoaded", function(){  
+    
     getUserGreeting();
-    addFamilyMember();
+    
     saveAccountInformation();
     retrieveAccountInformation();
+    addFamilyMember();
     changeFamilyMemberColor();
     logout();
-   // makeMemberButtonsHidden()
+    
 })

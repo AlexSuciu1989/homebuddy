@@ -28,7 +28,7 @@
                 <input type="password" placeholder="Confirm Password" id="confirm_password" class="loginInput" oninput ="validatePassword()"  required><br><br>
 
                 <input type="submit" name="Submit" class="LoginButton" title="Update" value="Create new account"><br><br>
-                <input type="button" value="Cancel" class="LoginButton" onclick="window.location.href='/index.html';">
+                <input type="button" value="Cancel" class="LoginButton" onclick="window.location.href='/';">
 
             </form>
 

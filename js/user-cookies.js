@@ -17,15 +17,19 @@ function getCookie(name) {
     return null;
 }
 
-function setUsernameCookie(username, member) {
+function setUsernameCookie(username, member, memberColors, memberNames) {
     setCookie('username', username, 365);
     setCookie('member', member, 365);
+    setCookie('memberColors', memberColors, 365);
+    setCookie('memberNames', memberNames, 365);
 }
 
 function getUsernameCookie() {
     return {
         username: getCookie('username'),
-        member: getCookie('member')
+        member: getCookie('member'),
+        memberColors: getCookie('memberColors'),
+        memberNames:getCookie('memberNames')
     };
 }
 
@@ -52,11 +56,17 @@ if (window.location.pathname === "/"){
 
     loginButton.addEventListener('click', function () {
         const memberPopup = document.querySelector('.userName').textContent;
+        const memberColors = document.querySelectorAll('.member');
+
+        const memberColorsArray = Array.from(memberColors).map(memberColor => memberColor.style.backgroundColor);
+        const memberNamesArray = Array.from(memberColors).map(memberColor => memberColor.textContent);
+
+        console.log(memberColorsArray);
         console.log(memberPopup);
         if (memberPopup !== null) {
             var newUsername = document.querySelector('.userName').textContent;
             if (newUsername) {
-                setUsernameCookie(newUsername, memberNameText);
+                setUsernameCookie(newUsername, memberNameText, memberColorsArray, memberNamesArray);
             }
         } else {
             var newUsername = "Guest user";
