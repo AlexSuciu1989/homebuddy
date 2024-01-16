@@ -9,8 +9,8 @@ jobs:
     - name: Upload ftp
       uses: genietim/ftp-action@releases/v4
       with:
-        host: ${{ secrets.FTP_SERVER }}
-        user: ${{ secrets.FTP_USERNAME }}
+        host: ftp.homebuddy.ro
+        user: github@homebuddy.ro
         password: ${{ secrets.FTP_PASSWORD }}
         localDir: "dist"
         remoteDir: "www"
