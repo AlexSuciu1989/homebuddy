@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Upload ftp
+    - name: ftp-upload-action
       uses: GenieTim/ftp-action@v4.0.1
       with:
         host: ftp.homebuddy.ro
