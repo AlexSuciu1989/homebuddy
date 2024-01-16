@@ -1,12 +1,16 @@
-name: Deploy via ftp
 on: push
+name: 🚀 Deploy website on push
 jobs:
-  deploy:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
-    steps: 
-      - name: Sync files to hosting
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
-        with: 
-          server: ftp.homebuddy.ro
-          username: github@homebuddy.ro
-          password: ${{ secrets.ftp_password }}
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ftp.homebuddy.ro
+        username: github@homebuddy.ro
+        password: ${{ secrets.ftp_password }}
