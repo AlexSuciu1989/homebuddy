@@ -1,3 +1,4 @@
+
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
@@ -35,6 +36,9 @@ function getUserGreeting() {
     document.querySelector('.header-member').textContent = memberName;
 
     document.querySelector('.logout').style.backgroundColor = memberInfo[memberName];
+
+    const r = document.querySelector(':root');
+    r.style.setProperty('--theme', memberInfo[memberName]);
 }
 
 
@@ -55,24 +59,7 @@ function logout(){
 }
 
 
-function changeFamilyMemberColor(){
-    const familyMembers = document.querySelectorAll('.member-name');
-    familyMembers.forEach(function(familyMember){
-        
-        familyMember.addEventListener('focus',function(){
-        
-            familyMember.style.backgroundColor = 'white';
-            familyMember.style.color = '#7FC6C6';
-        })
 
-        familyMember.addEventListener('blur',function(){
-        
-            familyMember.style.backgroundColor = '#7FC6C6';
-            familyMember.style.color = 'white';
-        })
-    })
-
-}
 
 
 function addFamilyMember(){
@@ -165,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function(){
     saveAccountInformation();
     retrieveAccountInformation();
     addFamilyMember();
-    changeFamilyMemberColor();
+    
     logout();
     
 })

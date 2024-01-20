@@ -6,6 +6,8 @@
     --light-blue: #BEE9E9;
     --grey: #808080;
     --small: 20px;
+    --theme: #7FC6C6;
+    --orange-gradient: linear-gradient(to left,#FFE39F, #FFAD60);
 }
 
 body,
@@ -18,4 +20,8 @@ textarea
     margin:0;
     padding:0;
     
+}
+
+html{
+    background: linear-gradient(to right,rgb(255, 227, 159, 0.4), rgb(102, 178, 178, 0.4));
 }

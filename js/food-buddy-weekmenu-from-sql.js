@@ -225,8 +225,9 @@ async function fetchAndDisplayWeeklyMenu() {
             for (let i=0; i<weekId.length; i++){
             let  weekIdValue = weekId[i];
             const result = extractObjects(responseData, weekIdValue);
-            const resultArr = result[0].split(',');
-            console.log(resultArr);
+            let resultArr = result[0].split(',');
+            if (resultArr == undefined){resultArr = ""}
+            //console.log(resultArr);
             
             const deleteButton = document.createElement('span');
             deleteButton.textContent = '  delete';

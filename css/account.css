@@ -5,7 +5,6 @@
     display: flex;
     justify-content: flex-start;
     margin: 50px;
-    
 }
 
 
@@ -26,29 +25,31 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
-    border-right: 1px solid var(--blue);
-    border-top: 1px solid var(--blue);
+    border-right: 2px solid var(--orange);
+    border-top: 2px solid var(--orange);
     padding-top:60px;
 }
 
 .subsection{
     display: flex;
     margin-bottom: 60px;
-    border-bottom:1px solid var(--blue);
+    border-bottom:2px solid var(--orange);
     padding-right: 20%;
-    color: var(--blue);
+    color: var(--orange);
     font-size: 18px;
+    
 }
 
 .subsection input{
     border: 0;
     margin-left: 10px;
-    color: var(--blue);
-    border: 1px solid var(--blue);
+    color: var(--orange);
+    border: 1px solid var(--orange);
     text-align: center;
     margin-bottom: 5px;
     padding: 5px 0px;
     border-radius: 10px;
+    box-shadow: 1px 1px 2px #615019;
 }
 
 
@@ -58,7 +59,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid var(--blue);
+    border: 2px solid var(--orange);
     margin-left: -1px;
 }
 
@@ -72,10 +73,11 @@
     border-radius: 50%;
     position: absolute;
     border: 20px solid white;
-    outline: 1px solid var(--blue);
+    outline: 1px solid var(--orange);
     top: 35%;
     color:white;
     cursor: pointer;
+    box-shadow: 1px 1px 3px #615019;
 }
 
 .save-btn:hover{
@@ -92,11 +94,12 @@
     border-radius: 50%;
     position: absolute;
     border: 15px solid white;
-    outline: 1px solid var(--blue);
+    outline: 1px solid var(--orange);
     top: 35%;
     right: -50px;
     color:white;
     cursor: pointer;
+    box-shadow: 1px 1px 3px #615019;
 }
 .add-btn:hover{
     box-shadow: 0px 0px 6px -1px #000000;
@@ -104,13 +107,14 @@
 
 .change-password-btn{
     position: absolute;
-    background-color: var(--blue);
+    background: var(--orange-gradient);
     padding: 10px;
     border-radius: 10px;
     color:white;
     top: 97%;
     cursor: pointer;
     font-size: 12px;
+    box-shadow: 1px 1px 3px #615019;
 }
 
 .change-password-btn:hover{
@@ -127,17 +131,17 @@
     justify-content: center;
     align-items: center;
     position:absolute;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     background-color: grey;
     border-radius: 50%;
     left:-50px;
     top:-50px;
-    border: 20px solid white;
-    outline: 1px solid var(--blue);
+    border: 10px solid white;
+    outline: 1px solid var(--orange);
     cursor: pointer;
     overflow: hidden;
-    
+    box-shadow: 1px 1px 3px #615019;
     
 }
 .img-holder:hover{
@@ -151,9 +155,10 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background-color: var(--blue);
-    overflow: hidden;
-    border:1px solid var(--blue);
+    background: var(--orange-gradient);
+    overflow: hidden;   
+    border:1px solid var(--orange);
+    
 }
 
 .family-member-img img{
@@ -178,10 +183,11 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: var(--blue);
+    background: var(--orange-gradient);
     color:white;
     border: none;
     text-align: center;
+    box-shadow: 1px 1px 3px #615019;
 }
 
 .visible{
@@ -195,6 +201,7 @@
     width: 400px;
     height: 70vh;
     overflow: auto;
+    margin-left: 48px;
 }
 
 .toast-board::-webkit-scrollbar{
@@ -203,16 +210,17 @@
 }
 
 .toast-board::-webkit-scrollbar-thumb{
-    background-color: var(--blue);
+    background: var(--orange-gradient);
 
 }
 
 .toast-element{
     margin: 8px;
-    background-color: var(--blue);
+    background: var(--orange-gradient);
     color:white;
     border-radius: 16px;
     padding: 8px;
+    box-shadow: 1px 1px 3px #615019;
 }
 
 .toast-element-header{
@@ -225,22 +233,24 @@
     margin-top: 6px;
 }
 
-.logout{
-    background-color: var(--blue);
-    border: none;
-    border-radius: 8px;
-    color:white;
-    margin-left:8px;
-}
 
-.logout:hover{
-    cursor: pointer;
-    box-shadow: 0px 0px 3px -1px #000000;
-}
 
 @media screen and (max-width:910px){
     .app{
         width:85%;
+    }
+
+    .main-app{
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .toast-board{
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 36px;
     }
 }
 

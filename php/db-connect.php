@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost:3306";
+$servername = "homebuddy.ro:3306";
 $username = "homebudd_alex";
 $password = "Desire1989";
 $dbname = "homebudd_db";

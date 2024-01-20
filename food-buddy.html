@@ -24,13 +24,12 @@
             <li class="active"><a href="food-buddy.html">Food Buddy</a></li>
             <li><a href="car-buddy.html">Car Buddy</a></li>
         </ul>
-
+        <div class = user-header-display>
         <p>Welcome <span class="header-user"></span>, you are signed in as <span class="header-member"></span></p>
-
+        <input type="button" class ="logout" value="Logout">
+        </div>
     </header>
-    <section class="button-holder">
-        <input type="button" class="submit-weekmenu" id ='submit-weekmenu' value="Save Menu"> 
-    </section>
+
     <nav class="week-navigation">
         <div> <span class="arrow-left">«</span><span class="weekno"></span><span class="arrow-right">»</span> </div>
         <div class="site-date-interval"></div>
@@ -105,7 +104,9 @@
         </div>
         
     </main>
-
+    <section class="button-holder">
+        <input type="button" class="submit-weekmenu" id ='submit-weekmenu' value="Save Menu"> 
+    </section>
     <section id ="section">
         <article class="add-new-recipe">
             <input type="button" id="add-new-btn" onclick="popup()" value="+">

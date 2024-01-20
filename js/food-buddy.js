@@ -1,3 +1,19 @@
+function logout(){
+    const logoutButton = document.querySelector('.logout');
+
+
+
+    logoutButton.addEventListener('click', function(){
+        document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'member=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'memberColors=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+        console.log('buton apasat')
+
+        window.location.href = "https://homebuddy.ro/";
+    })
+}
+
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
@@ -13,12 +29,31 @@ function getCookie(cookieName) {
     return null;
 }
 
-function getUserGreeting(){
+function getUserColorsArray(){
+    const memberColorString = getCookie("memberColors");
+
+    const decodedMemberColorString = decodeURIComponent(memberColorString).replace(/%2C%20/g, "_COMMA_");
+    const rgbValues = decodedMemberColorString.match(/\d+,\s*\d+,\s*\d+/g);
+    const memberColorArray = rgbValues.map(value => "rgb(" + value + ")");
+    const memberNamesArray = decodeURIComponent(getCookie("memberNames")).split(',');
+    const memberInfo = Object.fromEntries(memberNamesArray.map((name, index) => [name, memberColorArray[index]]));
+
+    return memberInfo;
+}
+
+function getUserGreeting() {
     const userName = getCookie("username");
     const memberName = getCookie("member");
 
-        document.querySelector('.header-user').textContent = userName;
-        document.querySelector('.header-member').textContent = memberName;
+    const memberInfo = getUserColorsArray();
+
+    document.querySelector('.header-user').textContent = userName;
+    document.querySelector('.header-member').textContent = memberName;
+
+    document.querySelector('.logout').style.backgroundColor = memberInfo[memberName];
+
+    const r = document.querySelector(':root');
+    r.style.setProperty('--theme', memberInfo[memberName]);
 }
 
 
@@ -27,7 +62,7 @@ function addMemberNameToToast(){
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-
+    
     getUserGreeting()
     addMemberNameToToast()
 
@@ -103,5 +138,5 @@ document.addEventListener("DOMContentLoaded", function(){
         removeImageBtn.style.display = "none";
         addButton.style.display = "flex";
     });
-
+    logout()
 });

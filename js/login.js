@@ -1,7 +1,7 @@
 let userData;
 
 function randomMemberColor(){
-    const colorsArray = ['#e69138', '#ffd966', '#abc69f', '#73a7b3', '#aaaaaa', '#ffec93', '#93a6ff', '#93c47d', '#8e7cc3']
+    const colorsArray = ['#ac3e31', '#484848', '#488a99', '#6ab187', '#1f3f49', '#0091d5', '#dbae58', '#d32d41', '#1c4e80']
 
     for (let i = 1; i<= 4; i++){
         let selectedColorIndex = Math.floor(Math.random() * colorsArray.length);
