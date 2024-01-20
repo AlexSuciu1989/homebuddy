@@ -19,83 +19,31 @@
             <li><a href="food-buddy.html">Food Buddy</a></li>
             <li><a href="car-buddy.html">Car Buddy</a></li>
         </ul>
-
-        <p>Buna, Suciu!</p>
-
+        <div class = user-header-display>
+        <p>Welcome <span class="header-user"></span>, you are signed in as <span class="header-member"></span></p>
+        <input type="button" class ="logout" value="Logout">
+        </div>
     </header>
 
-    <nav>
+    <div class="budget-timeline">
+        <div class="year-container">
 
-        <div class="years">
-            <div> <span class="arrow-left">«</span> 2023 <span class="arrow-right">»</span> </div>
         </div>
 
-        <div class="months">
-            <span>January</span>
-            <span>February</span>
-            <span>March</span>
-            <span>April</span>
-            <span>May</span>
-            <span>June</span>
-            <span>July</span>
-            <span>August</span>
-            <span>September</span>
-            <span>October</span>
-            <span class="current-month">November</span>
-            <span>December</span>
-        </div>
-
-    </nav>
-
-    <main>
-        <div class="summary-frame">
-            <div class="summary-bubble">Venituri</div>
-            <p class="total">Total<span> 5,000 RON</span></p>
-            <div class="details">
-                <p>Salarii:<span> 4,500 RON</span></p>
-                <p>Alte surse de venit:<span> 500 RON</span></p>
+        <div class="timeline">
+            <div class="card">
+                <p class="card-year">2024</p>
+                <p class="card-month">January</p>
+                <div class="remaining-budget">Remaining Budget: <span class="remaining-budget-amount">3500</span></div>
+                <div class="card-details">
+                    <div class="income">Income: <span class="income-amount">9000</span></div>
+                    <div class="lawns">Rate: <span class="lawns-amount">1000</span></div>
+                    <div class="expenses">Expenses: <span class="expenses-amount">1900</span></div>
+                    <div class="savings">Savings: <span class="savings-amount">3000</span></div>
+                </div>
             </div>
         </div>
 
-        <div class="summary-frame">
-            <div class="summary-bubble">Cheltuieli</div>
-            <p class="total">Total<span> 4,000 RON</span></p>
-            <div class="details">
-                <p>Casa:<span> 1,000 RON</span></p>
-                <p>Masina:<span> 500 RON</span></p>
-                <p>Banca:<span> 1,000 RON</span></p>
-                <p>Educatie:<span> 500 RON</span></p>
-                <p>Sanatate:<span> 500 RON</span></p>
-                <p>Alte cheltuieli:<span> 1,000 RON</span></p>
-            </div>
-        </div>
-
-        <div class="summary-frame">
-            <div class="summary-bubble">Economii</div>
-            <p class="total">Total<span> 1,000 RON</span></p>
-        </div>
-    </main>
-
-    <section class="table-frame">
-        <div class="table-row header">
-            <div class="table-cell">Tip</div>
-            <div class="table-cell">Subtip</div>
-            <div class="table-cell">Data</div>
-            <div class="table-cell mobile-hide">Descriere</div>
-            <div class="table-cell">Valoare</div>
-            <div class="table-cell mobile-hide">Perioada</div>
-            <div class="table-cell mobile-hide">Actions</div>
-        </div>
-
-        <div class="table-row">
-            <div class="table-cell">Casa</div>
-            <div class="table-cell">Electricitate</div>
-            <div class="table-cell">18/08/1989</div>
-            <div class="table-cell mobile-hide">Am platit electricitatea - Alex</div>
-            <div class="table-cell">220</div>
-            <div class="table-cell mobile-hide">1</div>
-            <div class="table-cell mobile-hide">Delete</div>
-        </div>
-    </section>
+    </div>
 
 </body>
