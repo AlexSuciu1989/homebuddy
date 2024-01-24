@@ -4,15 +4,20 @@ function getCookie(cookieName) {
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
 
-    for(let i = 0; i< cookieArray.length; i++) {
-        let cookie = cookieArray[i].trim();
-        if (cookie.indexOf(name) === 0) {
-            return cookie.substring(name.length);
-        }
-    }
+    let foundCookieValue = null;
 
-    return null;
+    cookieArray.forEach(cookie => {
+        let trimmedCookie = cookie.trim();
+        if (trimmedCookie.indexOf(name) === 0) {
+            foundCookieValue = trimmedCookie.substring(name.length);
+        }
+    });
+
+    return foundCookieValue;
 }
+
+
+
 
 function getUserColorsArray(){
     const memberColorString = getCookie("memberColors");
@@ -62,22 +67,22 @@ function logout(){
 
 
 
-function addFamilyMember(){
+function addFamilyMember() {
     const addButton = document.querySelector('.add-btn');
 
-    addButton.addEventListener('click', function(){
+    addButton.addEventListener('click', function () {
+        const memberNames = document.querySelectorAll('.member0, .member1, .member2, .member3');
+        let memberAdded = false;
 
-        for(let i = 1; i <= 3; i++){
-            const memberName = document.querySelector('.member'+i);
-            //console.log(memberName);
-            if(!memberName.classList.contains("visible")){
-                memberName.classList.add("visible");
-                
-                break;
+        memberNames.forEach(member => {
+            if (!member.classList.contains("visible") && !memberAdded) {
+                member.classList.add("visible");
+                memberAdded = true;
             }
-        }
-    })
+        });
+    });
 }
+
 
 
 function saveAccountInformation() {
@@ -90,69 +95,63 @@ function saveAccountInformation() {
 
         console.log("family members are " + familyMembersArray);
     
-    try {
-        const url ='./php/account-to-sql.php';
+        try {
+            const url ='./php/account-to-sql.php';
 
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({familyMembersArray})
-        });
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({familyMembersArray})
+            });
 
-        if (response.ok) {
-            console.log(await response.text());
-        } else {
-            console.error('Failed to submit data');
-        }
-    } catch (error) {
-        console.error("Error:", error);
+            if (response.ok) {
+                console.log(await response.text());
+            } else {
+                console.error('Failed to submit data');
+            }
+        } catch (error) {
+            console.error("Error:", error);
     }
-
     });
 }
 
 
-function retrieveAccountInformation(){
-
+function retrieveAccountInformation() {
     document.querySelector('.user-name').value = getCookie('username');
 
     fetch('./php/account-from-sql.php')
-    .then(response =>response.json())
-    .then(dataRetrieved => {
-        console.log(dataRetrieved)
+        .then(response => response.json())
+        .then(dataRetrieved => {
+            console.log(dataRetrieved);
 
-        document.querySelector('.phone-number').value = dataRetrieved[0].telefon;
-        
-        for(let i = 0; i<=3; i++){
+            document.querySelector('.phone-number').value = dataRetrieved[0].telefon;
 
-            if(dataRetrieved[0].membru+(i+1) !== null){
-            const memberName = document.querySelector('.member'+i)
-            
-            document.querySelector('.member'+i + ' .member-name').value = dataRetrieved[0]['membru'+(i+1)];
+            const memberNames = document.querySelectorAll('.member0, .member1, .member2, .member3');
 
-            if(!document.querySelector('.member'+i + ' .member-name').value == ""){
-                memberName.classList.add("visible");
-            }
-        }
-        
-        };
+            memberNames.forEach((member, i) => {
+                const memberNameInput = member.querySelector('.member-name');
+                memberNameInput.value = dataRetrieved[0][`membru${i + 1}`];
 
-        
-    })
-    
+                if (memberNameInput.value !== "") {
+                    member.classList.add("visible");
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching account information:', error);
+        });
 }
+
 
 
 document.addEventListener("DOMContentLoaded", function(){  
     
     getUserGreeting();
-    
     saveAccountInformation();
     retrieveAccountInformation();
     addFamilyMember();
-    
     logout();
     
 })
