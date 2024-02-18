@@ -19,7 +19,7 @@ function getEvents() {
         if (container) {
           const eventNew = document.createElement("div");
           eventNew.className =
-            "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white";
+            "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white event";
           eventNew.innerHTML =
             "<div class='card-text' role='button'>" +
             data.addedevent +
@@ -30,10 +30,33 @@ function getEvents() {
           container.appendChild(eventNew);
         }
       });
+      targetEvent();
     })
     .catch((error) => {
       console.error("Error fetching events", error);
     });
+}
+
+function targetEvent() {
+  const events = document.querySelectorAll(".event");
+  if (events.length === 0) {
+    console.error("No elements with class 'event' found.");
+    return;
+  }
+  events.forEach(function (item) {
+    item.addEventListener("click", function (event) {
+      const clickedItem = event.target;
+      events.forEach(function (eventItem) {
+        eventItem.classList.remove("bg-secondary");
+      });
+      if (clickedItem === item) {
+        // Check if the clicked element is the parent itself
+        clickedItem.classList.add("bg-secondary");
+      } else {
+        clickedItem.parentElement.classList.add("bg-secondary");
+      }
+    });
+  });
 }
 
 function addDate() {
@@ -208,5 +231,6 @@ document.addEventListener("DOMContentLoaded", function () {
   bootstrapModal();
   addDate();
   getEvents();
+  // targetEvent();
   logout();
 });
