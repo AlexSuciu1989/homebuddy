@@ -22,6 +22,6 @@ textarea
     
 }
 
-html{
+body{
     background: linear-gradient(to right,rgb(255, 227, 159, 0.4), rgb(102, 178, 178, 0.4));
 }

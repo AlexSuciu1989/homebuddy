@@ -8,25 +8,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dataRetrieved = new stdClass();
 
     // Assuming $eventDataObj is supposed to be the JSON data received in the POST request
-    $toast = file_get_contents('php://input');
-    $jsonData = json_decode($toast, true);
+    $eventDataObj = file_get_contents('php://input');
+    $jsonData = json_decode($eventDataObj, true);
 
     if ($jsonData === null) {
         echo "Error decoding JSON data";
         exit;
     }
 
-    $toastContent = $jsonData['content']; // 'eventdate' should match the key in your JSON data
-    $dateTime = $jsonData['date']; // 'addedevent' should match the key in your JSON data
-    $userName = $jsonData['user']; // 'user' should match the key in your JSON data
-    $familyMember = $jsonData['member'];
+    $eventdate = $jsonData['eventdate']; // 'eventdate' should match the key in your JSON data
+    $addedevent = $jsonData['addedevent']; // 'addedevent' should match the key in your JSON data
+    $user = $jsonData['user']; // 'user' should match the key in your JSON data
 
-$sql = "INSERT INTO toasts (username, member, nowdatetime, toast) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO agenda (eventdate, addedevent, username) VALUES (?, ?, ?)";
 
-$stmt = mysqli_prepare($conn, $sql);
-
-// Bind parameters
-mysqli_stmt_bind_param($stmt, "ssss", $userName, $familyMember, $dateTime, $toastContent);
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "sss", $eventdate, $addedevent, $user);
 
     if (mysqli_stmt_execute($stmt)) {
         echo "Event added successfully";

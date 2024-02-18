@@ -1,6 +1,9 @@
 <!DOCTYPE html >
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>HomeBuddy</title>
         <link rel="stylesheet" href="./css/style-login.css">
@@ -8,33 +11,54 @@
 
         <script src="./js/login.js"></script>
         <script src="./js/user-cookies.js"></script>
-        
+        <script src="https://kit.fontawesome.com/f75a4db21d.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
-        <img src="./resources/Logo HomeBuddy.png">
-        <div class="login">
-            <form id="login-form" action="./php/login.php" method="post">
-                <table>
-                    <tr>
-                        <td class="labels">Username<br><br></td>
-                        <td><input type="text" class="loginInput" name="account" required><br><br></td>
-                    </tr>
-                    <tr>
-                        <td class="labels">Password<br><br></td>
-                        <td><input type="password" class="loginInput" name="password" required><br><br></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="submit" name="Login" value="Login" id="Login" class="LoginButton" title="Login"></td>
-                    </tr>
-                    
-                </table>
-                <div class="login-message"></div>
-                <div class="registernewaccount">
-                <p>Don't have a account?</p>
-                <p id="registerlink"><a href="./register.php">Create New Account</a></p>
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-4 ">
+                    <div class="px-5 mb-3">
+                        <img class="img-fluid" src="./resources/Logo HomeBuddy.png">
+                    </div>
+ 
+                    <div class="login p-2  ">
+                        <form id="login-form" class=" mt-4 d-flex flex-column" action="./php/login.php" method="post">
+                                    <div class="my-2 mx-4">
+                                        <label class="labels" for="account">Username</label>
+                                        <input type="text" class="loginInput form-control" name="account" id="account" required>
+                                    </div>
+                                    <div class="my-2 mx-4">
+                                        <label class="labels" for="password">Password</label>
+                                        <input type="password" class="loginInput form-control" name="password" id="password" required>
+                                    </div>
+
+                                    <input type="submit" name="Login" value="Login" id="Login" class="LoginButton btn btn-secondary text-white btn-lg m-4" title="Login">
+
+                                
+
+                            <div class="login-message"></div>
+                            <div class="registernewaccount">
+                            <p class="mb-0">Don't have a account?</p>
+                            <p id="registerlink"><a class="link-secondary" href="./register.php">Create New Account</a></p>
+                        </div>
+                        </form>
+                    </div>
+
+ 
+                </div>
             </div>
-            </form>
+            
+            <div class="row">
+                <div class="col d-flex align-items-center justify-content-center personal-info">
+                    <div class="about-img border border-primary m-2">
+                        <img class="" src="./uploads/Alex Suciu.jpg" alt="">
+                    </div>
+                   <a href="https://www.linkedin.com/in/alexandru-suciu-04a772b5/"><i class="fa-brands fa-linkedin text-primary  m-2"></i></a>
+                   <span class="text-primary  m-2">About me</span>
+                   <span class="text-primary  m-2"><a href="about-website.html">About website</a></span>
+                </div>
+            </div>
         </div>
 
         <div class="member-selection-popup">
@@ -47,6 +71,10 @@
             </div>
 
             <input type="button" value="Done" class="select-member">
+            
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>  
+
     </body>
 </html>

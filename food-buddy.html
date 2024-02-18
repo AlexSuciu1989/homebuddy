@@ -1,41 +1,102 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/food-buddy.css">
-    
-    <script src="./js/food-buddy-to-sql.js"></script>
-    <script src="./js/food-buddy-from-sql.js"></script>
-    <script src="./js/food-buddy.js"></script>
-    <script src="./js/food-buddy-weekmenu-to-sql.js"></script>
-    <script src="./js/food-buddy-weekmenu-from-sql.js"></script>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/bootstrap.css" />
+  <link rel="stylesheet" href="./css/food-buddy.css" />
+
+  <script src="./js/food-buddy.js"></script>
 </head>
 
 <body>
+  <header>
+    <img src="./resources/Logo.png" alt logo />
 
-    <header>
+    <ul class="navigation">
+      <li><a href="account.html">Account</a></li>
+      <!-- <li><a href="budget-buddy.html">Budget Buddy</a></li> -->
+      <li class="active"><a href="food-buddy.html">Food Buddy</a></li>
+      <li><a href="agenda-buddy.html">Agenda Buddy</a></li>
+      <!-- <li><a href="car-buddy.html">Car Buddy</a></li> -->
+    </ul>
+    <div class="user-header-display">
+      <p>
+        Welcome <span class="header-user"></span>, you are signed in as
+        <span class="header-member"></span>
+      </p>
+      <input type="button" class="logout" value="Logout" />
+    </div>
+  </header>
 
-        <img src="./resources/Logo.png" alt logo>
-        
-        <ul class="navigation">
-            <li><a href="account.html">Account</a></li>
-            <li><a href="budget-buddy.html">Budget Buddy</a></li>
-            <li class="active"><a href="food-buddy.html">Food Buddy</a></li>
-            <li><a href="car-buddy.html">Car Buddy</a></li>
-        </ul>
-        <div class = user-header-display>
-        <p>Welcome <span class="header-user"></span>, you are signed in as <span class="header-member"></span></p>
-        <input type="button" class ="logout" value="Logout">
+  <nav class="week-navigation">
+    <div>
+      <span class="arrow-left">«</span><span class="weekno"></span
+      ><span class="arrow-right">»</span>
+    </div>
+    <div class="site-date-interval"></div>
+  </nav>
+
+  <main class="container">
+    <input type="radio" name="slider" class="d-none" id="s1" checked />
+    <input type="radio" name="slider" class="d-none" id="s2" />
+    <input type="radio" name="slider" class="d-none" id="s3" />
+    <input type="radio" name="slider" class="d-none" id="s4" />
+    <input type="radio" name="slider" class="d-none" id="s5" />
+    <input type="radio" name="slider" class="d-none" id="s6" />
+    <input type="radio" name="slider" class="d-none" id="s7" />
+    <div class="week-cards">
+      <label for="s1" id="slide1">
+        <div class="weekday">
+          <span>Monday</span>
+          <div class="list-container" id="mon-day"></div>
         </div>
-    </header>
+      </label>
 
-    <nav class="week-navigation">
-        <div> <span class="arrow-left">«</span><span class="weekno"></span><span class="arrow-right">»</span> </div>
-        <div class="site-date-interval"></div>
-    </nav>
+      <label for="s2" id="slide2">
+        <div class="weekday">
+          <span>Tuesday</span>
+          <div class="list-container" id="tue-day"></div>
+        </div>
+      </label>
 
-    <main class="container">
+      <label for="s3" id="slide3">
+        <div class="weekday">
+          <span>Wednesday</span>
+          <div class="list-container" id="wed-day"></div>
+        </div>
+      </label>
+
+      <label for="s4" id="slide4">
+        <div class="weekday">
+          <span>Thursday</span>
+          <div class="list-container" id="thu-day"></div>
+        </div>
+      </label>
+
+      <label for="s5" id="slide5">
+        <div class="weekday">
+          <span>Friday</span>
+          <div class="list-container" id="fri-day"></div>
+        </div>
+      </label>
+
+      <label for="s6" id="slide6">
+        <div class="weekday">
+          <span>Saturday</span>
+          <div class="list-container" id="sat-day"></div>
+        </div>
+      </label>
+
+      <label for="s7" id="slide7">
+        <div class="weekday">
+          <span>Sunday</span>
+          <div class="list-container" id="sun-day"></div>
+        </div>
+      </label>
+    </div>
+  </main>
+  <!-- <main class="container">
         
             <input type="radio" name="slider" class="d-none" id="s1" checked>
             <input type="radio" name="slider" class="d-none" id="s2">
@@ -46,139 +107,158 @@
             <input type="radio" name="slider" class="d-none" id="s7">
         <div class="week-cards">
 
-            <label for="s1" id="slide1">
+            <div id="slide1" class="weekday-container">
                 <div class="weekday">
                     <span>Monday</span>
                     <div class="list-container" id="mon-day">
                     </div>
                 </div>
-            </label>
+            </div>
 
-            <label for="s2" id="slide2">
-                <div class="weekday">
+            <div id="slide2" class="weekday-container checked">
+                <div class="weekday-container weekday">
                     <span>Tuesday</span>
                     <div class="list-container" id="tue-day">
                     </div>
                 </div>
-            </label>
+            </div>
 
-            <label for="s3" id="slide3">
+            <div id="slide3" class="weekday-container ">
                 <div class="weekday">
                     <span>Wednesday</span>
                     <div class="list-container" id="wed-day">
                     </div>
                 </div>
-            </label>
+            </div>
 
-            <label for="s4" id="slide4">
+            <div id="slide4" class="weekday-container ">
                 <div class="weekday">
                     <span>Thursday</span>
                     <div class="list-container" id="thu-day">
                     </div>
                 </div>
-            </label>
+            </div>
 
-            <label for="s5" id="slide5">
+            <div id="slide5" class="weekday-container ">
                 <div class="weekday">
                     <span>Friday</span>
                     <div class="list-container" id="fri-day">
                     </div>
                 </div>
-            </label>
+            </div>
 
-            <label for="s6" id="slide6">
+            <div id="slide6" class="weekday-container ">
                 <div class="weekday">
                     <span>Saturday</span>
                     <div class="list-container" id="sat-day">
                     </div>
                 </div>
-            </label>
+            </div>
 
-            <label for="s7" id="slide7">
+            <div id="slide7" class="weekday-container ">
                 <div class="weekday">
                     <span>Sunday</span>
                     <div class="list-container" id="sun-day">
                     </div>
                 </div>
-            </label>
+            </div>
         </div>
         
-    </main>
-    <section class="button-holder">
-        <input type="button" class="submit-weekmenu" id ='submit-weekmenu' value="Save Menu"> 
-    </section>
-    <section id ="section">
-        <article class="add-new-recipe">
-            <input type="button" id="add-new-btn" onclick="popup()" value="+">
-        </article>
+    </main> -->
 
-  
+  <section class="button-holder">
+    <input
+      type="button"
+      class="submit-weekmenu"
+      id="submit-weekmenu"
+      value="Save Menu"
+    />
+  </section>
+  <section id="section">
+    <article class="add-new-recipe">
+      <input type="button" id="add-new-btn" value="+" />
+    </article>
+  </section>
 
-    </section>
-
-    <div class="recipe-form">
-        <aside class="recipe-form" id="recipe-form">
-            
-            <div class=form-image-frame-ring id="addButton">
-                <div class="form-image-frame">
-                    <div class="form-image-subframe">
-                        <input type="button" class="form-image" id="form-image" value="+">
-                    </div>
-                </div>
-            </div>
-            <input type="file" id="fileInput" style="display: none;">
-            <div class="form-image-container">
-                <img class ="imagePreview" id="imagePreview" style="display: none;" alt="Uploaded Image">
-                <input type="button" class="img-close" id="img-close" value="+">
-            </div>
-            <h2>Add recipes to your portfolio</h2>
-            <p>After adding the recipe you can configurate your weekly menu.</p>
-            
-            <label>Recipe title<span>*</span></label>
-                <input type="text" class="form-title" id="form-title">
-
-            <div class="form-select-frame">
-                <div class="form-select">
-                    <label>Category<span>*</span></label>
-                    <select id="form-category">
-                        <option>Breakfast</option>
-                        <option>Lunch</option>
-                        <option>Dinner</option>
-                        <option>Snack</option>
-                    </select>
-                </div>
-
-                <div class="form-select">
-                    <label>Dificulty<span>*</span></label>
-                    <select id="form-dificulty">
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
-                        <option>Gordon Ramsay Level</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-textarea">
-                <label>Ingredients and preparation steppes</label>
-                <textarea id="form-textarea" placeholder="Description of the ingredients and recipe"></textarea>
-            </div>
-
-            <div class="form-button-frame">
-                <input type="button" class="form-button-cancel" id="form-button-cancel" value="Cancel">
-                <input type="button" class="form-button-save" value="Save Recipe" id="form-save-recipe">
-            </div>
-            
-        </aside>
-    </div>
-
-    <section class="toast hidden">
-        <div class="toast-close">+</div>
-        <div class="toast-header">
-            <div class="toast-user"></div>
-            <div class="toast-time"></div>
+  <div class="recipe-form">
+    <aside class="recipe-form" id="recipe-form">
+      <div class="form-image-frame-ring" id="addButton">
+        <div class="form-image-frame">
+          <div class="form-image-subframe">
+            <input type="button" class="form-image" id="form-image" value="+" />
+          </div>
         </div>
-        <div class="toast-content"></div>
-        <div class="toast-account" style="display: none;"></div>
-    </section>
-</body> 
+      </div>
+      <input type="file" id="fileInput" style="display: none" />
+      <div class="form-image-container">
+        <img
+          class="imagePreview"
+          id="imagePreview"
+          style="display: none"
+          alt="Uploaded Image"
+        />
+        <input type="button" class="img-close" id="img-close" value="+" />
+      </div>
+      <h2>Add recipes to your portfolio</h2>
+      <p>After adding the recipe you can configurate your weekly menu.</p>
+
+      <label>Recipe title<span>*</span></label>
+      <input type="text" class="form-title" id="form-title" />
+
+      <div class="form-select-frame">
+        <div class="form-select">
+          <label>Category<span>*</span></label>
+          <select id="form-category">
+            <option>Breakfast</option>
+            <option>Lunch</option>
+            <option>Dinner</option>
+            <option>Snack</option>
+          </select>
+        </div>
+
+        <div class="form-select">
+          <label>Dificulty<span>*</span></label>
+          <select id="form-dificulty">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Gordon Ramsay Level</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-textarea">
+        <label>Ingredients and preparation steppes</label>
+        <textarea
+          id="form-textarea"
+          placeholder="Description of the ingredients and recipe"
+        ></textarea>
+      </div>
+
+      <div class="form-button-frame">
+        <input
+          type="button"
+          class="form-button-cancel"
+          id="form-button-cancel"
+          value="Cancel"
+        />
+        <input
+          type="button"
+          class="form-button-save"
+          value="Save Recipe"
+          id="form-save-recipe"
+        />
+      </div>
+    </aside>
+  </div>
+
+  <section class="toast hidden">
+    <div class="toast-close">+</div>
+    <div class="toast-header">
+      <div class="toast-user"></div>
+      <div class="toast-time"></div>
+    </div>
+    <div class="toast-content"></div>
+    <div class="toast-account" style="display: none"></div>
+  </section>
+</body>

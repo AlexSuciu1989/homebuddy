@@ -1,13 +1,12 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 include 'db-connect.php';
 
 $weeknumber = urldecode($_POST['weeknumber']);
-$cookieName = "username";
 $currentYear = date("Y");
 
-if (isset($_COOKIE[$cookieName])){
-    $storedUsername = $_COOKIE[$cookieName];
+if (isset($_GET['loggedUser'])) {
+    $storedUsername = $_GET['loggedUser'];
 
 
 $sql = "SELECT * FROM meniu WHERE (weekno = ? AND username = ? AND YEAR(nowdate) = ?) ORDER BY `id` DESC LIMIT 1";

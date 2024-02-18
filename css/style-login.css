@@ -1,6 +1,6 @@
+@import "./bootstrap.css";
+
 body {
-    font-family: 'Trebuchet MS', sans-serif; 
-    letter-spacing: 2px;
     background: linear-gradient(to right,rgb(255, 227, 159, 0.4), rgb(102, 178, 178, 0.4));
   }
 body img{ 
@@ -9,61 +9,25 @@ body img{
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 20em;
     margin-top:5%;
     margin-bottom:2;
 }
 .login{
-    display:flex;
+
     background: linear-gradient(to left,#FFE39F, #FFAD60);
     border-radius: 30px;
     box-shadow: 3px 3px 10px #615019;
-    padding: 30px 20px 10px 20px;
+
     color:white;
-    justify-content: center;
-    align-items: center;
+
     margin: 0 auto;
-    margin-top:1%;
-    width: 20em;
+ 
+
 }
 
 .loginInput{
-    height: 25px;
-    width: 200px;
-    border-radius: 7px;
     background: rgb(255, 227, 159);
-    border:1px solid rgb(128, 128, 128, 0.3);  
-}
-
-.loginInput:hover{
-    box-shadow: inset 1px 0px 3px grey;
-}
-
-.LoginButton{
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-    height: 30px;
-    border-radius: 7px;
-    background-color: #FFAD60;
-    font-size: large;
-    color:white;
-    border: 1px solid rgb(128, 128, 128, 0.3);
-    transition-duration: 1s;
-}
-
-.LoginButton:hover{
-    background-color: #b66a22;
-    transition-duration: 1s;
-}
-
-
-
-#registerlink a{
-    color:rgb(102, 178, 178);
-    text-align: center;
-    font-weight: bold;
-    transition-duration: 0.5s;
+  
 }
 
 .registernewaccount{
@@ -72,33 +36,13 @@ display: block;
     transition-duration: 0.5s;
 }
 
-#registerlink a:hover{
-    color:rgb(36, 80, 80);
-}
-
-.registerform{
-    display:flex;
-    background: linear-gradient(to left,#FFE39F, #FFAD60);
-    border-radius: 30px;
-    box-shadow: 3px 3px 10px #615019;
-    padding: 30px 20px 10px 20px;
-    color:white;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    margin-top:1%;
-    width: 25em;
-    text-align: right;
-}
-
-
 .member-selection-popup{
     display: none;
     flex-direction: column;
-    width: 400px;
     position: absolute;
-    left: 37%;
-    top: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: linear-gradient(to left,#FFE39F, #FFAD60);
     border-radius: 30px;
     box-shadow: 3px 3px 10px #615019;
@@ -117,8 +61,8 @@ display: block;
     justify-content: center;
     border-radius: 50%;
     padding: 8px;
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     margin: 8px;
     border: 2px solid white;
 }
@@ -162,4 +106,34 @@ display: block;
 
 .member-border{
     border: 3px solid black;
+}
+
+
+.about-img{
+    width: 50px;
+    height: 50px;
+    border-radius:50%;
+    overflow:hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-img img{
+    width: 60px;
+    height: 60px;
+    border-radius:50%;
+}
+
+.fa-linkedin{
+    font-size: 24px;
+}
+
+.fa-linkedin:hover{
+    cursor: pointer;
+}
+
+.personal-info span:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }

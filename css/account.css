@@ -1,5 +1,7 @@
+@import "./bootstrap.css";
 @import "./main.css";
 @import "./menu.css";
+
 
 .main-app{
     display: flex;
@@ -63,7 +65,7 @@
     margin-left: -1px;
 }
 
-.save-btn{
+/* .save-btn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,8 +73,7 @@
     height: 80px;
     background-color: rgb(45, 163, 45);
     border-radius: 50%;
-    position: absolute;
-    border: 20px solid white;
+    border: 10px solid white;
     outline: 1px solid var(--orange);
     top: 35%;
     color:white;
@@ -82,9 +83,9 @@
 
 .save-btn:hover{
     box-shadow: 0px 0px 6px -1px #000000;
-}
+} */
 
-.add-btn{
+/* .add-btn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,9 +104,9 @@
 }
 .add-btn:hover{
     box-shadow: 0px 0px 6px -1px #000000;
-}
+} */
 
-.change-password-btn{
+/* .change-password-btn{
     position: absolute;
     background: var(--orange-gradient);
     padding: 10px;
@@ -119,7 +120,7 @@
 
 .change-password-btn:hover{
     box-shadow: 0px 0px 6px -1px #000000;
-}
+} */
 .img-holder img{
     width: 120px;
     height: 120px;
@@ -130,13 +131,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position:absolute;
-    width: 80px;
-    height: 80px;
+    
+    width: 100px;
+    height: 100px;
     background-color: grey;
     border-radius: 50%;
-    left:-50px;
-    top:-50px;
     border: 10px solid white;
     outline: 1px solid var(--orange);
     cursor: pointer;
@@ -148,7 +147,7 @@
     box-shadow: 0px 0px 6px -1px #000000;
 }
 
-.family-member-img{
+/* .family-member-img{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,13 +158,13 @@
     overflow: hidden;   
     border:1px solid var(--orange);
     
-}
+} */
 
-.family-member-img img{
+/* .family-member-img img{
     width: 80px;
     height: 80px;
     border-radius:50%;
-}
+} */
 
 .family-member{
     display: none;
@@ -180,14 +179,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     background: var(--orange-gradient);
     color:white;
     border: none;
     text-align: center;
     box-shadow: 1px 1px 3px #615019;
+    font-size: 18px;
 }
 
 .visible{
@@ -198,10 +198,8 @@
 
 
 .toast-board{
-    width: 400px;
     height: 70vh;
     overflow: auto;
-    margin-left: 48px;
 }
 
 .toast-board::-webkit-scrollbar{
@@ -235,7 +233,7 @@
 
 
 
-@media screen and (max-width:910px){
+/* @media screen and (max-width:910px){
     .app{
         width:85%;
     }
@@ -299,4 +297,4 @@
         right:0;
         top:310px;
     }
-}
+} */

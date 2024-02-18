@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
 include 'db-connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

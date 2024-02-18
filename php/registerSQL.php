@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 include 'db-connect.php';
 
 $acc = $_POST["account"];
