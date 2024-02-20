@@ -10,3 +10,17 @@
     font-size: 14px;
     border-radius: 8px;
 }
+
+.event {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+}
+
+.close-event{
+    visibility: hidden;
+}
+
+.event:hover {
+    cursor: pointer;
+}

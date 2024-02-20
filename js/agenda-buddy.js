@@ -1,3 +1,74 @@
+function markElement() {
+  const events = document.querySelectorAll(".mark-event");
+
+  events.forEach((item) => {
+    item.addEventListener("click", async (e) => {
+      const clickedItem = e.target;
+      const clickedItemID = e.target.parentElement.id;
+
+      const itemObject = {
+        itemID: clickedItemID,
+        itemStatus: String(clickedItem.checked),
+      };
+
+      console.log(itemObject);
+
+      try {
+        const response = await fetch(
+          "https://homebuddy.ro/php/agenda-update-to-sql.php",
+          {
+            method: "UPDATE",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(itemObject),
+          }
+        );
+        if (response.ok) {
+          console.log(await response.text());
+        } else {
+          console.error("Failed to update data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+  });
+}
+
+function deleteEvent() {
+  const events = document.querySelectorAll(".close-event");
+
+  events.forEach((item) => {
+    item.addEventListener("click", async (e) => {
+      const clickedItemID = e.target.parentElement.id;
+
+      console.log("the id is " + clickedItemID);
+
+      try {
+        const response = await fetch(
+          "https://homebuddy.ro/php/agenda-delete-from-sql.php",
+          {
+            method: "DELETE",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(clickedItemID),
+          }
+        );
+        if (response.ok) {
+          console.log(await response.text());
+          e.target.parentElement.remove();
+        } else {
+          console.error("Failed to submit data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+  });
+}
+
 function getEvents() {
   const loggedUser = getCookie("username");
   fetch(
@@ -6,7 +77,7 @@ function getEvents() {
   )
     .then((response) => response.json())
     .then((dataRetrieved) => {
-      // console.log(dataRetrieved);
+      console.log(dataRetrieved);
 
       dataRetrieved.forEach((data) => {
         // console.log(data.eventdate);
@@ -18,19 +89,25 @@ function getEvents() {
         const container = document.querySelector("#event-" + formattedDate);
         if (container) {
           const eventNew = document.createElement("div");
+          eventNew.id = data.id;
           eventNew.className =
             "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white event";
           eventNew.innerHTML =
-            "<div class='card-text' role='button'>" +
+            "<input class='form-check-input me-2 mark-event' type='checkbox'>" +
             data.addedevent +
-            "</div>";
-
+            "<button type='button' class='btn-close close-event ms-auto' aria-label='Close'></button>";
           //   console.log(formattedDate)
 
           container.appendChild(eventNew);
+
+          if (data.eventstatus === "true") {
+            eventNew.querySelector(".mark-event").checked = true;
+          }
         }
       });
       targetEvent();
+      deleteEvent();
+      markElement();
     })
     .catch((error) => {
       console.error("Error fetching events", error);
@@ -39,19 +116,29 @@ function getEvents() {
 
 function targetEvent() {
   const events = document.querySelectorAll(".event");
+
   if (events.length === 0) {
     console.error("No elements with class 'event' found.");
     return;
   }
+
   events.forEach(function (item) {
     item.addEventListener("click", function (event) {
       const clickedItem = event.target;
+
       events.forEach(function (eventItem) {
         eventItem.classList.remove("bg-secondary");
+
+        const button = eventItem.querySelector("button");
+
+        if (clickedItem !== button) {
+          button.classList.add("close-event");
+        }
       });
+
       if (clickedItem === item) {
-        // Check if the clicked element is the parent itself
         clickedItem.classList.add("bg-secondary");
+        clickedItem.lastElementChild.classList.remove("close-event");
       } else {
         clickedItem.parentElement.classList.add("bg-secondary");
       }
@@ -214,6 +301,7 @@ function saveEventData() {
 
       if (response.ok) {
         console.log(await response.text());
+        location.reload();
       } else {
         console.error("Failed to submit data");
       }
@@ -232,5 +320,6 @@ document.addEventListener("DOMContentLoaded", function () {
   addDate();
   getEvents();
   // targetEvent();
+  // deleteEvent();
   logout();
 });
