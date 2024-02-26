@@ -61,6 +61,7 @@ main .week-cards{
     margin-bottom: 20px;
     perspective: 1000px;
     transform-style: preserve-3d;
+    display: flex;
 }
 
 main .weekday:hover{
@@ -87,7 +88,21 @@ main .weekday:hover{
     padding: 4px;
 }
 
+.weekday-container{
+    margin: 10px;
+    width: 300px;
+    height: 300px;
+}
 .week-cards label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    cursor: pointer;
+    transition: transform 0.55s ease;
+}
+
+.weekday-container {
     position: absolute;
     left: 0;
     right: 0;
@@ -202,6 +217,7 @@ main .weekday:hover{
     --blue: rgb(127, 198, 198, 0.8);
     color:rgba(0, 0, 0, 0.5)
 }
+
 
 section{
     display: flex;
@@ -604,7 +620,7 @@ article:hover > .sidebar-add{
     display:block;
 }
 
-.toast{
+.my-toast{
     display: flex;
     position: fixed;
     background-color: var(--orange);
@@ -619,7 +635,7 @@ article:hover > .sidebar-add{
     transition: visibility 0s, opacity 2s;
 }
 
-.toast.hidden{
+.my-toast.hidden{
     opacity:0;
 }
 

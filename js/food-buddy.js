@@ -1,3 +1,19 @@
+// function setupCarousel() {
+//   const slides = document.querySelectorAll(".weekday-container");
+//   slides.forEach((slide) => {
+//     slide.addEventListener("click", (e) => {
+//       // Remove "active" class from all slides
+//       slides.forEach((slide) => {
+//         slide.classList.remove("active");
+//       });
+
+//       // Add "active" class to the clicked slide
+//       e.currentTarget.classList.add("active");
+
+//     });
+//   });
+// }
+
 function logout() {
   const logoutButton = document.querySelector(".logout");
 
@@ -244,9 +260,9 @@ function saveRecipeToSQL() {
           document.querySelector("#form-title").value +
           " in the familily recipes";
         sendToast();
-        document.querySelector(".toast").classList.remove("hidden");
+        document.querySelector(".my-toast").classList.remove("hidden");
         setTimeout(function () {
-          document.querySelector(".toast").classList.add("hidden");
+          document.querySelector(".my-toast").classList.add("hidden");
         }, 5000);
       } else {
         console.error("Failed to submit data");
@@ -474,9 +490,11 @@ function getRecipefromSQL() {
                   toastText.textContent =
                     "Removed " + h1TextContent + " from the weekmenu.";
                   sendToast();
-                  document.querySelector(".toast").classList.remove("hidden");
+                  document
+                    .querySelector(".my-toast")
+                    .classList.remove("hidden");
                   setTimeout(function () {
-                    document.querySelector(".toast").classList.add("hidden");
+                    document.querySelector(".my-toast").classList.add("hidden");
                   }, 5000);
                 }
 
@@ -520,9 +538,11 @@ function getRecipefromSQL() {
                   toastText.textContent =
                     "Added " + h1TextContent + " in the weekmenu.";
                   sendToast();
-                  document.querySelector(".toast").classList.remove("hidden");
+                  document
+                    .querySelector(".my-toast")
+                    .classList.remove("hidden");
                   setTimeout(function () {
-                    document.querySelector(".toast").classList.add("hidden");
+                    document.querySelector(".my-toast").classList.add("hidden");
                   }, 5000);
                 }
               }
@@ -609,9 +629,9 @@ function deleteItem() {
           " in " +
           document.querySelector(".weekno").textContent;
         sendToast();
-        document.querySelector(".toast").classList.remove("hidden");
+        document.querySelector(".my-toast").classList.remove("hidden");
         setTimeout(function () {
-          document.querySelector(".toast").classList.add("hidden");
+          document.querySelector(".my-toast").classList.add("hidden");
         }, 5000);
 
         document.querySelector("#" + menuItem).remove();
@@ -812,9 +832,9 @@ function saveWeekmenuToSQL() {
           document.querySelector(".weekno").textContent +
           ".";
         sendToast();
-        document.querySelector(".toast").classList.remove("hidden");
+        document.querySelector(".my-toast").classList.remove("hidden");
         setTimeout(function () {
-          document.querySelector(".toast").classList.add("hidden");
+          document.querySelector(".my-toast").classList.add("hidden");
         }, 5000);
       } else {
         console.error("Failed to submit data");
@@ -836,6 +856,7 @@ document.addEventListener("DOMContentLoaded", function () {
   saveRecipeToSQL();
   getRecipefromSQL();
   saveWeekmenuToSQL();
+  // setupCarousel();
   logout();
   // selectWeekday()
 });

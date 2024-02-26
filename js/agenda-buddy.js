@@ -1,3 +1,5 @@
+import { toggleToast } from "./toasts";
+
 function markElement() {
   const events = document.querySelectorAll(".mark-event");
 
