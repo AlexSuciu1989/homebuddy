@@ -19,11 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $eventdate = $jsonData['eventdate']; // 'eventdate' should match the key in your JSON data
     $addedevent = $jsonData['addedevent']; // 'addedevent' should match the key in your JSON data
     $user = $jsonData['user']; // 'user' should match the key in your JSON data
+    $repeating = $jsonData['repeating'];
+    $responsible = $jsonData['responsible'];
+    $tags = $jsonData['tags'];
+    $unit = $jsonData['unit'];
 
-    $sql = "INSERT INTO agenda (eventdate, addedevent, username) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO agenda (eventdate, addedevent, username, recurenta, unitate, tagevent, membru) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sss", $eventdate, $addedevent, $user);
+    mysqli_stmt_bind_param($stmt, "sssssss", $eventdate, $addedevent, $user, $repeating, $unit, $tags, $responsible);
 
     if (mysqli_stmt_execute($stmt)) {
         echo "Event added successfully";

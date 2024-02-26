@@ -24,3 +24,11 @@
 .event:hover {
     cursor: pointer;
 }
+
+.tag-close-btn{
+    font-size: 0.6rem;
+}
+
+.hidden{
+    display: none;
+}

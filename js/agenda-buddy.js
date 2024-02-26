@@ -1,4 +1,75 @@
-import { toggleToast } from "./toasts";
+// import { toggleToast } from "./toasts";
+
+function displayRepeatingEvent() {
+  const recurenta = document.querySelector(".new-recurenta");
+  const hiddenRecurenta = document.querySelector(".new-repeating-event");
+  recurenta.addEventListener("click", () => {
+    if (recurenta.checked && hiddenRecurenta.classList.contains("hidden")) {
+      document.querySelector(".new-repeating-event").classList.remove("hidden");
+    } else {
+      document.querySelector(".new-repeating-event").classList.add("hidden");
+    }
+  });
+}
+
+function addRemoveTags() {
+  const tags = document.querySelectorAll(".new-badge-item");
+
+  //add tags
+  tags.forEach((tag) => {
+    tag.addEventListener("click", (e) => {
+      const tagText = e.target.textContent;
+      const tagClass = e.target.className;
+
+      const addedTag = document.createElement("span");
+      addedTag.classList = tagClass;
+      addedTag.innerHTML =
+        tagText + "<button class='btn-close tag-close-btn'></button>";
+
+      document.querySelector(".new-event-tag").appendChild(addedTag);
+
+      //remove tags
+      const closeButtons = document.querySelectorAll(".tag-close-btn");
+      closeButtons.forEach((closeButton) => {
+        closeButton.addEventListener("click", (event) => {
+          if (event.target.classList.contains("tag-close-btn")) {
+            event.target.parentElement.remove();
+            // console.log(event.target.parentElement.className);
+          }
+        });
+      });
+    });
+  });
+}
+
+function addRemoveResponsible() {
+  const responsibles = document.querySelectorAll(".new-badge-responsible");
+
+  responsibles.forEach((responsible) => {
+    responsible.addEventListener("click", (e) => {
+      const responsibleName = e.target.textContent;
+      const responsibleClass = e.target.className;
+
+      const addedResponsible = document.createElement("span");
+      addedResponsible.classList = responsibleClass;
+      addedResponsible.innerHTML =
+        responsibleName + "<button class='btn-close tag-close-btn'></button>";
+
+      document
+        .querySelector(".new-event-responsible")
+        .appendChild(addedResponsible);
+
+      const closeButtons = document.querySelectorAll(".tag-close-btn");
+      closeButtons.forEach((closeButton) => {
+        closeButton.addEventListener("click", (event) => {
+          if (event.target.classList.contains("tag-close-btn")) {
+            event.target.parentElement.remove();
+          }
+        });
+      });
+    });
+  });
+}
 
 function markElement() {
   const events = document.querySelectorAll(".mark-event");
@@ -280,12 +351,37 @@ function saveEventData() {
     eventdate: "",
     addedevent: "",
     user: "",
+    repeating: "",
+    unit: "",
+    tags: "",
+    responsible: "",
   };
 
   saveBtn.addEventListener("click", async function () {
+    const tagsArray = [];
+
+    const tags = document.querySelectorAll(".new-event-tag .new-badge-item");
+
+    tags.forEach((tag) => {
+      tagsArray.push(tag.textContent);
+    });
+
+    const responsibleArray = [];
+    const responsibles = document.querySelectorAll(
+      ".new-event-responsible .new-badge-responsible"
+    );
+
+    responsibles.forEach((responsible) => {
+      responsibleArray.push(responsible.textContent);
+    });
+
     eventDataObj.eventdate = document.querySelector(".new-date").value;
     eventDataObj.addedevent = document.querySelector(".new-event-body").value;
     eventDataObj.user = getCookie("username");
+    eventDataObj.repeating = document.querySelector(".new-repeating").value;
+    eventDataObj.unit = document.querySelector(".new-unit").value;
+    eventDataObj.tags = tagsArray.join(", ");
+    eventDataObj.responsible = responsibleArray.join(", ");
 
     console.log("my Object to save: ", eventDataObj);
 
@@ -303,7 +399,7 @@ function saveEventData() {
 
       if (response.ok) {
         console.log(await response.text());
-        location.reload();
+        // location.reload();
       } else {
         console.error("Failed to submit data");
       }
@@ -316,12 +412,14 @@ function saveEventData() {
 document.addEventListener("DOMContentLoaded", function () {
   getUserColorsArray();
   getUserGreeting();
-
   saveEventData();
   bootstrapModal();
   addDate();
   getEvents();
   // targetEvent();
   // deleteEvent();
+  displayRepeatingEvent();
+  addRemoveTags();
+  addRemoveResponsible();
   logout();
 });
