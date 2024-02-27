@@ -32,3 +32,13 @@
 .hidden{
     display: none;
 }
+
+.tags-responsible{
+    font-size: 0.8rem;
+}
+
+.delete-event{
+    position:absolute;
+    top: 5px;
+    right: 5px;
+}

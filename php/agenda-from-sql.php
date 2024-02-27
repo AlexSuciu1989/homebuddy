@@ -8,7 +8,7 @@ header("Access-Control-Allow-Origin:*");
 if (isset($_GET['loggedUser'])) {
     $storedUsername = $_GET['loggedUser'];
 
-        $sql = "SELECT id, eventdate, addedevent, username, eventstatus FROM agenda WHERE username = ?";
+        $sql = "SELECT * FROM agenda WHERE username = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $storedUsername);
         $stmt->execute();

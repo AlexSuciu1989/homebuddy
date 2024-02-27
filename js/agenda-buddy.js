@@ -131,7 +131,7 @@ function deleteEvent() {
         );
         if (response.ok) {
           console.log(await response.text());
-          e.target.parentElement.remove();
+          e.target.parentElement.parentElement.remove();
         } else {
           console.error("Failed to submit data");
         }
@@ -160,18 +160,46 @@ function getEvents() {
         let day = ("0" + dateObject.getDate()).slice(-2); // Ensure two-digit day
         let formattedDate = year + "-" + month + "-" + day;
         const container = document.querySelector("#event-" + formattedDate);
+        let tagsHTML = "";
+        data.tagevent.split(", ").forEach((tag) => {
+          const tagElement = document.getElementById(tag);
+          if (tagElement) {
+            tagsHTML += `<span class="${tagElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${tagElement.textContent}</span>`;
+          }
+        });
+
+        let responsibleHTML = "";
+        data.membru.split(", ").forEach((responsible) => {
+          const responsibleElement = document.getElementById(responsible);
+          if (responsibleElement) {
+            responsibleHTML += `<span class="${responsibleElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${responsibleElement.textContent}</span>`;
+          }
+        });
+
         if (container) {
           const eventNew = document.createElement("div");
           eventNew.id = data.id;
-          eventNew.className =
-            "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white event";
+          eventNew.className = "m-1 p-1 text-white event container";
           eventNew.innerHTML =
             "<input class='form-check-input me-2 mark-event' type='checkbox'>" +
             data.addedevent +
-            "<button type='button' class='btn-close close-event ms-auto' aria-label='Close'></button>";
+            "<button type='button' class='btn-close close-event ms-3 delete-event' aria-label='Close'></button>";
           //   console.log(formattedDate)
 
-          container.appendChild(eventNew);
+          const subContainer = document.createElement("div");
+          subContainer.className =
+            "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white event d-flex flex-column align-items-start event";
+
+          const eventNewMeta = document.createElement("div");
+          eventNewMeta.className = "align-self-end tags-responsible";
+          eventNewMeta.innerHTML =
+            "<span class='fs-7 lh-lg tag-responsible'>Tags: </span>" +
+            tagsHTML +
+            "<span class='fs-7 lh-lg tag-responsible'>  Responsible: </span>" +
+            responsibleHTML;
+
+          subContainer.append(eventNew, eventNewMeta);
+          container.appendChild(subContainer);
 
           if (data.eventstatus === "true") {
             eventNew.querySelector(".mark-event").checked = true;
@@ -203,18 +231,40 @@ function targetEvent() {
         eventItem.classList.remove("bg-secondary");
 
         const button = eventItem.querySelector("button");
-
         if (clickedItem !== button) {
           button.classList.add("close-event");
         }
       });
 
-      if (clickedItem === item) {
+      if (
+        clickedItem === item &&
+        !clickedItem.classList.contains("mark-event") &&
+        !clickedItem.classList.contains("tags-responsible") &&
+        !clickedItem.classList.contains("tag-responsible")
+      ) {
         clickedItem.classList.add("bg-secondary");
-        clickedItem.lastElementChild.classList.remove("close-event");
-      } else {
+        clickedItem
+          .querySelector(".delete-event")
+          .classList.remove("close-event");
+      } else if (
+        !clickedItem.classList.contains("mark-event") &&
+        !clickedItem.classList.contains("tags-responsible") &&
+        !clickedItem.classList.contains("tag-responsible")
+      ) {
         clickedItem.parentElement.classList.add("bg-secondary");
+        clickedItem.parentElement
+          .querySelector(".delete-event")
+          .classList.remove("close-event");
+      } else if (
+        !clickedItem.classList.contains("tags-responsible") &&
+        !clickedItem.classList.contains("tag-responsible")
+      ) {
+        clickedItem.parentElement.parentElement.classList.add("bg-secondary");
+        clickedItem.parentElement.parentElement
+          .querySelector(".delete-event")
+          .classList.remove("close-event");
       }
+      console.log(clickedItem.className);
     });
   });
 }
