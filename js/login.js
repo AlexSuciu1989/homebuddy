@@ -76,7 +76,7 @@ function enterLandingPage() {
   const doneButton = document.querySelector(".select-member");
 
   doneButton.addEventListener("click", function () {
-    window.location.href = "http://127.0.0.1:5500/account.html";
+    window.location.href = "alexsuciu1989.github.io/account.html";
   });
 }
 
