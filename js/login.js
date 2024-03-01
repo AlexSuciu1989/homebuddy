@@ -76,7 +76,7 @@ function enterLandingPage() {
   const doneButton = document.querySelector(".select-member");
 
   doneButton.addEventListener("click", function () {
-    window.location.href = "alexsuciu1989.github.io/account.html";
+    window.location.href = "https://alexsuciu1989.github.io/homebuddy/account.html";
   });
 }
 
