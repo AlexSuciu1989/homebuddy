@@ -30,9 +30,9 @@ async function sendToast() {
   }
 }
 
-export function toggleToast() {
+export const toggleToast = () => {
   document.querySelector(".my-toast").classList.remove("hidden");
   setTimeout(function () {
     document.querySelector(".my-toast").classList.add("hidden");
   }, 5000);
-}
+};

@@ -1,4 +1,38 @@
-// import { toggleToast } from "./toasts";
+function addMemberNameToToast() {
+  document.querySelector(".toast-user").textContent = getCookie("member");
+}
+
+async function sendToast() {
+  const userName = getCookie("username");
+  const familyMember = getCookie("member");
+  const dateTime = document.querySelector(".toast-time").textContent;
+  const toastContent = document.querySelector(".toast-content").textContent;
+
+  const toast = {
+    user: userName,
+    member: familyMember,
+    date: dateTime,
+    content: toastContent,
+  };
+  console.log(toast);
+  try {
+    const response = await fetch("https://homebuddy.ro/php/toast-to-sql.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(toast),
+    });
+
+    if (response.ok) {
+      console.log(await response.text());
+    } else {
+      console.error("Failed to submit data");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 function displayRepeatingEvent() {
   const recurenta = document.querySelector(".new-recurenta");
@@ -132,6 +166,20 @@ function deleteEvent() {
         if (response.ok) {
           console.log(await response.text());
           e.target.parentElement.parentElement.remove();
+
+          const dateAndTime = new Date();
+          var formattedDateTime = dateAndTime.toLocaleString();
+          document.querySelector(".toast-time").textContent = formattedDateTime;
+          const toastText = document.querySelector(".toast-content");
+          toastText.textContent =
+            "Deleted the event <" +
+            e.target.parentElement.textContent +
+            "> from the Agenda";
+          sendToast();
+          document.querySelector(".my-toast").classList.remove("hidden");
+          setTimeout(function () {
+            document.querySelector(".my-toast").classList.add("hidden");
+          }, 5000);
         } else {
           console.error("Failed to submit data");
         }
@@ -449,7 +497,21 @@ function saveEventData() {
 
       if (response.ok) {
         console.log(await response.text());
-        // location.reload();
+        const dateAndTime = new Date();
+        var formattedDateTime = dateAndTime.toLocaleString();
+        document.querySelector(".toast-time").textContent = formattedDateTime;
+        const toastText = document.querySelector(".toast-content");
+        toastText.textContent =
+          "Added the event <" +
+          document.querySelector(".new-event-body").value +
+          "> in the Agenda for date " +
+          document.querySelector(".new-date").value;
+        sendToast();
+        document.querySelector(".my-toast").classList.remove("hidden");
+        setTimeout(function () {
+          document.querySelector(".my-toast").classList.add("hidden");
+          location.reload();
+        }, 5000);
       } else {
         console.error("Failed to submit data");
       }
@@ -462,6 +524,7 @@ function saveEventData() {
 document.addEventListener("DOMContentLoaded", function () {
   getUserColorsArray();
   getUserGreeting();
+  addMemberNameToToast();
   saveEventData();
   bootstrapModal();
   addDate();
@@ -471,5 +534,6 @@ document.addEventListener("DOMContentLoaded", function () {
   displayRepeatingEvent();
   addRemoveTags();
   addRemoveResponsible();
+
   logout();
 });
