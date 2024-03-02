@@ -172,9 +172,9 @@ function deleteEvent() {
           document.querySelector(".toast-time").textContent = formattedDateTime;
           const toastText = document.querySelector(".toast-content");
           toastText.textContent =
-            "Deleted the event <" +
+            "Deleted one event (" +
             e.target.parentElement.textContent +
-            "> from the Agenda";
+            ") from the Agenda";
           sendToast();
           document.querySelector(".my-toast").classList.remove("hidden");
           setTimeout(function () {
@@ -203,56 +203,102 @@ function getEvents() {
       dataRetrieved.forEach((data) => {
         // console.log(data.eventdate);
         let dateObject = new Date(data.eventdate);
-        let year = dateObject.getFullYear();
-        let month = ("0" + (dateObject.getMonth() + 1)).slice(-2); // Ensure two-digit month
-        let day = ("0" + dateObject.getDate()).slice(-2); // Ensure two-digit day
-        let formattedDate = year + "-" + month + "-" + day;
-        const container = document.querySelector("#event-" + formattedDate);
-        let tagsHTML = "";
-        data.tagevent.split(", ").forEach((tag) => {
-          const tagElement = document.getElementById(tag);
-          if (tagElement) {
-            tagsHTML += `<span class="${tagElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${tagElement.textContent}</span>`;
-          }
-        });
-
-        let responsibleHTML = "";
-        data.membru.split(", ").forEach((responsible) => {
-          const responsibleElement = document.getElementById(responsible);
-          if (responsibleElement) {
-            responsibleHTML += `<span class="${responsibleElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${responsibleElement.textContent}</span>`;
-          }
-        });
-
-        if (container) {
-          const eventNew = document.createElement("div");
-          eventNew.id = data.id;
-          eventNew.className = "m-1 p-1 text-white event container";
-          eventNew.innerHTML =
-            "<input class='form-check-input me-2 mark-event' type='checkbox'>" +
-            data.addedevent +
-            "<button type='button' class='btn-close close-event ms-3 delete-event' aria-label='Close'></button>";
-          //   console.log(formattedDate)
-
-          const subContainer = document.createElement("div");
-          subContainer.className =
-            "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white event d-flex flex-column align-items-start event";
-
-          const eventNewMeta = document.createElement("div");
-          eventNewMeta.className = "align-self-end tags-responsible";
-          eventNewMeta.innerHTML =
-            "<span class='fs-7 lh-lg tag-responsible'>Tags: </span>" +
-            tagsHTML +
-            "<span class='fs-7 lh-lg tag-responsible'>  Responsible: </span>" +
-            responsibleHTML;
-
-          subContainer.append(eventNew, eventNewMeta);
-          container.appendChild(subContainer);
-
-          if (data.eventstatus === "true") {
-            eventNew.querySelector(".mark-event").checked = true;
-          }
+        // let formattedDate = year + "-" + month + "-" + day;
+        let recurenta = data.recurenta;
+        let ArrayRecurenta;
+        if (recurenta === "" || recurenta === "0" || recurenta === 0) {
+          recurenta = 0;
         }
+        recurenta = parseInt(recurenta);
+        console.log(recurenta);
+        if (recurenta !== 0) {
+          ArrayRecurenta = Array.from(
+            { length: 30 },
+            (_, index) => index * recurenta
+          );
+        } else {
+          ArrayRecurenta = [0];
+        }
+        console.log(ArrayRecurenta);
+        ArrayRecurenta.forEach((recurentItem) => {
+          let year = dateObject.getFullYear();
+          let month = ("0" + (dateObject.getMonth() + 1)).slice(-2); // Ensure two-digit month
+          let day = ("0" + dateObject.getDate()).slice(-2); // Ensure two-digit day
+
+          if (data.unitate === "days") {
+            // day = ("0" + (dateObject.getDate() + recurentItem)).slice(-2); // Ensure two-digit day
+            dateObject.setDate(dateObject.getDate() + recurenta);
+          } else if (data.unitate === "weeks") {
+            dateObject.setDate(dateObject.getDate() + (recurenta + 6));
+          } else if (data.unitate === "months") {
+            dateObject.setMonth(dateObject.getMonth() + recurenta);
+          } else if (data.unitate === "years") {
+            year = dateObject.getFullYear() + recurenta;
+          }
+          let formattedDate = year + "-" + month + "-" + day;
+
+          const container = document.querySelector("#event-" + formattedDate);
+          let tagsHTML = "";
+          data.tagevent.split(", ").forEach((tag) => {
+            const tagElement = document.getElementById(tag);
+            if (tagElement) {
+              tagsHTML += `<span class="${tagElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${tagElement.textContent}</span>`;
+            }
+          });
+
+          let responsibleHTML = "";
+          data.membru.split(", ").forEach((responsible) => {
+            const responsibleElement = document.getElementById(responsible);
+            if (responsibleElement) {
+              responsibleHTML += `<span class="${responsibleElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${responsibleElement.textContent}</span>`;
+            }
+          });
+
+          if (container) {
+            const eventNew = document.createElement("div");
+            eventNew.id = data.id;
+            eventNew.className = "m-1 p-1 text-white event container";
+            eventNew.innerHTML =
+              "<input class='form-check-input me-2 mark-event' type='checkbox'>" +
+              data.addedevent +
+              "<button type='button' class='btn-close close-event ms-3 delete-event' aria-label='Close'></button>";
+            //   console.log(formattedDate)
+
+            const subContainer = document.createElement("div");
+            subContainer.className =
+              "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white event d-flex flex-column align-items-start event";
+
+            const eventNewMeta = document.createElement("div");
+            eventNewMeta.className = "align-self-end tags-responsible";
+            eventNewMeta.innerHTML =
+              "<span class='fs-7 lh-lg tag-responsible'>Tags: </span>" +
+              tagsHTML +
+              "<span class='fs-7 lh-lg tag-responsible'>  Responsible: </span>" +
+              responsibleHTML;
+
+            subContainer.append(eventNew, eventNewMeta);
+            container.appendChild(subContainer);
+
+            if (data.eventstatus === "true") {
+              eventNew.querySelector(".mark-event").checked = true;
+            }
+
+            const upcomingEvents = document.createElement("div");
+            upcomingEvents.id = data.id;
+            upcomingEvents.className =
+              "card ms-5 m-1 p-1 bg-secondary bg-opacity-25 text-white d-flex flex-row align-items-center";
+            upcomingEvents.innerHTML =
+              "<div class='card me-4 m-1 p-1 bg-white text-secondary'>" +
+              formattedDate +
+              "</div>" +
+              data.addedevent;
+            if (data.addedevent !== "") {
+              document
+                .querySelector(".upcoming-events")
+                .appendChild(upcomingEvents);
+            }
+          }
+        });
       });
       targetEvent();
       deleteEvent();
@@ -457,7 +503,7 @@ function saveEventData() {
 
   saveBtn.addEventListener("click", async function () {
     const tagsArray = [];
-
+    document.querySelector(".loadingscreen").classList.remove("hidden");
     const tags = document.querySelectorAll(".new-event-tag .new-badge-item");
 
     tags.forEach((tag) => {
@@ -502,16 +548,17 @@ function saveEventData() {
         document.querySelector(".toast-time").textContent = formattedDateTime;
         const toastText = document.querySelector(".toast-content");
         toastText.textContent =
-          "Added the event <" +
+          "Added one event (" +
           document.querySelector(".new-event-body").value +
-          "> in the Agenda for date " +
+          ") in the Agenda for date " +
           document.querySelector(".new-date").value;
         sendToast();
         document.querySelector(".my-toast").classList.remove("hidden");
         setTimeout(function () {
           document.querySelector(".my-toast").classList.add("hidden");
+          document.querySelector(".loadingscreen").classList.add("hidden");
           location.reload();
-        }, 5000);
+        }, 3000);
       } else {
         console.error("Failed to submit data");
       }

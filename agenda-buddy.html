@@ -41,8 +41,8 @@
 
     <div class="container bg-primary  bg-gradient bg-opacity-25 rounded">
  
-        <div class="row">
-            <div class="col-md-4">
+        <div class="row ">
+            <div class="col-md-4 calendar">
                 <div class="card text-muted bg-primary bg-opacity-25  p-1 my-2  calendar column31">31</div>
                 <div class="card text-muted bg-primary bg-opacity-25  p-1 my-2  calendar column30">30</div>
                 <div class="card text-muted bg-primary bg-opacity-25  p-1 my-2  calendar column29">29</div>
@@ -74,11 +74,13 @@
                 <div class="card  p-1 my-2 bg-primary bg-opacity-25 calendar column3">3</div>
                 <div class="card  p-1 my-2 bg-primary bg-opacity-25 calendar column2">2</div>
                 <div class="card  p-1 my-2 bg-primary bg-opacity-25 calendar column1">1</div>
+                <div class="loadingscreen hidden"> <span class="loader"></span> </div>
             </div>
-            <div class="col-md-6 mx-auto my-3">
-                <h3 class="text-center text-secondary">Toughts for today</h3>
-                <textarea name="" id="" cols="40" rows="15" class="form-control bg-secondary bg-opacity-25"></textarea>
+            <div class="col-md-6 mx-auto my-3 list-events">
+                <h3 class="text-center text-secondary">Your upcoming events</h3>
+                <div class="upcoming-events"></div>
             </div>
+            
         </div>
 
         <div class="modal fade" tabindex="-1">
@@ -147,6 +149,8 @@
             <div class="toast-content"></div>
             <div class="toast-account" style="display: none"></div>
           </section>
+
+          
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
