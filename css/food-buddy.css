@@ -296,6 +296,11 @@ article .recipe-tags{
     
 }
 
+.new-recipe-plus-btn{
+    width: 50px;
+    height: 50px;
+}
+
 .add-new-recipe input{
     display: flex;
     justify-content: center;
@@ -323,7 +328,7 @@ article .recipe-tags{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width:400px;
+    width:600px;
     background-color: white;
     border: 1px solid black;
     margin-left: auto;
@@ -678,6 +683,7 @@ article:hover > .sidebar-add{
     font-size: 14px;
 }
 
+
 @media screen and (max-width: 1300px) {
     #s1:checked~.week-cards #slide5,
 #s2:checked~.week-cards #slide6,
@@ -783,9 +789,9 @@ article:hover > .sidebar-add{
 }
 
 
-.recipe-form{
+/* .recipe-form{
     width:300px;
-}
+} */
 
 
 }

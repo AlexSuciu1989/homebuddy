@@ -14,6 +14,10 @@
 //   });
 // }
 
+import { newIngredientLine } from "./food-buddy/ingredients.js";
+import { saveIngredients } from "./food-buddy/ingredients.js";
+import { getIngredients } from "./food-buddy/ingredients.js";
+
 function logout() {
   const logoutButton = document.querySelector(".logout");
 
@@ -856,6 +860,9 @@ document.addEventListener("DOMContentLoaded", function () {
   saveRecipeToSQL();
   getRecipefromSQL();
   saveWeekmenuToSQL();
+  newIngredientLine();
+  saveIngredients();
+  getIngredients();
   // setupCarousel();
   logout();
   // selectWeekday()
