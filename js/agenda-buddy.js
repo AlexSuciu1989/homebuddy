@@ -1,3 +1,22 @@
+function getMembersToForm() {
+  const familyMembers = getCookie("memberNames").split(",");
+
+  familyMembers.forEach((member) => {
+    const memberContainer = document.createElement("span");
+    memberContainer.className =
+      "badge py-2 fw-light text-white new-badge-responsible  mx-1";
+    memberContainer.id = member;
+    memberContainer.innerHTML = member;
+
+    const memberColor = getUserColorsArray()[member];
+    memberContainer.style.backgroundColor = memberColor;
+
+    document
+      .querySelector(".new-event-responsible-list")
+      .appendChild(memberContainer);
+  });
+}
+
 function addMemberNameToToast() {
   document.querySelector(".toast-user").textContent = getCookie("member");
 }
@@ -88,6 +107,7 @@ function addRemoveResponsible() {
       addedResponsible.classList = responsibleClass;
       addedResponsible.innerHTML =
         responsibleName + "<button class='btn-close tag-close-btn'></button>";
+      addedResponsible.style.backgroundColor = e.target.style.backgroundColor;
 
       document
         .querySelector(".new-event-responsible")
@@ -150,42 +170,55 @@ function deleteEvent() {
     item.addEventListener("click", async (e) => {
       const clickedItemID = e.target.parentElement.id;
 
-      console.log("the id is " + clickedItemID);
+      const myModal = document.querySelector(".delete-confirmation");
+      const myInput = item;
 
-      try {
-        const response = await fetch(
-          "https://homebuddy.ro/php/agenda-delete-from-sql.php",
-          {
-            method: "DELETE",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(clickedItemID),
+      myModal.addEventListener("shown.bs.modal", () => {
+        myInput.focus();
+      });
+
+      const deletionConfirmation = document.querySelector(
+        ".delete-event-confirmation"
+      );
+      deletionConfirmation.addEventListener("click", async () => {
+        // console.log("the id is " + clickedItemID);
+
+        try {
+          const response = await fetch(
+            "https://homebuddy.ro/php/agenda-delete-from-sql.php",
+            {
+              method: "DELETE",
+              headers: {
+                "Content-type": "application/json",
+              },
+              body: JSON.stringify(clickedItemID),
+            }
+          );
+          if (response.ok) {
+            console.log(await response.text());
+            e.target.parentElement.parentElement.remove();
+
+            const dateAndTime = new Date();
+            var formattedDateTime = dateAndTime.toLocaleString();
+            document.querySelector(".toast-time").textContent =
+              formattedDateTime;
+            const toastText = document.querySelector(".toast-content");
+            toastText.textContent =
+              "Deleted one event (" +
+              e.target.parentElement.textContent +
+              ") from the Agenda";
+            sendToast();
+            document.querySelector(".my-toast").classList.remove("hidden");
+            setTimeout(function () {
+              document.querySelector(".my-toast").classList.add("hidden");
+            }, 5000);
+          } else {
+            console.error("Failed to submit data");
           }
-        );
-        if (response.ok) {
-          console.log(await response.text());
-          e.target.parentElement.parentElement.remove();
-
-          const dateAndTime = new Date();
-          var formattedDateTime = dateAndTime.toLocaleString();
-          document.querySelector(".toast-time").textContent = formattedDateTime;
-          const toastText = document.querySelector(".toast-content");
-          toastText.textContent =
-            "Deleted one event (" +
-            e.target.parentElement.textContent +
-            ") from the Agenda";
-          sendToast();
-          document.querySelector(".my-toast").classList.remove("hidden");
-          setTimeout(function () {
-            document.querySelector(".my-toast").classList.add("hidden");
-          }, 5000);
-        } else {
-          console.error("Failed to submit data");
+        } catch (error) {
+          console.error("Error:", error);
         }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      });
     });
   });
 }
@@ -261,7 +294,7 @@ function getEvents() {
             eventNew.innerHTML =
               "<input class='form-check-input me-2 mark-event' type='checkbox'>" +
               data.addedevent +
-              "<button type='button' class='btn-close close-event ms-3 delete-event' aria-label='Close'></button>";
+              "<button type='button' class='btn-close close-event ms-3 delete-event' aria-label='Close' data-bs-toggle='modal' data-bs-target='#delete-confirmation'></button>";
             //   console.log(formattedDate)
 
             const subContainer = document.createElement("div");
@@ -480,7 +513,7 @@ function getUserGreeting() {
 }
 
 function bootstrapModal() {
-  const myModal = document.querySelector(".modal");
+  const myModal = document.querySelector(".add-new-modal");
   const myInput = document.querySelector(".add-event");
 
   myModal.addEventListener("shown.bs.modal", () => {
@@ -578,6 +611,7 @@ document.addEventListener("DOMContentLoaded", function () {
   getEvents();
   // targetEvent();
   // deleteEvent();
+  getMembersToForm();
   displayRepeatingEvent();
   addRemoveTags();
   addRemoveResponsible();

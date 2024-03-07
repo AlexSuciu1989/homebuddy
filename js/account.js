@@ -132,6 +132,7 @@ function retrieveAccountInformation() {
       console.log(dataRetrieved);
 
       document.querySelector(".phone-number").value = dataRetrieved[0].telefon;
+      document.querySelector(".email-adress").value = dataRetrieved[0].email;
 
       const memberNames = document.querySelectorAll(
         ".member0, .member1, .member2, .member3"

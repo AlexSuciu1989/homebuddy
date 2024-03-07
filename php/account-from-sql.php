@@ -10,7 +10,7 @@ if (isset($_GET['loggedUser'])) {
     $storedUsername = $_GET['loggedUser'];
 
     // Use prepared statement to prevent SQL injection
-    $sql = "SELECT telefon, membru1, membru2, membru3, membru4 FROM logintable WHERE account = ?";
+    $sql = "SELECT telefon, membru1, membru2, membru3, membru4, email FROM logintable WHERE account = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $storedUsername);
     $stmt->execute();
