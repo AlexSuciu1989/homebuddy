@@ -118,17 +118,17 @@ async function sendToast() {
   }
 }
 
-function selectWeekday() {
-  const container = document.querySelector(".week-cards");
-  container.addEventListener("click", function (event) {
-    const weekdays = document.querySelectorAll(".weekday-container");
-    weekdays.forEach((weekday) => {
-      weekday.classList.remove("checked");
-    });
-    const selectedWeekday = event.target;
-    selectedWeekday.classList.add("checked");
-  });
-}
+// function selectWeekday() {
+//   const container = document.querySelector(".week-cards");
+//   container.addEventListener("click", function (event) {
+//     const weekdays = document.querySelectorAll(".weekday-container");
+//     weekdays.forEach((weekday) => {
+//       weekday.classList.remove("checked");
+//     });
+//     const selectedWeekday = event.target;
+//     selectedWeekday.classList.add("checked");
+//   });
+// }
 
 //Done
 function viewRecipeForm() {
@@ -225,8 +225,15 @@ function saveRecipeToSQL() {
     const formDificulty = document.getElementById("form-dificulty").value;
     const formTextarea = document.getElementById("form-textarea").value;
     const formImage = document.getElementById("fileInput");
-    let files = formImage.files;
-    let fileName = files[0].name;
+    let fileName;
+
+    if (formImage == null || formImage.files.length === 0) {
+      fileName = "default-recipe-image.jpg";
+    } else {
+      let files = formImage.files;
+      let fileNameExtension = files[0].name.split(".").pop();
+      fileName = formTitle.replace(/\s+/g, "_") + "." + fileNameExtension;
+    }
     const userName = getCookie("username");
 
     const recipeObject = {
@@ -277,25 +284,39 @@ function saveRecipeToSQL() {
 
     //incarc imaginea pe server
     const fileInput = document.getElementById("fileInput");
-    const file = fileInput.files[0];
 
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      fetch("https://homebuddy.ro/php/food-buddy-file-upload.php", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("File uploaded:", data);
-        })
-        .catch((error) => {
-          console.error("Error uploading file:", error);
-        });
+    if (fileInput == null || fileInput.files.length === 0) {
+      fileName = "default-recipe-image.jpg";
     } else {
-      console.error("No file selected.");
+      let files = formImage.files;
+      let fileNameExtension = files[0].name.split(".").pop();
+      fileName = formTitle.replace(/\s+/g, "_") + "." + fileNameExtension;
+
+      const file = fileInput.files[0];
+      const fileExtension = file.name.split(".").pop(); // Get the original file extension
+      let imageUploadName = document.querySelector(".form-title").value;
+      imageUploadName =
+        imageUploadName.replace(/\s+/g, "_") + "." + fileExtension;
+
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("imageUploadName", imageUploadName);
+
+        fetch("https://homebuddy.ro/php/food-buddy-file-upload.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("File uploaded:", data);
+          })
+          .catch((error) => {
+            console.error("Error uploading file:", error);
+          });
+      } else {
+        console.error("No file selected.");
+      }
     }
   });
 }
@@ -304,7 +325,7 @@ function saveRecipeToSQL() {
 function openRecipe() {
   const recipesContainer = document.querySelectorAll(".view-recipe");
   const formContainer = document.querySelector("#recipe-form");
-
+  getIngredients();
   recipesContainer.forEach(function (recipeContainer) {
     recipeContainer.addEventListener("click", function (event) {
       const selectedRecipeCard = event.target;
@@ -364,7 +385,7 @@ function getRecipefromSQL() {
         let element = data[key];
 
         const newImage = document.createElement("img");
-        newImage.src = "./uploads/" + element.uploadedfile;
+        newImage.src = "https://homebuddy.ro/uploads/" + element.uploadedfile;
         newImage.className = "recipe-image";
 
         const newArticle = document.createElement("article");
@@ -652,7 +673,7 @@ async function fetchAndDisplayWeeklyMenu() {
   const loggedUser = getCookie("username");
   try {
     const weeknumber = document.querySelector(".weekno").innerHTML.trim();
-    console.log(weeknumber);
+    // console.log(weeknumber);
 
     // First fetch request
     const response = await fetch(
@@ -678,9 +699,14 @@ async function fetchAndDisplayWeeklyMenu() {
       for (let i = 0; i < weekId.length; i++) {
         let weekIdValue = weekId[i];
         const result = extractObjects(responseData, weekIdValue);
-        let resultArr = result[0].split(",");
-        if (resultArr == undefined) {
+        let resultArr;
+        if (result == "") {
           resultArr = "";
+        } else {
+          resultArr = result[0].split(",");
+          if (resultArr == undefined) {
+            resultArr = "";
+          }
         }
         //console.log(resultArr);
 
@@ -746,6 +772,7 @@ async function weekNumberArrows() {
       ) {
         weekNumber = weekNumber - 1;
         clearContainers();
+        getIngredients();
         const dateInterval = getDateIntervalFromWeekNo(year, weekNumber);
         console.log(
           `Week ${weekNumber} of ${year} starts on ${dateInterval.start} and ends on ${dateInterval.end}`
@@ -758,6 +785,7 @@ async function weekNumberArrows() {
       ) {
         weekNumber = weekNumber + 1;
         clearContainers();
+        getIngredients();
         const dateInterval = getDateIntervalFromWeekNo(year, weekNumber);
         siteDateInterval.innerHTML = `${dateInterval.start} - ${dateInterval.end}`;
 
@@ -769,6 +797,7 @@ async function weekNumberArrows() {
         year = today.getFullYear() - 1;
         console.log(year);
         clearContainers();
+        getIngredients();
         const dateInterval = getDateIntervalFromWeekNo(year, weekNumber);
         siteDateInterval.innerHTML = `${dateInterval.start} - ${dateInterval.end}`;
       }
@@ -836,6 +865,8 @@ function saveWeekmenuToSQL() {
           document.querySelector(".weekno").textContent +
           ".";
         sendToast();
+        getIngredients();
+
         document.querySelector(".my-toast").classList.remove("hidden");
         setTimeout(function () {
           document.querySelector(".my-toast").classList.add("hidden");
@@ -862,7 +893,7 @@ document.addEventListener("DOMContentLoaded", function () {
   saveWeekmenuToSQL();
   newIngredientLine();
   saveIngredients();
-  getIngredients();
+  // getIngredients();
   // setupCarousel();
   logout();
   // selectWeekday()

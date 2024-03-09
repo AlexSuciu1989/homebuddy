@@ -4,15 +4,26 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Origin: *");
 $targetDirectory = "../uploads/";
 
+// Retrieve the new filename from the POST request
+$imageUploadName = isset($_POST["imageUploadName"]) ? $_POST["imageUploadName"] : null;
+
+// Validate and sanitize the new filename
+if ($imageUploadName === null || $imageUploadName === "") {
+    echo json_encode(['error' => 'New filename is missing or empty']);
+    http_response_code(400); // Bad Request
+    exit;
+}
+
+// Construct the new target file path
+$targetFile = $targetDirectory . $imageUploadName;
+
 // Validate and sanitize file name
 $fileName = basename($_FILES["file"]["name"]);
-$targetFile = $targetDirectory . $fileName;
+$fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
 // Check file type and size (example: allow only JPEG and PNG images less than 5MB)
 $allowedFileTypes = ["jpg", "jpeg", "png"];
 $maxFileSize = 5 * 1024 * 1024; // 5 MB
-
-$fileExtension = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
 if (!in_array($fileExtension, $allowedFileTypes) || $_FILES["file"]["size"] > $maxFileSize) {
     echo json_encode(['error' => 'Invalid file type or size']);

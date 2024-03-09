@@ -61,22 +61,22 @@ export const saveIngredients = async () => {
 export const getIngredients = async () => {
   const loggedUser = getCookie("username");
 
-  let myingredients;
-  let responseData;
-
-  fetch(
-    "https://homebuddy.ro/php/food-ingredients-from-sql.php?loggedUser=" +
-      encodeURIComponent(loggedUser)
-  )
-    .then((response) => response.json())
-    .then((ingredients) => {
-      myingredients = ingredients;
-    });
-
   try {
-    const weeknumber = document.querySelector(".weekno").innerHTML.trim();
-
+    // Fetch ingredients data
     const response = await fetch(
+      "https://homebuddy.ro/php/food-ingredients-from-sql.php?loggedUser=" +
+        encodeURIComponent(loggedUser)
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch ingredient data");
+    }
+
+    const ingredients = await response.json();
+
+    // Fetch week menu data
+    const weeknumber = document.querySelector(".weekno").innerHTML.trim();
+    const weekMenuResponse = await fetch(
       "https://homebuddy.ro/php/food-buddy-weekmenu-from-sql.php?loggedUser=" +
         encodeURIComponent(loggedUser),
       {
@@ -90,75 +90,110 @@ export const getIngredients = async () => {
       }
     );
 
-    if (response.ok) {
-      responseData = await response.json();
-    } else {
-      console.error("Failed to submit data");
+    if (!weekMenuResponse.ok) {
+      throw new Error("Failed to fetch week menu data");
+    }
+
+    const weekMenuData = await weekMenuResponse.json();
+
+    // Process ingredients and week menu data
+    const myingredients = ingredients;
+    const weeklyRecipesArray = [];
+    const weekdays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
+    weekdays.forEach((weekday) => {
+      const weeklyRecipesItem = weekMenuData[0][weekday];
+
+      if (weeklyRecipesItem.includes(",")) {
+        const splitRecipes = weeklyRecipesItem.split(",");
+        splitRecipes.forEach((recipe) => {
+          if (recipe.trim() !== "") {
+            weeklyRecipesArray.push(recipe.trim());
+          }
+        });
+      } else {
+        if (weeklyRecipesItem.trim() !== "") {
+          weeklyRecipesArray.push(weeklyRecipesItem.trim());
+        }
+      }
+    });
+    const ingredientSumMap = {};
+    let ingredientsForIndividualRecipes = [];
+    weeklyRecipesArray.forEach((recipe) => {
+      const ingredientsForRecipe = myingredients.filter(
+        (item) => item.reteta === recipe
+      );
+      ingredientsForIndividualRecipes.push(...ingredientsForRecipe);
+      ingredientsForRecipe.forEach((ingredient) => {
+        const key = `${ingredient.numeingredient} (${ingredient.unitateingredient})`;
+        if (!ingredientSumMap[key]) {
+          ingredientSumMap[key] = parseFloat(ingredient.cantitateingredient);
+        } else {
+          ingredientSumMap[key] += parseFloat(ingredient.cantitateingredient);
+        }
+      });
+    });
+
+    const uniqueIngredients = removeDuplicates(ingredientsForIndividualRecipes);
+    // for (const key in ingredientSumMap) {
+    //   console.log(`${key}: ${ingredientSumMap[key]}`);
+    // }
+    console.log(uniqueIngredients);
+    document.querySelector(".recipes-ingredients-summary").innerHTML = "";
+
+    let groupedIngredients = {};
+    uniqueIngredients.forEach((ingredient) => {
+      if (!groupedIngredients[ingredient.reteta]) {
+        groupedIngredients[ingredient.reteta] = [];
+      }
+      groupedIngredients[ingredient.reteta].push({
+        numeingredient: ingredient.numeingredient,
+        cantitateingredient: ingredient.cantitateingredient,
+        unitateingredient: ingredient.unitateingredient,
+      });
+    });
+
+    for (let reteta in groupedIngredients) {
+      let ingredientRecipe = document.createElement("div");
+      ingredientRecipe.className = "card m-2 col-md-5 col-lg-4 col-xl-3 p-3 ";
+      ingredientRecipe.innerHTML = `<h5 class="card-title text-primary">${reteta}</h5><hr>`;
+      groupedIngredients[reteta].forEach((ingredient) => {
+        let div = document.createElement("div");
+        div.className = "ps-2 text-muted";
+        div.innerHTML = `${ingredient.numeingredient}: ${ingredient.cantitateingredient} ${ingredient.unitateingredient}`;
+        ingredientRecipe.appendChild(div);
+      });
+      document
+        .querySelector(".recipes-ingredients-summary")
+        .appendChild(ingredientRecipe);
+    }
+
+    console.log(ingredientSumMap);
+    document.querySelector(".ingredient-list").innerHTML = "";
+    for (const ingredient in ingredientSumMap) {
+      const quantity = ingredientSumMap[ingredient];
+
+      const ingredientContainer = document.createElement("li");
+      ingredientContainer.className = "list-group-item bg-secondary text-white";
+      ingredientContainer.textContent = `${ingredient}: ${quantity}`;
+
+      document
+        .querySelector(".ingredient-list")
+        .appendChild(ingredientContainer);
     }
   } catch (error) {
     console.error("Error:", error);
+    document.querySelector(".ingredient-list").innerHTML = "";
   }
-
-  // console.log(myingredients);
-  // console.log(responseData);
-  const weeklyRecipesArray = [];
-  const weekdays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
-
-  weekdays.forEach((weekday) => {
-    const weeklyRecipesItem = responseData[0][weekday];
-
-    if (weeklyRecipesItem.includes(",")) {
-      const splitRecipes = weeklyRecipesItem.split(",");
-      splitRecipes.forEach((recipe) => {
-        if (recipe.trim() !== "") {
-          weeklyRecipesArray.push(recipe.trim());
-        }
-      });
-    } else {
-      if (weeklyRecipesItem.trim() !== "") {
-        weeklyRecipesArray.push(weeklyRecipesItem.trim());
-      }
-    }
-  });
-
-  // console.log(weeklyRecipesArray);
-  // console.log(myingredients);
-
-  const recipeIngredientsMap = {};
-
-  // Iterate over the weeklyRecipesArray to populate the recipeIngredientsMap
-  weeklyRecipesArray.forEach((recipe) => {
-    const ingredientsForRecipe = myingredients.filter(
-      (item) => item.reteta === recipe
-    );
-    recipeIngredientsMap[recipe] = ingredientsForRecipe;
-  });
-  // Create an object to store the sum of quantities for each distinct combination of numeingredient and unitateingredient
-  const ingredientSumMap = {};
-
-  // Iterate over each recipe in recipeIngredientsMap
-  for (const recipe in recipeIngredientsMap) {
-    // Get the ingredients array for the current recipe
-    const ingredients = recipeIngredientsMap[recipe];
-
-    // Iterate over each ingredient in the ingredients array
-    for (const ingredient of ingredients) {
-      // Create a key using the combination of numeingredient and unitateingredient
-      const key = `${ingredient.numeingredient} (${ingredient.unitateingredient})`;
-
-      // If the key doesn't exist in the ingredientSumMap, initialize it with the current quantity
-      if (!ingredientSumMap[key]) {
-        ingredientSumMap[key] = parseFloat(ingredient.cantitateingredient);
-      } else {
-        // If the key already exists, add the current quantity to the existing sum
-        ingredientSumMap[key] += parseFloat(ingredient.cantitateingredient);
-      }
-    }
-  }
-
-  // Output the sum for each distinct combination of numeingredient and unitateingredient
-  for (const key in ingredientSumMap) {
-    console.log(`${key}: ${ingredientSumMap[key]}`);
-  }
-  console.log(ingredientSumMap);
 };
+
+function removeDuplicates(array) {
+  let unique = {};
+  array.forEach((item) => {
+    let key = item.reteta + item.numeingredient;
+    if (!unique[key]) {
+      unique[key] = item;
+    }
+  });
+  return Object.values(unique);
+}

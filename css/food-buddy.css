@@ -564,7 +564,7 @@ article:hover > .sidebar-add{
     margin-top: 24px;
 
 }
-.submit-weekmenu{
+/* .submit-weekmenu{
     background: var(--orange-gradient);
     color: white;
     border:none;
@@ -578,7 +578,9 @@ article:hover > .sidebar-add{
     background: white;
     color: var(--orange);
     cursor: pointer;
-}
+} */
+
+
 
 .recipe-image{
     width:100%;
