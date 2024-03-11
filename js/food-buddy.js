@@ -17,6 +17,7 @@
 import { newIngredientLine } from "./food-buddy/ingredients.js";
 import { saveIngredients } from "./food-buddy/ingredients.js";
 import { getIngredients } from "./food-buddy/ingredients.js";
+import { addIngredientsToViewRecipe } from "./food-buddy/ingredients.js";
 
 function logout() {
   const logoutButton = document.querySelector(".logout");
@@ -169,6 +170,15 @@ function cancelRecipeForm() {
         formContainer.querySelector("#form-category").disabled = false;
         formContainer.querySelector("#form-dificulty").value = "";
         formContainer.querySelector("#form-dificulty").disabled = false;
+
+        const existingIngredients = document.querySelectorAll(
+          ".new-recipe-ingredient-view"
+        );
+        existingIngredients.forEach((ingredient) => {
+          ingredient.remove();
+        });
+
+        document.querySelector(".new-recipe-ingredient").style.display = "flex";
       }
     });
 }
@@ -322,12 +332,20 @@ function saveRecipeToSQL() {
 }
 
 //Done
-function openRecipe() {
+async function openRecipe() {
   const recipesContainer = document.querySelectorAll(".view-recipe");
   const formContainer = document.querySelector("#recipe-form");
-  getIngredients();
+
   recipesContainer.forEach(function (recipeContainer) {
-    recipeContainer.addEventListener("click", function (event) {
+    recipeContainer.addEventListener("click", async function (event) {
+      const existingIngredients = document.querySelectorAll(
+        ".new-recipe-ingredient-view"
+      );
+      existingIngredients.forEach((ingredient) => {
+        ingredient.remove();
+      });
+
+      document.querySelector(".new-recipe-ingredient").style.display = "none";
       const selectedRecipeCard = event.target;
       const formImagePopulated =
         selectedRecipeCard.parentElement.querySelector("img");
@@ -340,6 +358,12 @@ function openRecipe() {
       const formDificultatePopulated =
         selectedRecipeCard.parentElement.querySelector(".recipe-dif");
 
+      // Wait for the ingredients to be added to the view recipe
+      const viewRecipeIngredients = await addIngredientsToViewRecipe(
+        formTitlePopulated.textContent
+      );
+
+      // Rest of your code to populate the form and adjust its appearance
       document.querySelector("#recipe-form").style.visibility = "visible";
       window.scroll({
         top: 0,
@@ -368,6 +392,13 @@ function openRecipe() {
           ""
         );
       formContainer.querySelector("#form-dificulty").disabled = true;
+
+      viewRecipeIngredients.forEach((ingredient) => {
+        const newLine = document.createElement("div");
+        newLine.className = "new-recipe-ingredient-view input-group p-1";
+        newLine.innerHTML = `<input type='text' class='new-recipe-ingredient-name form-control form-control-sm text-center' value='${ingredient.numeingredient}' disabled/> <input type='number' class='new-recipe-ingredient-quantity form-control form-control-sm  text-center' value='${ingredient.cantitateingredient}' disabled/> <input type='text' class='new-recipe-ingredient-quantity form-control form-control-sm  text-center' value='${ingredient.unitateingredient}' disabled/>`;
+        document.querySelector(".new-recipe-ingredients").appendChild(newLine);
+      });
     });
   });
 }
@@ -893,7 +924,7 @@ document.addEventListener("DOMContentLoaded", function () {
   saveWeekmenuToSQL();
   newIngredientLine();
   saveIngredients();
-  // getIngredients();
+  getIngredients();
   // setupCarousel();
   logout();
   // selectWeekday()

@@ -18,7 +18,6 @@ export const saveIngredients = async () => {
 
   saveBtn.addEventListener("click", async () => {
     const ingredients = document.querySelectorAll(".new-recipe-ingredient");
-
     const ingredientsArray = [];
 
     ingredients.forEach((ingredient) => {
@@ -74,6 +73,7 @@ export const getIngredients = async () => {
 
     const ingredients = await response.json();
 
+    console.log(ingredients);
     // Fetch week menu data
     const weeknumber = document.querySelector(".weekno").innerHTML.trim();
     const weekMenuResponse = await fetch(
@@ -181,6 +181,7 @@ export const getIngredients = async () => {
         .querySelector(".ingredient-list")
         .appendChild(ingredientContainer);
     }
+    return ingredients;
   } catch (error) {
     console.error("Error:", error);
     document.querySelector(".ingredient-list").innerHTML = "";
@@ -197,3 +198,35 @@ function removeDuplicates(array) {
   });
   return Object.values(unique);
 }
+
+const fetchIngredients = async () => {
+  const loggedUser = getCookie("username");
+
+  try {
+    const response = await fetch(
+      "https://homebuddy.ro/php/food-ingredients-from-sql.php?loggedUser=" +
+        encodeURIComponent(loggedUser)
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch ingredient data");
+    }
+
+    const ingredients = await response.json();
+
+    return ingredients;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const addIngredientsToViewRecipe = async (formTitle) => {
+  const ingredients = await fetchIngredients();
+
+  const filteredIngredients = ingredients.filter(
+    (ingredient) => ingredient.reteta === formTitle
+  );
+
+  console.log(filteredIngredients);
+  return filteredIngredients;
+};
