@@ -229,7 +229,7 @@
       <input type="text" class="form-title" id="form-title" />
 
       <div class="form-select-frame">
-        <div class="form-select">
+        <div class="form-selects">
           <label>Category<span>*</span></label>
           <select id="form-category">
             <option>Breakfast</option>
@@ -239,7 +239,7 @@
           </select>
         </div>
 
-        <div class="form-select">
+        <div class="form-selects">
           <label>Dificulty<span>*</span></label>
           <select id="form-dificulty">
             <option>Low</option>
@@ -257,10 +257,13 @@
           placeholder="Description of the recipe"
         ></textarea>
       </div>
+      <div class="form-recipe-id" style="display: none"></div>
 
       <div class="new-recipe-ingredients mb-3 container">
         <label class="align-center">Ingredients</label>
-        <div class="new-recipe-ingredient input-group p-3">
+        <div
+          class="new-recipe-ingredient input-group p-3 first-recipe-ingredient"
+        >
           <input
             type="text"
             class="new-recipe-ingredient-name form-control form-control-sm"
@@ -281,12 +284,26 @@
         Add New Line
       </button>
 
-      <div class="form-button-frame">
+      <div class="form-button-frame mt-3">
         <input
           type="button"
           class="form-button-cancel"
           id="form-button-cancel"
           value="Cancel"
+        />
+        <input
+          type="button"
+          value="Update"
+          class="form-button-update btn btn-secondary text-white"
+          id="form-button-update"
+          style="visibility: hidden"
+        />
+        <input
+          type="button"
+          value="Delete Recipe"
+          class="form-button-delete btn btn-danger text-white"
+          id="form-button-delete"
+          style="visibility: hidden"
         />
         <input
           type="button"

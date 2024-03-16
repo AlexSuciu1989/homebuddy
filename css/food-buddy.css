@@ -378,6 +378,10 @@ article .recipe-tags{
     box-shadow: 1px 1px 3px -1px rgba(0,0,0,0.8);
 }
 
+.ingredient-close-button{
+    max-width: 25px;
+}
+
 .recipe-form .form-image-frame{
     display: flex;
     justify-content: center;
@@ -455,14 +459,14 @@ article .recipe-tags{
     flex-direction: row;
     justify-content: space-between;
 }
-.recipe-form .form-select{
+.recipe-form .form-selects{
     display: flex;
     flex-direction:column;
     width: 48%;
     margin-top:12px;
 }
 
-.recipe-form .form-select select{
+.recipe-form .form-selects select{
     font-size: 14px;
     padding: 8px 4px;
     border-radius: 8px;

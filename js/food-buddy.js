@@ -18,6 +18,121 @@ import { newIngredientLine } from "./food-buddy/ingredients.js";
 import { saveIngredients } from "./food-buddy/ingredients.js";
 import { getIngredients } from "./food-buddy/ingredients.js";
 import { addIngredientsToViewRecipe } from "./food-buddy/ingredients.js";
+import { updateIngredients } from "./food-buddy/ingredients.js";
+import { deleteIngredient } from "./food-buddy/ingredients.js";
+
+function deleteRecipe() {
+  const deleteRecipe = document.getElementById("form-button-delete");
+
+  deleteRecipe.addEventListener("click", async function submitData(event) {
+    event.preventDefault();
+
+    const recipeID = document.querySelector(".form-recipe-id").value;
+    const userName = getCookie("username");
+
+    const recipeObject = {
+      user: userName,
+      recipeID: recipeID,
+    };
+
+    console.log(recipeObject);
+    try {
+      const response = await fetch(
+        "https://homebuddy.ro/php/food-buddy-delete-sql.php",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(recipeObject),
+        }
+      );
+
+      if (response.ok) {
+        console.log(await response.text());
+
+        const dateAndTime = new Date();
+        var formattedDateTime = dateAndTime.toLocaleString();
+        document.querySelector(".toast-time").textContent = formattedDateTime;
+        const toastText = document.querySelector(".toast-content");
+        toastText.textContent =
+          "Deleted " +
+          document.querySelector("#form-title").value +
+          " from the familily recipes";
+        sendToast();
+        document.querySelector(".my-toast").classList.remove("hidden");
+        setTimeout(function () {
+          document.querySelector(".my-toast").classList.add("hidden");
+        }, 5000);
+      } else {
+        console.error("Failed to delete recipe");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+}
+
+function updateRecipe() {
+  const updateRecipe = document.getElementById("form-button-update");
+
+  updateRecipe.addEventListener("click", async function submitData(event) {
+    event.preventDefault();
+    const formTitle = document.getElementById("form-title").value;
+    const formCategory = document.getElementById("form-category").value;
+    const formDificulty = document.getElementById("form-dificulty").value;
+    const formTextarea = document.getElementById("form-textarea").value;
+    const recipeID = document.querySelector(".form-recipe-id").value;
+    const userName = getCookie("username");
+
+    const recipeObject = {
+      title: formTitle,
+      category: formCategory,
+      dificulty: formDificulty,
+      recipe: formTextarea,
+      user: userName,
+      recipeID: recipeID,
+    };
+
+    console.log(recipeObject);
+    try {
+      const response = await fetch(
+        "https://homebuddy.ro/php/food-buddy-update-sql.php",
+        {
+          method: "UPDATE",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(recipeObject),
+        }
+      );
+
+      if (response.ok) {
+        console.log(await response.text());
+
+        updateIngredients();
+
+        const dateAndTime = new Date();
+        var formattedDateTime = dateAndTime.toLocaleString();
+        document.querySelector(".toast-time").textContent = formattedDateTime;
+        const toastText = document.querySelector(".toast-content");
+        toastText.textContent =
+          "Updated " +
+          document.querySelector("#form-title").value +
+          " in the familily recipes";
+        sendToast();
+        document.querySelector(".my-toast").classList.remove("hidden");
+        setTimeout(function () {
+          document.querySelector(".my-toast").classList.add("hidden");
+        }, 5000);
+      } else {
+        console.error("Failed to submit data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+}
 
 function logout() {
   const logoutButton = document.querySelector(".logout");
@@ -165,14 +280,20 @@ function cancelRecipeForm() {
         formContainer.querySelector("#form-title").value = "";
         formContainer.querySelector("#form-title").readOnly = false;
         formContainer.querySelector("#form-textarea").value = "";
-        formContainer.querySelector("#form-textarea").readOnly = false;
+        // formContainer.querySelector("#form-textarea").readOnly = false;
         formContainer.querySelector("#form-category").value = "";
-        formContainer.querySelector("#form-category").disabled = false;
+        // formContainer.querySelector("#form-category").disabled = false;
         formContainer.querySelector("#form-dificulty").value = "";
-        formContainer.querySelector("#form-dificulty").disabled = false;
-
+        formContainer.querySelector(".form-recipe-id").value = "";
+        // formContainer.querySelector("#form-dificulty").disabled = false;
+        document.querySelector(".form-button-save").style.visibility =
+          "inherit";
+        document.querySelector(".form-button-update").style.visibility =
+          "hidden";
+        document.querySelector(".form-button-delete").style.visibility =
+          "hidden";
         const existingIngredients = document.querySelectorAll(
-          ".new-recipe-ingredient-view"
+          ".recipe-ingredient-view"
         );
         existingIngredients.forEach((ingredient) => {
           ingredient.remove();
@@ -230,6 +351,12 @@ function saveRecipeToSQL() {
 
   saveRecipe.addEventListener("click", async function submitData(event) {
     event.preventDefault();
+    const existingIngredients = document.querySelectorAll(
+      ".recipe-ingredient-view"
+    );
+    existingIngredients.forEach((ingredient) => {
+      ingredient.remove();
+    });
     const formTitle = document.getElementById("form-title").value;
     const formCategory = document.getElementById("form-category").value;
     const formDificulty = document.getElementById("form-dificulty").value;
@@ -339,7 +466,7 @@ async function openRecipe() {
   recipesContainer.forEach(function (recipeContainer) {
     recipeContainer.addEventListener("click", async function (event) {
       const existingIngredients = document.querySelectorAll(
-        ".new-recipe-ingredient-view"
+        ".recipe-ingredient-view"
       );
       existingIngredients.forEach((ingredient) => {
         ingredient.remove();
@@ -357,6 +484,8 @@ async function openRecipe() {
         selectedRecipeCard.parentElement.querySelector(".recipe-cat");
       const formDificultatePopulated =
         selectedRecipeCard.parentElement.querySelector(".recipe-dif");
+      const formIDPopulated =
+        selectedRecipeCard.parentElement.querySelector(".recipe-id");
 
       // Wait for the ingredients to be added to the view recipe
       const viewRecipeIngredients = await addIngredientsToViewRecipe(
@@ -365,6 +494,11 @@ async function openRecipe() {
 
       // Rest of your code to populate the form and adjust its appearance
       document.querySelector("#recipe-form").style.visibility = "visible";
+      document.querySelector(".form-button-save").style.visibility = "hidden";
+      document.querySelector(".form-button-update").style.visibility =
+        "visible";
+      document.querySelector(".form-button-delete").style.visibility =
+        "visible";
       window.scroll({
         top: 0,
         left: 0,
@@ -382,23 +516,26 @@ async function openRecipe() {
       formContainer.querySelector("#form-title").readOnly = true;
       formContainer.querySelector("#form-textarea").value =
         formTextareaPopulated.textContent;
-      formContainer.querySelector("#form-textarea").readOnly = true;
+      formContainer.querySelector(".form-recipe-id").value =
+        formIDPopulated.textContent;
+      // formContainer.querySelector("#form-textarea").readOnly = true;
       formContainer.querySelector("#form-category").value =
         formCategoriePopulated.textContent.replace(/^Category:\s*|\s*$/g, "");
-      formContainer.querySelector("#form-category").disabled = true;
+      // formContainer.querySelector("#form-category").disabled = true;
       formContainer.querySelector("#form-dificulty").value =
         formDificultatePopulated.textContent.replace(
           /^Difficulty:\s*|\s*$/g,
           ""
         );
-      formContainer.querySelector("#form-dificulty").disabled = true;
+      // formContainer.querySelector("#form-dificulty").disabled = true;
 
       viewRecipeIngredients.forEach((ingredient) => {
         const newLine = document.createElement("div");
-        newLine.className = "new-recipe-ingredient-view input-group p-1";
-        newLine.innerHTML = `<input type='text' class='new-recipe-ingredient-name form-control form-control-sm text-center' value='${ingredient.numeingredient}' disabled/> <input type='number' class='new-recipe-ingredient-quantity form-control form-control-sm  text-center' value='${ingredient.cantitateingredient}' disabled/> <input type='text' class='new-recipe-ingredient-quantity form-control form-control-sm  text-center' value='${ingredient.unitateingredient}' disabled/>`;
+        newLine.className = "recipe-ingredient-view input-group p-1";
+        newLine.innerHTML = `<div class='ingredient-id' style=display:none>${ingredient.id}</div><input type='text' class='recipe-ingredient-name form-control form-control-sm text-center' value='${ingredient.numeingredient}'/> <input type='number' class='recipe-ingredient-quantity form-control form-control-sm  text-center' value='${ingredient.cantitateingredient}'/> <input type='text' class='recipe-ingredient-unit form-control form-control-sm  text-center' value='${ingredient.unitateingredient}'/> <button type="button" class="btn-close bg-danger form-control form-control-sm ingredient-close-button" id="delete-${ingredient.id}" aria-label="Close"></button>`;
         document.querySelector(".new-recipe-ingredients").appendChild(newLine);
       });
+      deleteIngredient();
     });
   });
 }
@@ -442,9 +579,21 @@ function getRecipefromSQL() {
         const newRecipeTags = document.createElement("div");
         newRecipeTags.className = "recipe-tags";
 
+        const newRecipeID = document.createElement("div");
+        newRecipeID.id = element.id;
+        newRecipeID.textContent = element.id;
+        newRecipeID.className = "recipe-id";
+        newRecipeID.style.display = "none";
+
         section.appendChild(newArticle);
         newRecipeTags.append(newCategory, newDificulty);
-        newArticle.append(newImage, newTitle, newRecipeTags, newDescription);
+        newArticle.append(
+          newImage,
+          newTitle,
+          newRecipeTags,
+          newDescription,
+          newRecipeID
+        );
 
         const sidebar = document.createElement("div");
         sidebar.className = "sidebar-add";
@@ -923,8 +1072,12 @@ document.addEventListener("DOMContentLoaded", function () {
   getRecipefromSQL();
   saveWeekmenuToSQL();
   newIngredientLine();
-  saveIngredients();
+  saveIngredients(document.querySelector(".form-button-save"));
+  saveIngredients(document.querySelector(".form-button-update"));
   getIngredients();
+  updateRecipe();
+  deleteRecipe();
+
   // setupCarousel();
   logout();
   // selectWeekday()

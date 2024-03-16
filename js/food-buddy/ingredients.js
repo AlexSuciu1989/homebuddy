@@ -13,12 +13,10 @@ export const newIngredientLine = () => {
   });
 };
 
-export const saveIngredients = async () => {
-  const saveBtn = document.querySelector(".form-button-save");
-
+export const saveIngredients = async (saveBtn) => {
   saveBtn.addEventListener("click", async () => {
     const ingredients = document.querySelectorAll(".new-recipe-ingredient");
-    const ingredientsArray = [];
+    let ingredientsArray = [];
 
     ingredients.forEach((ingredient) => {
       const ingredientObject = {
@@ -30,7 +28,9 @@ export const saveIngredients = async () => {
         username: getCookie("username"),
       };
 
-      ingredientsArray.push(ingredientObject);
+      if (ingredientObject.name !== "") {
+        ingredientsArray.push(ingredientObject);
+      }
     });
 
     console.log(ingredientsArray);
@@ -229,4 +229,81 @@ export const addIngredientsToViewRecipe = async (formTitle) => {
 
   console.log(filteredIngredients);
   return filteredIngredients;
+};
+
+export const updateIngredients = async () => {
+  const loggedUser = getCookie("username");
+
+  const ingredientContainer = document.querySelectorAll(
+    ".recipe-ingredient-view"
+  );
+  const ingredientsToBeUpdated = [];
+  ingredientContainer.forEach((ingredientLine) => {
+    const updateObject = {
+      recipeTitle: document.querySelector(".form-title").value,
+      ingredientID: ingredientLine.querySelector(".ingredient-id").textContent,
+      ingredientName: ingredientLine.querySelector(".recipe-ingredient-name")
+        .value,
+      ingredientQuantity: ingredientLine.querySelector(
+        ".recipe-ingredient-quantity"
+      ).value,
+      ingredientUnit: ingredientLine.querySelector(".recipe-ingredient-unit")
+        .value,
+      username: loggedUser,
+    };
+    ingredientsToBeUpdated.push(updateObject);
+  });
+
+  try {
+    const response = await fetch(
+      "https://homebuddy.ro/php/food-ingredients-update-sql.php",
+      {
+        method: "UPDATE",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(ingredientsToBeUpdated),
+      }
+    );
+    if (response.ok) {
+      console.log(await response.text());
+    } else {
+      console.error("Failed to update ingredients");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const deleteIngredient = () => {
+  const deleteButtons = document.querySelectorAll(".ingredient-close-button");
+  deleteButtons.forEach((deleteButton) => {
+    deleteButton.addEventListener("click", async () => {
+      console.log("button clicked");
+      const ingredientID = deleteButton.parentElement.firstChild.textContent;
+      console.log(ingredientID);
+      try {
+        const response = await fetch(
+          "https://homebuddy.ro/php/food-ingredients-delete-sql.php",
+          {
+            method: "DELETE",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(ingredientID),
+          }
+        );
+
+        if (response.ok) {
+          console.log(await response.text());
+
+          deleteButton.parentElement.remove();
+        } else {
+          console.error("Failed to delete ingredient");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+  });
 };
