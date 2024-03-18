@@ -1,0 +1,247 @@
+@import "./main.css";
+@import "./menu.css";
+
+.summary{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}
+
+.summary .car-name-model{
+    align-self: flex-start;
+    display: flex;
+    background-color: var(--blue);
+    width: 100%;
+    font-size: 30px;
+    color:white;
+    margin-bottom: 30px;
+}
+
+.summary .car-name-model p{
+    margin-left: 20px;
+}
+
+.img-holder{
+    width:100%;
+    display: flex;
+    position:relative;
+    justify-content: center;
+}
+
+.img-holder .car-brand{
+   
+    position:absolute;
+    top:-50px;
+    left:0;
+}
+
+.img-holder .car-picture{
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.img-holder .car-brand img{
+    width: 20%;
+}
+
+.img-holder .car-picture img{
+    margin: 0 auto;
+    width: 50%;
+}
+
+.summary .car-specs{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 40px;
+    flex-wrap: wrap;
+
+}
+
+.summary .car-specs span{
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.summary .car-specs span:hover{
+    background-color: var(--blue);
+    color: white;
+    cursor: pointer;
+}
+
+
+
+
+
+
+.timeline{
+    margin-left: 60px;
+    border-left: 10px double var(--blue);
+    position: relative;
+    padding-top:60px;
+    padding-bottom: 10px;
+    margin-top:60px;
+    margin-bottom: 60px;
+}
+
+.timeline::before{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    content:"add";
+    position:absolute;
+    top:-29px;
+    left:-29px;
+    background-color: var(--orange);
+    width:40px;
+    height:40px;
+    border: 4px solid white;
+    outline:3px solid var(--blue);
+    border-radius: 50%;
+    cursor:pointer;
+}
+
+.timeline::after{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    content:"Start";
+    position:absolute;
+    top:100%;
+    left:-48px;
+    background-color: var(--blue);
+    width:80px;
+    height:30px;
+    border: 5px solid white;
+    outline:3px solid var(--blue);
+    border-radius: 8px;
+}
+
+
+.container-right{
+    margin-left: 40px;
+}
+
+.content{
+    display: flex;
+    max-width: 600px;
+    border: 1px solid var(--blue);
+    border-radius:10px;
+    padding: 0px 20px 20px 20px;
+    position:relative;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.content .content-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.content .content-attachment{
+    font-size:60px;
+    color: var(--blue);
+}
+
+.content .content-attachment:hover{
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.content::before{
+    content:"";
+    position: absolute;
+    top: 10%;
+    left: -20px;
+    width: 0;
+    background-color: white;
+    border-right: 20px solid var(--blue);
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+
+.content::after{
+    content:"";
+    position:absolute;
+    top:15%;
+    left:-60px;
+    background-color: var(--blue);
+    width:20px;
+    height:20px;
+    border: 4px solid white;
+    outline:3px solid var(--blue);
+    border-radius: 50%;
+}
+
+.content h2{
+    color: var(--blue);
+}
+
+.content p{
+    color: var(--grey);
+}
+
+.form-add-new-car-event{
+    display: flex;
+    max-width: 600px;
+    border: 1px solid var(--orange);
+    border-radius:10px;
+    padding: 0px 20px 20px 20px;
+    position:relative;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.form-add-new-car-event .content-text{
+display: flex;
+flex-direction: column;
+}
+.form-add-new-car-event .add-year{
+    font-size: 24px;
+    color: var(--orange);
+    border: 1px solid var(--orange);
+    padding: 6px;
+    border-radius: 6px;
+    max-width: 100px;
+    margin: 8px;
+}
+
+.form-add-new-car-event .add-description{
+    width:500px;
+    border-radius: 6px;
+    min-height: 60px;
+    margin: 8px;
+    border: 1px solid var(--orange);
+    padding: 6px;
+}
+
+.form-add-new-car-event .content-attachment{
+    font-size:60px;
+    color: var(--orange);
+}
+
+.form-add-new-car-event .form-add-button{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.content-dot{
+    position:relative;
+    background-color: var(--orange);
+    width:20px;
+    height:20px;
+    border: 4px solid white;
+    outline:3px solid var(--orange);
+    border-radius: 50%;
+}
