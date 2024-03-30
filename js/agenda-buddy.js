@@ -260,13 +260,13 @@ function getEvents() {
 
           if (data.unitate === "days") {
             // day = ("0" + (dateObject.getDate() + recurentItem)).slice(-2); // Ensure two-digit day
-            dateObject.setDate(dateObject.getDate() + recurenta);
+            dateObject.setDate(dateObject.getDate());
           } else if (data.unitate === "weeks") {
-            dateObject.setDate(dateObject.getDate() + (recurenta + 6));
+            dateObject.setDate(dateObject.getDate());
           } else if (data.unitate === "months") {
-            dateObject.setMonth(dateObject.getMonth() + recurenta);
+            dateObject.setMonth(dateObject.getMonth());
           } else if (data.unitate === "years") {
-            year = dateObject.getFullYear() + recurenta;
+            year = dateObject.getFullYear();
           }
           let formattedDate = year + "-" + month + "-" + day;
 

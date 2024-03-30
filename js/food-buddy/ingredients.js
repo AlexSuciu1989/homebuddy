@@ -155,7 +155,7 @@ export const getIngredients = async () => {
 
     for (let reteta in groupedIngredients) {
       let ingredientRecipe = document.createElement("div");
-      ingredientRecipe.className = "card m-2 col-md-5 col-lg-4 col-xl-3 p-3 ";
+      ingredientRecipe.className = "card m-2 col-11 col-lg-5 col-xl-5 p-2 ";
       ingredientRecipe.innerHTML = `<h5 class="card-title text-primary">${reteta}</h5><hr>`;
       groupedIngredients[reteta].forEach((ingredient) => {
         let div = document.createElement("div");

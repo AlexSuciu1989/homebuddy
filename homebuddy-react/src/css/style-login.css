@@ -1,0 +1,139 @@
+@import "./bootstrap.css";
+
+body {
+    background: linear-gradient(to right,rgb(255, 227, 159, 0.4), rgb(102, 178, 178, 0.4));
+  }
+body img{ 
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top:5%;
+    margin-bottom:2;
+}
+.login{
+
+    background: linear-gradient(to left,#FFE39F, #FFAD60);
+    border-radius: 30px;
+    box-shadow: 3px 3px 10px #615019;
+
+    color:white;
+
+    margin: 0 auto;
+ 
+
+}
+
+.loginInput{
+    background: rgb(255, 227, 159);
+  
+}
+
+.registernewaccount{
+display: block;
+    text-align: center;
+    transition-duration: 0.5s;
+}
+
+.member-selection-popup{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(to left,#FFE39F, #FFAD60);
+    border-radius: 30px;
+    box-shadow: 3px 3px 10px #615019;
+    color:white;
+}
+
+.members{
+    display: flex;
+    justify-content: space-between;
+    margin: 16px;
+}
+
+.member{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 8px;
+    width: 80px;
+    height: 80px;
+    margin: 8px;
+    border: 2px solid white;
+}
+
+.member:hover{
+    filter: brightness(80%);
+    transition: all 0.1s ease-in;
+    cursor: pointer;
+}
+
+.select-member{
+    text-decoration: none;
+    display: inline-block;
+    width: 80%;
+    height: 30px;
+    border-radius: 7px;
+    background-color: #FFAD60;
+    font-size: large;
+    color:white;
+    border: 1px solid rgb(128, 128, 128, 0.3);
+    transition-duration: 1s;
+    margin: 32px;
+}
+
+.select-member:hover{
+    background-color: #b66a22;
+    transition-duration: 1s;
+}
+
+.login-message{
+    color: red;
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+}
+
+.userName{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.member-border{
+    border: 3px solid black;
+}
+
+
+.about-img{
+    width: 50px;
+    height: 50px;
+    border-radius:50%;
+    overflow:hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-img img{
+    width: 60px;
+    height: 60px;
+    border-radius:50%;
+}
+
+.fa-linkedin{
+    font-size: 24px;
+}
+
+.fa-linkedin:hover{
+    cursor: pointer;
+}
+
+.personal-info span:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
