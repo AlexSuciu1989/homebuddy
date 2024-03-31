@@ -22,11 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tag = $jsonData['tag'];
     $type = $jsonData['type'];
     $key = $jsonData['key'];
+    $username = $jsonData['username'];
 
-    $sql = "INSERT INTO budget (adddate, amount, tag, adddescription, addtype, addkey) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO budget (adddate, amount, tag, adddescription, addtype, addkey, username) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ssssss", $date, $amount, $tag, $description, $type, $key);
+    mysqli_stmt_bind_param($stmt, "sssssss", $date, $amount, $tag, $description, $type, $key, $username);
 
     if (mysqli_stmt_execute($stmt)) {
         echo "Event added successfully";

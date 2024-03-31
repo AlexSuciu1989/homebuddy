@@ -1,5 +1,23 @@
 import React, { useEffect } from 'react';
 
+export const getCookie = (cookieName: string): string | null => {
+  const name = cookieName + '=';
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const cookieArray = decodedCookie.split(';');
+
+  let foundCookieValue: string | null = null;
+
+  cookieArray.forEach((cookie) => {
+    const trimmedCookie = cookie.trim();
+    if (trimmedCookie.indexOf(name) === 0) {
+      foundCookieValue = trimmedCookie.substring(name.length);
+    }
+  });
+
+  return foundCookieValue;
+};
+
+
 const LogoutComponent: React.FC = () => {
   useEffect(() => {
     const logout = () => {
@@ -29,6 +47,7 @@ const LogoutComponent: React.FC = () => {
 
       return foundCookieValue;
     };
+    
 
     const getUserColorsArray = (): { [key: string]: string } => {
       const memberColorString = getCookie('memberColors');
@@ -73,3 +92,4 @@ const LogoutComponent: React.FC = () => {
 };
 
 export default LogoutComponent;
+

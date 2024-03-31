@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Select, DatePicker, DatePickerProps } from 'antd';
 import moment from 'moment';
+import { getCookie } from './getcookies';
 
 let storedDateString: string | string[]; 
-
+const loggedUser = getCookie("username");
 
 const onChange: DatePickerProps['onChange'] = (date: any, dateString: string | string[]) => {
   console.log(typeof date);
@@ -22,6 +23,7 @@ interface Item {
   description: string;
   type: string;
   tag: string;
+  username: string | null;
 }
 
 const originData: Item[] = [];
@@ -137,7 +139,8 @@ const Tables: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://homebuddy.ro/php/get-budget-from-sql.php");
+      const response = await fetch("https://homebuddy.ro/php/get-budget-from-sql.php?loggedUser=" +
+      encodeURIComponent(loggedUser!));
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -215,6 +218,7 @@ const Tables: React.FC = () => {
       description: '',
       type: '',
       tag: '',
+      username: '',
     };
     setData([newRow, ...data]);
     edit(newRow); // Start editing the new row immediately
@@ -222,6 +226,7 @@ const Tables: React.FC = () => {
 
   const saveToSQL = async (rowData: Item, action: string, key: any) => {
     rowData.key = key;
+    rowData.username = loggedUser;
     if (action === 'saving') {
       
       console.log('Saving to SQL:', rowData);

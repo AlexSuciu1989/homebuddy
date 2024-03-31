@@ -5,13 +5,13 @@ include 'db-connect.php';
 // $cookieName = "username";
 $budgetdata = array();
 
-// if (isset($_GET['loggedUser'])) {
-//     $storedUsername = $_GET['loggedUser'];
+if (isset($_GET['loggedUser'])) {
+    $storedUsername = $_GET['loggedUser'];
 
 
-$sql = "SELECT * FROM budget WHERE username ='' ";
+$sql = "SELECT * FROM budget WHERE username =? ORDER BY adddate DESC";
 $stmt = $conn->prepare($sql);
-// $stmt->bind_param("s", $storedUsername);
+$stmt->bind_param("s", $storedUsername);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
         $budgetdata[] = $row;
     }
 }
-// }
+}
 
 header('Content-Type: application/json');
 echo json_encode($budgetdata);

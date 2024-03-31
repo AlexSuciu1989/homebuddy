@@ -1,19 +1,3 @@
-// function setupCarousel() {
-//   const slides = document.querySelectorAll(".weekday-container");
-//   slides.forEach((slide) => {
-//     slide.addEventListener("click", (e) => {
-//       // Remove "active" class from all slides
-//       slides.forEach((slide) => {
-//         slide.classList.remove("active");
-//       });
-
-//       // Add "active" class to the clicked slide
-//       e.currentTarget.classList.add("active");
-
-//     });
-//   });
-// }
-
 import { newIngredientLine } from "./food-buddy/ingredients.js";
 import { saveIngredients } from "./food-buddy/ingredients.js";
 import { getIngredients } from "./food-buddy/ingredients.js";
@@ -411,7 +395,7 @@ function saveRecipeToSQL() {
         document.querySelector(".my-toast").classList.remove("hidden");
         setTimeout(function () {
           document.querySelector(".my-toast").classList.add("hidden");
-        }, 5000);
+        }, 3000);
       } else {
         console.error("Failed to submit data");
       }

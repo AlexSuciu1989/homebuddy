@@ -22,11 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "UPDATE") {
     $tag = $jsonData['tag'];
     $type = $jsonData['type'];
     $key = $jsonData['key'];
+    $username = $jsonData['username'];
 
-    $sql = "UPDATE budget SET adddate = ?, amount = ?, tag = ?, adddescription = ?, addtype = ?, addkey =?   WHERE id = ?";
+    $sql = "UPDATE budget SET adddate = ?, amount = ?, tag = ?, adddescription = ?, addtype = ?, addkey =?, username=?    WHERE id = ?";
 
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sssssss", $date, $amount, $tag, $description, $type, $key, $key);
+    mysqli_stmt_bind_param($stmt, "ssssssss", $date, $amount, $tag, $description, $type, $key, $username, $key);
 
     if (mysqli_stmt_execute($stmt)) {
         echo "Event updated successfully"; // Corrected the response message
