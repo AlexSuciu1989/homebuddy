@@ -13,9 +13,9 @@ const Header: React.FC = () => {
 
             <ul className="navigation">
                 <li><a href="../../account.html">Account</a></li>
-                <li><a href="../../account.html">Budget Buddy</a></li>
-                <li><a href="../../account.html">Food Buddy</a></li>
-                <li><a href="../../account.html">Agenda Buddy</a></li>
+                <li className="active"><a href="../../budget-buddy.html">Budget Buddy</a></li>
+                <li><a href="../../food-buddy.html">Food Buddy</a></li>
+                <li><a href="../../agenda-buddy.html">Agenda Buddy</a></li>
             </ul>
 
             <div className="user-header-display">
