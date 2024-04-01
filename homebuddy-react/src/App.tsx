@@ -4,12 +4,13 @@ import './App.css';
 import { Button, Flex } from 'antd';
 import Header from './components/header';
 import Tables from './components/table';
+import './css/bootstrap.css';
 
 function App() {
   return (
     <div className="App">
       <Header/>
-      <Tables/>
+      <div className="mx-2"><Tables/></div>
     </div>
   );
 }

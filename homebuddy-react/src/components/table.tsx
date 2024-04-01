@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Select, DatePicker, DatePickerProps } from 'antd';
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Select, DatePicker, DatePickerProps, ConfigProvider } from 'antd';
 import moment from 'moment';
 import { getCookie } from './getcookies';
+import '../css/budget-buddy.css';
+
 
 let storedDateString: string | string[]; 
 const loggedUser = getCookie("username");
@@ -273,7 +275,7 @@ try{
   };
 
   const types = ['Income', 'Payment']; // Define selectable types
-  const tags =['House', 'Health', 'Loan', 'Food', 'Education', 'Investment', 'Entertainment', 'Junk'];
+  const tags =['Salary', 'House','Car', 'Health', 'Loan', 'Food', 'Education', 'Investment', 'Entertainment', 'Junk', 'Others'];
 
   const columns = [
     {
@@ -303,6 +305,7 @@ try{
       dataIndex: 'description',
       width: '40%',
       editable: true,
+      responsive: ['md'],
     },
     {
       title: 'Type',
@@ -378,6 +381,7 @@ try{
       </Form>
     </>
   );
+
 };
 
 export default Tables;

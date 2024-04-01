@@ -1,3 +1,41 @@
+const changePassword = () => {
+  document
+    .querySelector(".change-password-done")
+    .addEventListener("click", async () => {
+      const username = getCookie("username");
+      const password = document.querySelector("#current-password").value;
+
+      const loginInfo = {
+        user: username,
+        pass: password,
+      };
+
+      try {
+        const url = "https://homebuddy.ro/php/change-password.php";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginInfo),
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          if (responseData.hasOwnProperty("message")) {
+            console.log("Login successful"); // or any other action you want to take
+          } else if (responseData.hasOwnProperty("error")) {
+            console.error("Login failed:", responseData.error); // or any other action you want to take
+          }
+        } else {
+          console.error("Failed to submit data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+};
+
 function getCookie(cookieName) {
   const name = cookieName + "=";
   const decodedCookie = decodeURIComponent(document.cookie);
@@ -157,5 +195,6 @@ document.addEventListener("DOMContentLoaded", function () {
   saveAccountInformation();
   retrieveAccountInformation();
   addFamilyMember();
+  changePassword();
   logout();
 });

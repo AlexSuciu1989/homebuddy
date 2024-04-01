@@ -1,3 +1,31 @@
+function setCurrentDate() {
+  const today = new Date();
+
+  const day = today.getDate();
+  const monthIndex = today.getMonth();
+  const year = today.getFullYear();
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const formattedDate = `${day < 10 ? "0" + day : day} ${
+    monthNames[monthIndex]
+  } ${year}`;
+  document.querySelector(".current-day").textContent = formattedDate;
+}
+
 function getMembersToForm() {
   const familyMembers = getCookie("memberNames").split(",");
 
@@ -615,6 +643,6 @@ document.addEventListener("DOMContentLoaded", function () {
   displayRepeatingEvent();
   addRemoveTags();
   addRemoveResponsible();
-
+  setCurrentDate();
   logout();
 });

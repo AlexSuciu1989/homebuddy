@@ -111,7 +111,93 @@
         <div class="btn btn-secondary text-white px-3 m-3 add-btn">
           Add member
         </div>
-        <!-- <div class="btn btn-light px-2 m-3 change-password-btn">Change password</div> -->
+        <div
+          class="btn btn-light px-2 m-3 change-password-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#change-password-modal"
+        >
+          Change password
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vertically centered modal -->
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="change-password-modal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Change password
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group mt-2 pt-2">
+            <span for="current-password" class="input-group-text"
+              >Current Password</span
+            >
+            <input
+              class="form-control"
+              type="password"
+              name="CurrentPassword"
+              id="current-password"
+            />
+          </div>
+          <p class="ms-3 text-danger fs-6 fw-lighter fst-italic">
+            Your password is not correct!
+          </p>
+          <div class="input-group mt-2 pt-2">
+            <span for="new-password" class="input-group-text"
+              >New Password</span
+            >
+            <input
+              class="form-control"
+              type="password"
+              name="CurrentPassword"
+              id="new-password"
+            />
+          </div>
+
+          <div class="input-group mt-2 pt-2">
+            <span for="repeat-password" class="input-group-text"
+              >Repeat Password</span
+            >
+            <input
+              class="form-control"
+              type="password"
+              name="CurrentPassword"
+              id="repeat-password"
+            />
+          </div>
+          <p class="ms-3 text-danger fs-6 fw-lighter fst-italic">
+            Your new password does not match!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary change-password-done">
+            Done
+          </button>
+        </div>
       </div>
     </div>
   </div>
