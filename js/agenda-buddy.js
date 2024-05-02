@@ -1,3 +1,46 @@
+const editEvent = () => {
+  const events = document.querySelectorAll(".event-input");
+
+  events.forEach((event) => {
+    let initialValue = event.value;
+
+    event.addEventListener("focusout", async (e) => {
+      const clickedItem = e.target;
+      const clickedItemID = e.target.parentElement.id;
+      if (clickedItem.value !== initialValue) {
+        const itemObject = {
+          itemID: clickedItemID,
+          itemStatus: clickedItem.value,
+        };
+
+        console.log(itemObject);
+
+        try {
+          const response = await fetch(
+            "https://homebuddy.ro/php/agenda-update-text-to-sql.php",
+            {
+              method: "UPDATE",
+              headers: {
+                "Content-type": "application/json",
+              },
+              body: JSON.stringify(itemObject),
+            }
+          );
+          if (response.ok) {
+            console.log(await response.text());
+          } else {
+            console.error("Failed to update data");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      } else {
+        console.log("nothing modified");
+      }
+    });
+  });
+};
+
 function setCurrentDate() {
   const today = new Date();
 
@@ -265,105 +308,79 @@ function getEvents() {
         // console.log(data.eventdate);
         let dateObject = new Date(data.eventdate);
         // let formattedDate = year + "-" + month + "-" + day;
-        let recurenta = data.recurenta;
-        let ArrayRecurenta;
-        if (recurenta === "" || recurenta === "0" || recurenta === 0) {
-          recurenta = 0;
-        }
-        recurenta = parseInt(recurenta);
-        console.log(recurenta);
-        if (recurenta !== 0) {
-          ArrayRecurenta = Array.from(
-            { length: 30 },
-            (_, index) => index * recurenta
-          );
-        } else {
-          ArrayRecurenta = [0];
-        }
-        console.log(ArrayRecurenta);
-        ArrayRecurenta.forEach((recurentItem) => {
-          let year = dateObject.getFullYear();
-          let month = ("0" + (dateObject.getMonth() + 1)).slice(-2); // Ensure two-digit month
-          let day = ("0" + dateObject.getDate()).slice(-2); // Ensure two-digit day
 
-          if (data.unitate === "days") {
-            // day = ("0" + (dateObject.getDate() + recurentItem)).slice(-2); // Ensure two-digit day
-            dateObject.setDate(dateObject.getDate() + recurenta);
-          } else if (data.unitate === "weeks") {
-            dateObject.setDate(dateObject.getDate() + (recurenta + 6));
-          } else if (data.unitate === "months") {
-            dateObject.setMonth(dateObject.getMonth() + recurenta);
-          } else if (data.unitate === "years") {
-            year = dateObject.getFullYear() + recurenta;
-          }
-          let formattedDate = year + "-" + month + "-" + day;
+        let year = dateObject.getFullYear();
+        let month = ("0" + (dateObject.getMonth() + 1)).slice(-2); // Ensure two-digit month
+        let day = ("0" + dateObject.getDate()).slice(-2); // Ensure two-digit day
 
-          const container = document.querySelector("#event-" + formattedDate);
-          let tagsHTML = "";
-          data.tagevent.split(", ").forEach((tag) => {
-            const tagElement = document.getElementById(tag);
-            if (tagElement) {
-              tagsHTML += `<span class="${tagElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${tagElement.textContent}</span>`;
-            }
-          });
+        let formattedDate = year + "-" + month + "-" + day;
 
-          let responsibleHTML = "";
-          data.membru.split(", ").forEach((responsible) => {
-            const responsibleElement = document.getElementById(responsible);
-            if (responsibleElement) {
-              responsibleHTML += `<span class="${responsibleElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${responsibleElement.textContent}</span>`;
-            }
-          });
-
-          if (container) {
-            const eventNew = document.createElement("div");
-            eventNew.id = data.id;
-            eventNew.className = "m-1 p-1 text-white event container";
-            eventNew.innerHTML =
-              "<input class='form-check-input me-2 mark-event' type='checkbox'>" +
-              data.addedevent +
-              "<button type='button' class='btn-close close-event ms-3 delete-event' aria-label='Close' data-bs-toggle='modal' data-bs-target='#delete-confirmation'></button>";
-            //   console.log(formattedDate)
-
-            const subContainer = document.createElement("div");
-            subContainer.className =
-              "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white event d-flex flex-column align-items-start event";
-
-            const eventNewMeta = document.createElement("div");
-            eventNewMeta.className = "align-self-end tags-responsible";
-            eventNewMeta.innerHTML =
-              "<span class='fs-7 lh-lg tag-responsible'>Tags: </span>" +
-              tagsHTML +
-              "<span class='fs-7 lh-lg tag-responsible'>  Responsible: </span>" +
-              responsibleHTML;
-
-            subContainer.append(eventNew, eventNewMeta);
-            container.appendChild(subContainer);
-
-            if (data.eventstatus === "true") {
-              eventNew.querySelector(".mark-event").checked = true;
-            }
-
-            const upcomingEvents = document.createElement("div");
-            upcomingEvents.id = data.id;
-            upcomingEvents.className =
-              "card ms-5 m-1 p-1 bg-secondary bg-opacity-25 text-white d-flex flex-row align-items-center";
-            upcomingEvents.innerHTML =
-              "<div class='card me-4 m-1 p-1 bg-white text-secondary'>" +
-              formattedDate +
-              "</div>" +
-              data.addedevent;
-            if (data.addedevent !== "") {
-              document
-                .querySelector(".upcoming-events")
-                .appendChild(upcomingEvents);
-            }
+        const container = document.querySelector("#event-" + formattedDate);
+        let tagsHTML = "";
+        data.tagevent.split(", ").forEach((tag) => {
+          const tagElement = document.getElementById(tag);
+          if (tagElement) {
+            tagsHTML += `<span class="${tagElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${tagElement.textContent}</span>`;
           }
         });
+
+        let responsibleHTML = "";
+        data.membru.split(", ").forEach((responsible) => {
+          const responsibleElement = document.getElementById(responsible);
+          if (responsibleElement) {
+            responsibleHTML += `<span class="${responsibleElement.className} bg-opacity-75 text-white mt-2 tag-responsible">${responsibleElement.textContent}</span>`;
+          }
+        });
+
+        if (container) {
+          const eventNew = document.createElement("div");
+          eventNew.id = data.id;
+          eventNew.className = "m-1 p-1 text-white event container";
+          eventNew.innerHTML = `
+          <input class='form-check-input me-2 mark-event' type='checkbox'>
+          <textarea  class='form-control  event-input' row='3'>${data.addedevent}</textarea>
+          <button type='button' class='btn-close close-event ms-3 delete-event' aria-label='Close' data-bs-toggle='modal' data-bs-target='#delete-confirmation'></button>
+          `;
+
+          const subContainer = document.createElement("div");
+          subContainer.className =
+            "card ms-5 m-1 p-1 bg-primary bg-opacity-25 text-white event d-flex flex-column align-items-start event";
+
+          const eventNewMeta = document.createElement("div");
+          eventNewMeta.className = "align-self-end tags-responsible";
+          eventNewMeta.innerHTML =
+            "<span class='fs-7 lh-lg tag-responsible'>Tags: </span>" +
+            tagsHTML +
+            "<span class='fs-7 lh-lg tag-responsible'>  Responsible: </span>" +
+            responsibleHTML;
+
+          subContainer.append(eventNew, eventNewMeta);
+          container.appendChild(subContainer);
+
+          if (data.eventstatus === "true") {
+            eventNew.querySelector(".mark-event").checked = true;
+          }
+
+          const upcomingEvents = document.createElement("div");
+          upcomingEvents.id = data.id;
+          upcomingEvents.className =
+            "card ms-5 m-1 p-1 bg-secondary bg-opacity-25 text-white d-flex flex-row align-items-center";
+          upcomingEvents.innerHTML =
+            "<div class='card me-4 m-1 p-1 bg-white text-secondary'>" +
+            formattedDate +
+            "</div>" +
+            data.addedevent;
+          if (data.addedevent !== "") {
+            document
+              .querySelector(".upcoming-events")
+              .appendChild(upcomingEvents);
+          }
+        }
       });
       targetEvent();
       deleteEvent();
       markElement();
+      editEvent();
     })
     .catch((error) => {
       console.error("Error fetching events", error);
@@ -406,7 +423,7 @@ function targetEvent() {
         !clickedItem.classList.contains("tags-responsible") &&
         !clickedItem.classList.contains("tag-responsible")
       ) {
-        clickedItem.parentElement.classList.add("bg-secondary");
+        clickedItem.parentElement.parentElement.classList.add("bg-secondary");
         clickedItem.parentElement
           .querySelector(".delete-event")
           .classList.remove("close-event");
@@ -549,46 +566,71 @@ function bootstrapModal() {
   });
 }
 
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const day = ("0" + date.getDate()).slice(-2);
+  return `${year}-${month}-${day}`;
+}
+
 function saveEventData() {
   const saveBtn = document.querySelector(".save-event");
 
-  const eventDataObj = {
-    eventdate: "",
-    addedevent: "",
-    user: "",
-    repeating: "",
-    unit: "",
-    tags: "",
-    responsible: "",
-  };
-
   saveBtn.addEventListener("click", async function () {
-    const tagsArray = [];
+    let newEventsArray = [];
+    const repetance = parseInt(document.querySelector(".new-repeating").value);
+    const repetanceUnit = document.querySelector(".new-unit").value;
     document.querySelector(".loadingscreen").classList.remove("hidden");
-    const tags = document.querySelectorAll(".new-event-tag .new-badge-item");
-
-    tags.forEach((tag) => {
-      tagsArray.push(tag.textContent);
-    });
-
-    const responsibleArray = [];
-    const responsibles = document.querySelectorAll(
-      ".new-event-responsible .new-badge-responsible"
+    const startRepetition = new Date(document.querySelector(".new-date").value);
+    const endRepetition = new Date(
+      document.querySelector(".repeat-date").value
     );
 
-    responsibles.forEach((responsible) => {
-      responsibleArray.push(responsible.textContent);
-    });
+    let currentRepetition = new Date(startRepetition);
 
-    eventDataObj.eventdate = document.querySelector(".new-date").value;
-    eventDataObj.addedevent = document.querySelector(".new-event-body").value;
-    eventDataObj.user = getCookie("username");
-    eventDataObj.repeating = document.querySelector(".new-repeating").value;
-    eventDataObj.unit = document.querySelector(".new-unit").value;
-    eventDataObj.tags = tagsArray.join(", ");
-    eventDataObj.responsible = responsibleArray.join(", ");
+    while (currentRepetition <= endRepetition) {
+      const eventDataObj = {}; // Create a new object for each event
 
-    console.log("my Object to save: ", eventDataObj);
+      // Populate tagsArray
+      const tagsArray = Array.from(
+        document.querySelectorAll(".new-event-tag .new-badge-item")
+      ).map((tag) => tag.textContent);
+
+      // Populate responsibleArray
+      const responsibleArray = Array.from(
+        document.querySelectorAll(
+          ".new-event-responsible .new-badge-responsible"
+        )
+      ).map((responsible) => responsible.textContent);
+
+      // Populate eventDataObj
+      eventDataObj.eventdate = formatDate(currentRepetition); // Create a new date object
+      eventDataObj.addedevent = document.querySelector(".new-event-body").value;
+      eventDataObj.user = getCookie("username");
+      eventDataObj.repeating = repetance;
+      eventDataObj.unit = repetanceUnit;
+      eventDataObj.endRepetition = formatDate(endRepetition); // Create a new date object
+      eventDataObj.tags = tagsArray.join(", ");
+      eventDataObj.responsible = responsibleArray.join(", ");
+
+      newEventsArray.push(eventDataObj);
+
+      // Increment currentRepetition based on repetanceUnit
+      if (repetanceUnit === "days") {
+        currentRepetition.setDate(currentRepetition.getDate() + repetance);
+      } else if (repetanceUnit === "weeks") {
+        currentRepetition.setDate(currentRepetition.getDate() + repetance * 7);
+      } else if (repetanceUnit === "months") {
+        currentRepetition.setMonth(currentRepetition.getMonth() + repetance);
+      } else if (repetanceUnit === "years") {
+        currentRepetition.setFullYear(
+          currentRepetition.getFullYear() + repetance
+        );
+      }
+    }
+
+    console.log("my Object to save: ", newEventsArray);
+    console.log(document.querySelector(".new-date").value);
 
     try {
       const response = await fetch(
@@ -598,7 +640,7 @@ function saveEventData() {
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify(eventDataObj),
+          body: JSON.stringify(newEventsArray),
         }
       );
 
@@ -643,6 +685,7 @@ document.addEventListener("DOMContentLoaded", function () {
   displayRepeatingEvent();
   addRemoveTags();
   addRemoveResponsible();
+
   setCurrentDate();
   logout();
 });

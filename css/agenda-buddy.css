@@ -150,3 +150,13 @@
   .hidden{
     display: none;
 }
+
+.event-input {
+  
+        resize: none; /* Prevent resizing */
+background-color: transparent;
+width: 80%;
+overflow: hidden;
+
+    
+}

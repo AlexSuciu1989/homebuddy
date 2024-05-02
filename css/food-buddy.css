@@ -689,6 +689,35 @@ article:hover > .sidebar-add{
     font-size: 14px;
 }
 
+.loadingscreen{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+    align-items: top;
+    padding-top:50px;
+    background-color: rgb(128, 128, 128, 0.7);    
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 100px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    margin-top: 40%;
+    border-radius: 50%;
+    border: 16px solid lightblue;
+    border-right-color: orange;
+    animation: l2 1s infinite linear;
+  }
+  @keyframes l2 {to{transform: rotate(1turn)}}
+
+  .hidden{
+    display: none;
+}
+
+  /* HTML: <div class="loader"></div> */
 
 @media screen and (max-width: 900px) {
   

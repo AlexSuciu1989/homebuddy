@@ -23,6 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $type = $jsonData['type'];
     $key = $jsonData['key'];
     $username = $jsonData['username'];
+    
+    $dateTime = new DateTime($date);
+    $dateTime->modify('+1 day');
+    $date = $dateTime->format('Y-m-d');
 
     $sql = "INSERT INTO budget (adddate, amount, tag, adddescription, addtype, addkey, username) VALUES (?, ?, ?, ?, ?, ?, ?)";
 

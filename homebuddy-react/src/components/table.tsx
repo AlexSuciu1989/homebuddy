@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Select, DatePicker, DatePickerProps, ConfigProvider } from 'antd';
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Select, DatePicker, DatePickerProps, ConfigProvider, Breakpoint, Popover } from 'antd';
+import type { TableColumnsType, TableProps } from 'antd';
 import moment from 'moment';
 import { getCookie } from './getcookies';
 import '../css/budget-buddy.css';
 
-
 let storedDateString: string | string[]; 
 const loggedUser = getCookie("username");
+
 
 const onChange: DatePickerProps['onChange'] = (date: any, dateString: string | string[]) => {
   console.log(typeof date);
@@ -28,40 +29,6 @@ interface Item {
   username: string | null;
 }
 
-const originData: Item[] = [];
-// for (let i = 0; i < 5; i++) {
-//   originData.push({
-//     key: i.toString(),
-//     date: '',
-//     amount: 1,
-//     description: `London Park no. ${i}`,
-//     type: '',
-//     tag: ''
-//   });
-// }
-
-
-// fetch(
-//   "https://homebuddy.ro/php/get-budget-from-sql.php"
-// )
-//   .then((response) => response.json())
-//   .then((budgetdata) => {
-//     console.log(budgetdata);
-//     budgetdata.forEach((data: any) => {
-//       originData.push({
-//         key: data.id,
-//         date: data.adddate,
-//         amount: data.amount,
-//         description: data.adddescription,
-//         type: data.addtype,
-//         tag: data.tag
-//       })
-//     })
-//   })
-//   .catch((error) => {
-//     console.error("Error fetching account information:", error);
-//   });
-
 interface EditableCellProps {
   editing: boolean;
   dataIndex: string;
@@ -73,6 +40,7 @@ interface EditableCellProps {
   children: React.ReactNode;
   types?: string[]; // List of selectable types
   tags?: string[];
+  
 }
 
 const EditableCell: React.FC<EditableCellProps> = ({
@@ -87,6 +55,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   tags,
   ...restProps
 }) => {
+  
   const inputNode =
     inputType === 'number' ? <InputNumber /> :
     inputType === 'select' && types ? (
@@ -111,7 +80,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
           style={{ margin: 0 }}
           rules={[
             {
-              required: true,
+              required: false,
               message: `Please Input ${title}!`,
             },
           ]}
@@ -120,10 +89,12 @@ const EditableCell: React.FC<EditableCellProps> = ({
         </Form.Item>
       ) : (
         // Always render DatePicker when not editing
-        <span>{dataIndex === 'date' ? moment(record.date).format('YYYY-MM-DD') : children}</span>
+        <span>{dataIndex === 'date' ? moment(record.date).format('YYYY-MM-DD') : children} </span>
+        
       )}
     </td>
   );
+ 
 };
 
 
@@ -277,6 +248,17 @@ try{
   const types = ['Income', 'Payment']; // Define selectable types
   const tags =['Salary', 'House','Car', 'Health', 'Loan', 'Food', 'Education', 'Investment', 'Entertainment', 'Junk', 'Others'];
 
+  const filtersDate = [];
+  const currentYear = moment().year();
+
+  for (let month = 0; month < 12; month++) {
+    const monthDate = moment().year(currentYear).month(month);
+    filtersDate.push({
+        text: monthDate.format('MMMM'),
+        value: monthDate.format('MMMM')
+    });
+}
+
   const columns = [
     {
       title: 'Date',
@@ -284,12 +266,25 @@ try{
       width: '10%',
       editable: true,
       inputType: 'date',
+      filters: filtersDate,
+      filterMode: 'tree',
+      filterSearch: true,
+      onFilter: (value:any, record:any) => {
+        // Extract the month part from the 'date' property
+        const recordMonth = moment(record.date).format('MMMM');
+      
+        // Check if the record's month matches the filter value
+        return recordMonth === value;
+      }
+
+
     },
     {
       title: 'Amount',
       dataIndex: 'amount',
       width: '10%',
       editable: true,
+      
     },
     {
       title: 'Tag',
@@ -305,7 +300,7 @@ try{
       dataIndex: 'description',
       width: '40%',
       editable: true,
-      responsive: ['md'],
+      // responsive: ['md'],
     },
     {
       title: 'Type',
@@ -338,7 +333,7 @@ try{
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
+  const mergedColumns = columns.map((col:any) => {
     if (!col.editable) {
       return col;
     }
@@ -353,6 +348,7 @@ try{
         date: col.dataIndex === 'date' ? record.date : undefined, // Pass the date prop if dataIndex is 'date'
         types: col.dataIndex === 'type' ? types : undefined,
         tags: col.dataIndex === 'tag' ? tags: undefined,
+        
       }),
     };
   });
@@ -377,6 +373,8 @@ try{
           pagination={{
             onChange: cancel,
           }}
+          size="middle"
+          scroll={{ x: 'calc(700px + 50%)' }}
         />
       </Form>
     </>

@@ -393,9 +393,12 @@ function saveRecipeToSQL() {
           " in the familily recipes";
         sendToast();
         document.querySelector(".my-toast").classList.remove("hidden");
+        document.querySelector(".my-toast").classList.remove("hidden");
         setTimeout(function () {
           document.querySelector(".my-toast").classList.add("hidden");
+          document.querySelector(".loadingscreen").classList.add("hidden");
         }, 3000);
+        window.location.reload();
       } else {
         console.error("Failed to submit data");
       }
