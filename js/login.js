@@ -87,5 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
     selectMember();
     console.log(userData);
   });
+
   enterLandingPage();
 });

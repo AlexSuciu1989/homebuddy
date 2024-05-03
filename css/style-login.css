@@ -12,6 +12,10 @@ body img{
     margin-top:5%;
     margin-bottom:2;
 }
+
+.welcome-modal{
+    background: linear-gradient(to right,rgb(255, 227, 159, 0.9), rgb(102, 178, 178, 0.9));
+}
 .login{
 
     background: linear-gradient(to left,#FFE39F, #FFAD60);

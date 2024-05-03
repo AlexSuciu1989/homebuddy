@@ -14,3 +14,19 @@ export function getCookie(cookieName) {
 
   return foundCookieValue;
 }
+
+function logout(button) {
+  const logoutButton = button;
+
+  logoutButton.addEventListener("click", function () {
+    document.cookie =
+      "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "member=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "memberColors=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    //console.log('buton apasat')
+    window.location.href = "https://homebuddy.ro/";
+  });
+}
+
+export { logout };

@@ -578,13 +578,20 @@ function saveEventData() {
 
   saveBtn.addEventListener("click", async function () {
     let newEventsArray = [];
-    const repetance = parseInt(document.querySelector(".new-repeating").value);
-    const repetanceUnit = document.querySelector(".new-unit").value;
+    let repetance = 1;
+    let repetanceUnit = "days";
+
     document.querySelector(".loadingscreen").classList.remove("hidden");
-    const startRepetition = new Date(document.querySelector(".new-date").value);
-    const endRepetition = new Date(
-      document.querySelector(".repeat-date").value
-    );
+    let startRepetition = new Date(document.querySelector(".new-date").value);
+    let endRepetition = startRepetition;
+
+    if (document.querySelector("#new-recurenta").checked === true) {
+      repetance = parseInt(document.querySelector(".new-repeating").value);
+      repetanceUnit = document.querySelector(".new-unit").value;
+      endRepetition = new Date(document.querySelector(".repeat-date").value);
+    }
+
+    console.log(repetance + repetanceUnit + endRepetition);
 
     let currentRepetition = new Date(startRepetition);
 
