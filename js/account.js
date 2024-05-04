@@ -1,3 +1,12 @@
+import { setCookie } from "./user-cookies.js";
+
+const popoverTriggerList = document.querySelectorAll(
+  '[data-bs-toggle="popover"]'
+);
+const popoverList = [...popoverTriggerList].map(
+  (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+);
+
 const changePassword = () => {
   document
     .querySelector(".change-password-done")
@@ -35,6 +44,43 @@ const changePassword = () => {
       }
     });
 };
+
+function switchMemberMenu() {
+  const members = document.querySelectorAll(".member-name");
+
+  members.forEach((member) => {
+    member.addEventListener(
+      "contextmenu",
+      function (event) {
+        event.preventDefault();
+
+        var customMenu = document.getElementById("member-menu");
+        customMenu.style.display = "block";
+        customMenu.style.left = event.pageX + "px";
+        customMenu.style.top = event.pageY + "px";
+        customMenu.style.background = event.target.style.background;
+        console.log(event.target.value);
+        switchToMember(event.target.value);
+        return false;
+      },
+      false
+    );
+  });
+  cancelMemberMenu();
+}
+
+function cancelMemberMenu() {
+  document.querySelector(".cancel-menu").addEventListener("click", () => {
+    document.getElementById("member-menu").style.display = "none";
+  });
+}
+
+function switchToMember(member) {
+  document.querySelector(".switch-to").addEventListener("click", () => {
+    setCookie("member", member, 365);
+    location.reload();
+  });
+}
 
 function getCookie(cookieName) {
   const name = cookieName + "=";
@@ -121,6 +167,54 @@ function addFamilyMember() {
   });
 }
 
+function editMember() {
+  let clickedMember;
+
+  const memberNames = document.querySelectorAll(".member-name");
+
+  memberNames.forEach((member) => {
+    member.addEventListener("mousedown", (e) => {
+      if (e.detail > 1) {
+        // Check if it's a double-click
+        e.preventDefault();
+      }
+    });
+
+    member.addEventListener("dblclick", (e) => {
+      clickedMember = e.target;
+      if (clickedMember.readOnly) {
+        clickedMember.readOnly = false;
+        clickedMember.focus();
+      }
+    });
+
+    member.style.userSelect = "none"; // Disable text selection with CSS
+  });
+
+  document.addEventListener("focusout", (e) => {
+    if (clickedMember) {
+      clickedMember.readOnly = true;
+      clickedMember = null;
+    }
+  });
+}
+
+function setMembersColors() {
+  const memberColorString = getCookie("memberColors");
+
+  const decodedMemberColorString = decodeURIComponent(
+    memberColorString
+  ).replace(/%2C%20/g, "_COMMA_");
+  const rgbValues = decodedMemberColorString.match(/\d+,\s*\d+,\s*\d+/g);
+  const memberColorArray = rgbValues.map((value) => "rgb(" + value + ")");
+  // console.log(memberColorArray);
+  for (let i = 0; i < 5; i++) {
+    if (document.querySelector(".member" + i)) {
+      document.querySelector(".member" + i).firstElementChild.style.background =
+        memberColorArray[i];
+    }
+  }
+}
 function saveAccountInformation() {
   const saveButton = document.querySelector(".save-btn");
 
@@ -188,13 +282,17 @@ function retrieveAccountInformation() {
     .catch((error) => {
       console.error("Error fetching account information:", error);
     });
+  setMembersColors();
+  switchMemberMenu();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   getUserGreeting();
+
   saveAccountInformation();
   retrieveAccountInformation();
   addFamilyMember();
   changePassword();
+  editMember();
   logout();
 });

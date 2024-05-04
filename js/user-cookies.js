@@ -124,3 +124,5 @@ document.addEventListener("DOMContentLoaded", function () {
   getUsernameLogin();
   isLogged();
 });
+
+export { setCookie };
